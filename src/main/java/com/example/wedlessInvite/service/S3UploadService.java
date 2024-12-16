@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,24 @@ public class S3UploadService {
         metadata.setContentLength(multipartFile.getSize());
         metadata.setContentType(multipartFile.getContentType());
 
-        amazonS3.putObject(bucket, originalFilename, multipartFile.getInputStream(), metadata);
-        return amazonS3.getUrl(bucket, originalFilename).toString();
+        String uniqueFileName = "uploads/" + makeuniqueFileName(originalFilename);
+
+        amazonS3.putObject(bucket, uniqueFileName, multipartFile.getInputStream(), metadata);
+        return amazonS3.getUrl(bucket, uniqueFileName).toString();
+    }
+
+    private String makeuniqueFileName(String originalFilename) {
+
+        // 파일 확장자 추출
+        String extension = "";
+        if (originalFilename != null && originalFilename.contains(".")) {
+            extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+        }
+
+        String baseFilename = originalFilename != null ? originalFilename.substring(0, originalFilename.lastIndexOf(".")) : "unknown";
+        String uuid = UUID.randomUUID().toString();
+
+        // UUID 기반의 새로운 파일 이름 생성
+        return String.format("%s_%s%s",baseFilename, uuid, extension);
     }
 }

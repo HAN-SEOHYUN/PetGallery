@@ -1,4 +1,4 @@
-package com.example.wedlessInvite.Dto;
+package com.example.wedlessInvite.dto;
 
 import com.example.wedlessInvite.domain.Post.ImageUploads;
 import lombok.Builder;
@@ -13,7 +13,7 @@ public class ImageUploadDto {
     private String fileName;
     private String orgFileName;
     private String s3Url;
-    private String fileSize;
+    private Long fileSize;
 
     public ImageUploads toEntity() {
         return ImageUploads.builder()
@@ -25,7 +25,7 @@ public class ImageUploadDto {
     }
 
     @Builder
-    public ImageUploadDto(String fileName, String orgFileName, String s3Url, String fileSize) {
+    public ImageUploadDto(String fileName, String orgFileName, String s3Url, Long fileSize) {
         this.fileName = fileName;
         this.orgFileName = orgFileName;
         this.s3Url = s3Url;

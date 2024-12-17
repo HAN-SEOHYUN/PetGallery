@@ -32,13 +32,13 @@ public class ImageUploads extends BaseEntity {
     private String s3Url;
 
     @Column(name="IU_FILE_SIZE", columnDefinition = "BIGINT")
-    private String fileSize;
+    private Long fileSize;
 
     @Column(name="IU_DELETE_YN")
     private Boolean deleteYN;
 
     @Builder
-    public ImageUploads(String fileName, String orgFileName, String s3Url, String fileSize) {
+    public ImageUploads(String fileName, String orgFileName, String s3Url, Long fileSize) {
         this.fileName = fileName;
         this.orgFileName = orgFileName;
         this.s3Url = s3Url;

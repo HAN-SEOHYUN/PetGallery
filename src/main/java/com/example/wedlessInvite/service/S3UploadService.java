@@ -19,20 +19,24 @@ public class S3UploadService {
     @Value("${aws.s3.bucket.name}")
     private String bucket;
 
-    public String saveFile(MultipartFile multipartFile) throws IOException {
+    public String saveFile (MultipartFile file) throws IOException {
+
+    }
+
+    public String uploadS3 (MultipartFile multipartFile) throws IOException {
         String originalFilename = multipartFile.getOriginalFilename();
 
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(multipartFile.getSize());
         metadata.setContentType(multipartFile.getContentType());
 
-        String uniqueFileName = "uploads/" + makeuniqueFileName(originalFilename);
+        String uniqueFileName = "uploads/" + makeUniqueFileName(originalFilename);
 
         amazonS3.putObject(bucket, uniqueFileName, multipartFile.getInputStream(), metadata);
         return amazonS3.getUrl(bucket, uniqueFileName).toString();
     }
 
-    private String makeuniqueFileName(String originalFilename) {
+    private String makeUniqueFileName(String originalFilename) {
 
         // 파일 확장자 추출
         String extension = "";

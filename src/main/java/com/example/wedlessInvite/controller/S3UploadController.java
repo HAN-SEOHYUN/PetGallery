@@ -20,7 +20,7 @@ public class S3UploadController {
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             // 파일을 S3에 저장하고 URL을 반환
-            String fileUrl = s3UploadService.saveFile(file);
+            String fileUrl = s3UploadService.uploadS3(file);
             return ResponseEntity.ok(fileUrl);
         } catch (IOException e) {
             // 예외 발생 시 500 에러 응답

@@ -2,8 +2,8 @@ package com.example.wedlessInvite.domain.Post;
 
 import com.example.wedlessInvite.domain.BaseEntity;
 import jakarta.persistence.*;
-import jdk.jfr.Description;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -32,9 +32,18 @@ public class ImageUploads extends BaseEntity {
     private String s3Url;
 
     @Column(name="IU_FILE_SIZE", columnDefinition = "BIGINT")
-    private String fileSize;
+    private Long fileSize;
 
     @Column(name="IU_DELETE_YN")
     private Boolean deleteYN;
+
+    @Builder
+    public ImageUploads(String fileName, String orgFileName, String s3Url, Long fileSize) {
+        this.fileName = fileName;
+        this.orgFileName = orgFileName;
+        this.s3Url = s3Url;
+        this.fileSize = fileSize;
+        this.deleteYN = false;
+    }
 
 }

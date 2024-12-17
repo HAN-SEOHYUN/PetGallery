@@ -2,6 +2,7 @@ package com.example.wedlessInvite.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.example.wedlessInvite.dto.ImageUploadDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,20 +20,32 @@ public class S3UploadService {
     @Value("${aws.s3.bucket.name}")
     private String bucket;
 
-    public String saveFile(MultipartFile multipartFile) throws IOException {
+    public ImageUploadDto uploadS3 (MultipartFile multipartFile) throws IOException {
         String originalFilename = multipartFile.getOriginalFilename();
 
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(multipartFile.getSize());
         metadata.setContentType(multipartFile.getContentType());
 
-        String uniqueFileName = "uploads/" + makeuniqueFileName(originalFilename);
-
+        String uniqueFileName = "uploads/" + makeUniqueFileName(originalFilename);
+        //S3 업로드
         amazonS3.putObject(bucket, uniqueFileName, multipartFile.getInputStream(), metadata);
-        return amazonS3.getUrl(bucket, uniqueFileName).toString();
+
+        //S3 URL 생성
+        String s3Url = amazonS3.getUrl(bucket, uniqueFileName).toString();
+
+        //Build imageUploadDto
+        ImageUploadDto imageUploadDto = ImageUploadDto.builder()
+                .fileName(multipartFile.getName())
+                .orgFileName(multipartFile.getOriginalFilename())
+                .fileSize(multipartFile.getSize())
+                .s3Url(s3Url)
+                .build();
+
+        return imageUploadDto;
     }
 
-    private String makeuniqueFileName(String originalFilename) {
+    private String makeUniqueFileName(String originalFilename) {
 
         // 파일 확장자 추출
         String extension = "";

@@ -34,7 +34,7 @@ public class ImageUploads extends BaseEntity {
     @Column(name="IU_FILE_SIZE", columnDefinition = "BIGINT")
     private Long fileSize;
 
-    @Column(name="IU_DELETE_YN")
+    @Column(name="IS_DELETED")
     private Boolean isDeleted;
 
     @Builder

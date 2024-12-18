@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import static com.example.wedlessInvite.config.VarConst.S3_UPLOAD_FOLDER;
+
 @Service
 @RequiredArgsConstructor
 public class S3FileService {
@@ -43,7 +45,7 @@ public class S3FileService {
         metadata.setContentLength(multipartFile.getSize());
         metadata.setContentType(multipartFile.getContentType());
 
-        String uniqueFileName = "uploads/" + makeUniqueFileName(originalFilename);
+        String uniqueFileName = S3_UPLOAD_FOLDER + makeUniqueFileName(originalFilename);
         //S3 업로드
         amazonS3.putObject(bucket, uniqueFileName, multipartFile.getInputStream(), metadata);
         //S3 URL

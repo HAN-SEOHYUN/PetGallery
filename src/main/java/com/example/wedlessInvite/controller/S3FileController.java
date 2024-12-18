@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+import static com.example.wedlessInvite.config.VarConst.S3_UPLOAD_FOLDER;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -24,7 +26,7 @@ public class S3FileController {
 
     @GetMapping("/s3/get")
     public ResponseEntity<List<ImageListResponseDto>> getUploadedFileDetails(
-            @RequestParam(required = false, defaultValue = "uploads/") String folder) throws IOException {
+            @RequestParam(required = false, defaultValue = S3_UPLOAD_FOLDER) String folder) throws IOException {
 
         List<ImageListResponseDto> fileDetails = s3FileService.getS3FileList(folder);
 

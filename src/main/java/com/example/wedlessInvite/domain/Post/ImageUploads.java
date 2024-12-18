@@ -35,7 +35,7 @@ public class ImageUploads extends BaseEntity {
     private Long fileSize;
 
     @Column(name="IU_DELETE_YN")
-    private Boolean deleteYN;
+    private Boolean isDeleted;
 
     @Builder
     public ImageUploads(String fileName, String orgFileName, String s3Url, Long fileSize) {
@@ -43,7 +43,7 @@ public class ImageUploads extends BaseEntity {
         this.orgFileName = orgFileName;
         this.s3Url = s3Url;
         this.fileSize = fileSize;
-        this.deleteYN = false;
+        this.isDeleted = false;
     }
 
 }

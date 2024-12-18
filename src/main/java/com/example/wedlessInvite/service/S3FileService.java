@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class S3UploadService {
+public class S3FileService {
 
     private final AmazonS3 amazonS3;
 

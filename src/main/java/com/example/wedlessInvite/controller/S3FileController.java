@@ -24,7 +24,7 @@ public class S3FileController {
     private final S3FileService s3FileService;
     private final ImageUploadService imageUploadService;
 
-    @GetMapping("/s3/get")
+    @GetMapping("/get")
     public ResponseEntity<List<ImageListResponseDto>> getUploadedFileDetails(
             @RequestParam(required = false, defaultValue = S3_UPLOAD_FOLDER) String folder) throws IOException {
 
@@ -38,7 +38,7 @@ public class S3FileController {
         return ResponseEntity.ok(fileDetails);
     }
 
-    @PostMapping("/s3/upload")
+    @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             // 파일을 S3에 저장하고 URL을 반환

@@ -17,7 +17,8 @@ import java.util.stream.Collectors;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-import static com.example.wedlessInvite.config.VarConst.S3_UPLOAD_FOLDER;
+import static com.example.wedlessInvite.common.Utils.formattedTime;
+import static com.example.wedlessInvite.common.VarConst.S3_UPLOAD_FOLDER;
 
 @Service
 @RequiredArgsConstructor
@@ -60,6 +61,8 @@ public class S3FileService {
                 .orgFileName(multipartFile.getOriginalFilename())
                 .fileSize(multipartFile.getSize())
                 .s3Url(s3Url)
+                .regTime(formattedTime(LocalDateTime.now()))
+                .modTime(formattedTime(LocalDateTime.now()))
                 .build();
 
         return imageUploadDto;

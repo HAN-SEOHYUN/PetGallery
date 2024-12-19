@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import static com.example.wedlessInvite.config.VarConst.MAX_FILE_SIZE;
+import static com.example.wedlessInvite.common.VarConst.MAX_FILE_SIZE;
 
 @RequiredArgsConstructor
 @Service

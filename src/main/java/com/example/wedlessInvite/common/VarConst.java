@@ -1,4 +1,4 @@
-package com.example.wedlessInvite.config;
+package com.example.wedlessInvite.common;
 
 public final class VarConst {
     private VarConst() {

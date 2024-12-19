@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
-import static com.example.wedlessInvite.config.VarConst.S3_UPLOAD_FOLDER;
+import static com.example.wedlessInvite.common.VarConst.S3_UPLOAD_FOLDER;
 
 @RestController
 @RequestMapping("/api")

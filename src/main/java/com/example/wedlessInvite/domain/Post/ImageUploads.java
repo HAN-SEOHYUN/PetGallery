@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -38,12 +40,14 @@ public class ImageUploads extends BaseEntity {
     private Boolean isDeleted;
 
     @Builder
-    public ImageUploads(String fileName, String orgFileName, String s3Url, Long fileSize) {
+    public ImageUploads(String fileName, String orgFileName, String s3Url, Long fileSize, Boolean isDeleted,LocalDateTime regTime, LocalDateTime modTime) {
         this.fileName = fileName;
         this.orgFileName = orgFileName;
         this.s3Url = s3Url;
         this.fileSize = fileSize;
-        this.isDeleted = false;
+        this.isDeleted = isDeleted;
+        this.setRegTime(regTime);
+        this.setModTime(modTime);
     }
 
 }

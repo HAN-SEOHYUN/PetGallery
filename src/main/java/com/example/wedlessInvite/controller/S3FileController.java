@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
-import static com.example.wedlessInvite.config.VarConst.S3_UPLOAD_FOLDER;
+import static com.example.wedlessInvite.common.VarConst.S3_UPLOAD_FOLDER;
 
 @RestController
 @RequestMapping("/api")
@@ -24,7 +24,7 @@ public class S3FileController {
     private final S3FileService s3FileService;
     private final ImageUploadService imageUploadService;
 
-    @GetMapping("/s3/get")
+    @GetMapping("/get")
     public ResponseEntity<List<ImageListResponseDto>> getUploadedFileDetails(
             @RequestParam(required = false, defaultValue = S3_UPLOAD_FOLDER) String folder) throws IOException {
 
@@ -38,15 +38,18 @@ public class S3FileController {
         return ResponseEntity.ok(fileDetails);
     }
 
-    @PostMapping("/s3/upload")
+    @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            // 파일을 S3에 저장하고 URL을 반환
+            imageUploadService.validateFileSize(file);
+
             ImageUploadDto dto = s3FileService.uploadS3(file);
             imageUploadService.saveFile(dto);
-            return ResponseEntity.ok().body(dto.getOrgFileName());
+            return ResponseEntity.ok().body(dto.getS3Url());
 
-        } catch (IOException e) {
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid file: " + e.getMessage());
+        }  catch (IOException e) {
             // 예외 발생 시 500 에러 응답
             return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());
         }

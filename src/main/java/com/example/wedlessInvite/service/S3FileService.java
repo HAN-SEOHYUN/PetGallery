@@ -51,16 +51,15 @@ public class S3FileService {
         amazonS3.putObject(bucket, uniqueFileName, multipartFile.getInputStream(), metadata);
         //S3 URL
         String s3Url = amazonS3.getUrl(bucket, uniqueFileName).toString();
-        //S3에 업로드된 이미지 이름
+        String fileType = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
         String uploadedFileName = uniqueFileName.substring(uniqueFileName.lastIndexOf("/") + 1);
 
-
-        //Build imageUploadDto
         ImageUploadDto imageUploadDto = ImageUploadDto.builder()
                 .fileName(uploadedFileName)
                 .orgFileName(multipartFile.getOriginalFilename())
                 .fileSize(multipartFile.getSize())
                 .s3Url(s3Url)
+                .fileType(fileType)
                 .regTime(formattedTime(LocalDateTime.now()))
                 .modTime(formattedTime(LocalDateTime.now()))
                 .build();

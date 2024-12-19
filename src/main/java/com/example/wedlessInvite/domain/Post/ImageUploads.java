@@ -36,15 +36,19 @@ public class ImageUploads extends BaseEntity {
     @Column(name="IU_FILE_SIZE", columnDefinition = "BIGINT")
     private Long fileSize;
 
+    @Column(name="IU_FILE_TYPE")
+    private String fileType;
+
     @Column(name="IS_DELETED")
     private Boolean isDeleted;
 
     @Builder
-    public ImageUploads(String fileName, String orgFileName, String s3Url, Long fileSize, Boolean isDeleted,LocalDateTime regTime, LocalDateTime modTime) {
+    public ImageUploads(String fileName, String orgFileName, String s3Url, Long fileSize, String fileType, Boolean isDeleted,LocalDateTime regTime, LocalDateTime modTime) {
         this.fileName = fileName;
         this.orgFileName = orgFileName;
         this.s3Url = s3Url;
         this.fileSize = fileSize;
+        this.fileType = fileType;
         this.isDeleted = isDeleted;
         this.setRegTime(regTime);
         this.setModTime(modTime);

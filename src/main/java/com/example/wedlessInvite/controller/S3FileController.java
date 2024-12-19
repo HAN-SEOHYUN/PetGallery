@@ -41,12 +41,15 @@ public class S3FileController {
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            // 파일을 S3에 저장하고 URL을 반환
+            imageUploadService.validateFileSize(file);
+
             ImageUploadDto dto = s3FileService.uploadS3(file);
             imageUploadService.saveFile(dto);
             return ResponseEntity.ok().body(dto.getS3Url());
 
-        } catch (IOException e) {
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid file: " + e.getMessage());
+        }  catch (IOException e) {
             // 예외 발생 시 500 에러 응답
             return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());
         }

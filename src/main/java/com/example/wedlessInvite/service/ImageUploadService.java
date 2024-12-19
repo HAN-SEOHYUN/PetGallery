@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import static com.example.wedlessInvite.config.VarConst.MAX_FILE_SIZE;
+
 @RequiredArgsConstructor
 @Service
 public class ImageUploadService {
@@ -16,5 +18,11 @@ public class ImageUploadService {
     @Transactional
     public ImageUploads saveFile (ImageUploadDto imageUploadDto) {
         return imageUploadsRepository.save(imageUploadDto.toEntity());
+    }
+
+    public void validateFileSize(MultipartFile file) {
+        if (file.getSize() > MAX_FILE_SIZE) {
+            throw new IllegalArgumentException("File size exceeds the maximum limit of 1MB.");
+        }
     }
 }

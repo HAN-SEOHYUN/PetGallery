@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 import static com.example.wedlessInvite.common.Utils.formattedTime;
+import static com.example.wedlessInvite.common.Utils.getFileExtension;
 import static com.example.wedlessInvite.common.VarConst.S3_UPLOAD_FOLDER;
 
 @Service
@@ -51,7 +52,7 @@ public class S3FileService {
         amazonS3.putObject(bucket, uniqueFileName, multipartFile.getInputStream(), metadata);
         //S3 URL
         String s3Url = amazonS3.getUrl(bucket, uniqueFileName).toString();
-        String fileType = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+        String fileType = getFileExtension(multipartFile);
         String uploadedFileName = uniqueFileName.substring(uniqueFileName.lastIndexOf("/") + 1);
 
         ImageUploadDto imageUploadDto = ImageUploadDto.builder()

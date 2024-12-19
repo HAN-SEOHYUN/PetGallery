@@ -42,6 +42,7 @@ public class S3FileController {
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             imageUploadService.validateFileSize(file);
+            imageUploadService.validateFileExtension(file);
 
             ImageUploadDto dto = s3FileService.uploadS3(file);
             imageUploadService.saveFile(dto);

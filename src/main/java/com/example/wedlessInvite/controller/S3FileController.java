@@ -44,7 +44,7 @@ public class S3FileController {
             // 파일을 S3에 저장하고 URL을 반환
             ImageUploadDto dto = s3FileService.uploadS3(file);
             imageUploadService.saveFile(dto);
-            return ResponseEntity.ok().body(dto.getOrgFileName());
+            return ResponseEntity.ok().body(dto.getS3Url());
 
         } catch (IOException e) {
             // 예외 발생 시 500 에러 응답

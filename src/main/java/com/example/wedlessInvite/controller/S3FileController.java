@@ -31,10 +31,8 @@ public class S3FileController {
         List<ImageListResponseDto> fileDetails = s3FileService.getS3FileList(folder);
 
         if (fileDetails.isEmpty()) {
-            // 파일이 없을 경우 NO_CONTENT 응답
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(fileDetails);
         }
-        // 정상적인 응답
         return ResponseEntity.ok(fileDetails);
     }
 
@@ -46,12 +44,10 @@ public class S3FileController {
 
             ImageUploadDto dto = s3FileService.uploadS3(file);
             imageUploadService.saveFile(dto);
+
             return ResponseEntity.ok().body(dto.getS3Url());
 
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Invalid file: " + e.getMessage());
         }  catch (IOException e) {
-            // 예외 발생 시 500 에러 응답
             return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());
         }
     }

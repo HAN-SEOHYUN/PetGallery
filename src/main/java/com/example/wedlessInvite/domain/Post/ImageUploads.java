@@ -1,6 +1,7 @@
 package com.example.wedlessInvite.domain.Post;
 
 import com.example.wedlessInvite.domain.BaseEntity;
+import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -20,6 +21,11 @@ public class ImageUploads extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="IU_ID")
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IU_IM_ID", nullable = false)
+    @Comment("INVITATION_MASTER_ID")
+    private InvitationMaster invitationId;
 
     @Column(name="IU_FILE_NAME", nullable = false, length = 255, unique = true)
     @Comment("S3에 저장된 파일의 이름")
@@ -43,7 +49,8 @@ public class ImageUploads extends BaseEntity {
     private Boolean isDeleted;
 
     @Builder
-    public ImageUploads(String fileName, String orgFileName, String s3Url, Long fileSize, String fileType, Boolean isDeleted,LocalDateTime regTime, LocalDateTime modTime) {
+    public ImageUploads(InvitationMaster invitationId, String fileName, String orgFileName, String s3Url, Long fileSize, String fileType, Boolean isDeleted,LocalDateTime regTime, LocalDateTime modTime) {
+        this.invitationId = invitationId;
         this.fileName = fileName;
         this.orgFileName = orgFileName;
         this.s3Url = s3Url;

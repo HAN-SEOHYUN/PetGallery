@@ -11,6 +11,7 @@ import org.hibernate.annotations.Comment;
 import java.time.LocalDate;
 import java.util.List;
 
+
 @Entity
 @Getter
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
@@ -22,9 +23,19 @@ public class InvitationMaster extends BaseEntity {
     @Column(name="IM_ID")
     private Long id;
 
-    @Column(name="IM_D_DATE")
+    @Column(name="IM_D_DATE", nullable = false)
     @Comment("결혼일자")
     private LocalDate date;
+
+    @OneToOne
+    @JoinColumn(name = "IM_BI_ID", nullable = false)
+    @Comment("신부 정보")
+    private BrideInfo brideInfoId;
+
+    @OneToOne
+    @JoinColumn(name = "IM_GI_ID", nullable = false)
+    @Comment("신랑 정보")
+    private BrideInfo groomInfoId;
 
     @OneToOne
     @JoinColumn(name = "IM_IU_ID")
@@ -46,11 +57,4 @@ public class InvitationMaster extends BaseEntity {
     @Column(name="IM_GREETING_TEXT")
     @Comment("인사말")
     private String greetTxt;
-
-
-
-
-
-
-
 }

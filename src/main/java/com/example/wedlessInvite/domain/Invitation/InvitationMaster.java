@@ -35,7 +35,7 @@ public class InvitationMaster extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "IM_GI_ID", nullable = false)
     @Comment("신랑 정보")
-    private BrideInfo groomInfoId;
+    private GroomInfo groomInfoId;
 
     @OneToOne
     @JoinColumn(name = "IM_IU_ID")

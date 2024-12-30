@@ -1,7 +1,7 @@
 package com.example.wedlessInvite.domain.Invitation;
 
 import com.example.wedlessInvite.domain.BaseEntity;
-import com.example.wedlessInvite.domain.Post.ImageUploads;
+import com.example.wedlessInvite.domain.Image.ImageUploads;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 

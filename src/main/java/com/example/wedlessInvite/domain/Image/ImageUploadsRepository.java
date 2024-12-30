@@ -1,4 +1,4 @@
-package com.example.wedlessInvite.domain.Post;
+package com.example.wedlessInvite.domain.Image;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

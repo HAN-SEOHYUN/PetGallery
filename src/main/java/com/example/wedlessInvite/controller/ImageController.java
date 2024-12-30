@@ -17,15 +17,15 @@ import java.util.List;
 import static com.example.wedlessInvite.common.VarConst.S3_UPLOAD_FOLDER;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/images")
 @RequiredArgsConstructor
-public class S3FileController {
+public class ImageController {
 
     private final S3FileService s3FileService;
     private final ImageUploadService imageUploadService;
 
-    @GetMapping("/getList")
-    public ResponseEntity<List<ImageListResponseDto>> getUploadedFileDetails(
+    @GetMapping
+    public ResponseEntity<List<ImageListResponseDto>> getImages(
             @RequestParam(required = false, defaultValue = S3_UPLOAD_FOLDER) String folder) throws IOException {
 
         List<ImageListResponseDto> fileDetails = s3FileService.getS3FileList(folder);
@@ -36,8 +36,8 @@ public class S3FileController {
         return ResponseEntity.ok(fileDetails);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+    @PostMapping
+    public ResponseEntity<String> createImage(@RequestParam("file") MultipartFile file) {
         try {
             imageUploadService.validateFileSize(file);
             imageUploadService.validateFileExtension(file);

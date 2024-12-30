@@ -58,9 +58,19 @@ public class BrideInfo {
         this.phone = phone;
         this.fatherName = fatherName;
         this.fatherPhone = fatherPhone;
-        this.fatherDeceasedYN = fatherDeceasedYN;
+        this.fatherDeceasedYN = fatherDeceasedYN != null ? fatherDeceasedYN : YN.N;
         this.motherName = motherName;
         this.motherPhone = motherPhone;
-        this.motherDeceasedYN = motherDeceasedYN;
+        this.motherDeceasedYN = motherDeceasedYN != null ? motherDeceasedYN : YN.N;
+    }
+
+    @PrePersist
+    private void setDefaultValues() {
+        if (fatherDeceasedYN == null) {
+            fatherDeceasedYN = YN.N;
+        }
+        if (motherDeceasedYN == null) {
+            motherDeceasedYN = YN.N;
+        }
     }
 }

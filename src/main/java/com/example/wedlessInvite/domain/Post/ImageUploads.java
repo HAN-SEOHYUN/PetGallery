@@ -49,7 +49,7 @@ public class ImageUploads extends BaseEntity {
     private Boolean isDeleted;
 
     @Builder
-    public ImageUploads(InvitationMaster invitationId, String fileName, String orgFileName, String s3Url, Long fileSize, String fileType, Boolean isDeleted,LocalDateTime regTime, LocalDateTime modTime) {
+    public ImageUploads(InvitationMaster invitationId, String fileName, String orgFileName, String s3Url, Long fileSize, String fileType, Boolean isDeleted) {
         this.invitationId = invitationId;
         this.fileName = fileName;
         this.orgFileName = orgFileName;
@@ -57,8 +57,5 @@ public class ImageUploads extends BaseEntity {
         this.fileSize = fileSize;
         this.fileType = fileType;
         this.isDeleted = isDeleted;
-        this.setRegTime(regTime);
-        this.setModTime(modTime);
     }
-
 }

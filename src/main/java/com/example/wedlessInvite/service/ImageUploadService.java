@@ -1,7 +1,7 @@
 package com.example.wedlessInvite.service;
 
-import com.example.wedlessInvite.domain.Post.ImageUploads;
-import com.example.wedlessInvite.domain.Post.ImageUploadsRepository;
+import com.example.wedlessInvite.domain.Image.ImageUploads;
+import com.example.wedlessInvite.domain.Image.ImageUploadsRepository;
 import com.example.wedlessInvite.dto.ImageUploadDto;
 import com.example.wedlessInvite.exception.CustomException;
 import jakarta.transaction.Transactional;

@@ -1,4 +1,4 @@
-package com.example.wedlessInvite.domain.Post;
+package com.example.wedlessInvite.domain.Image;
 
 import com.example.wedlessInvite.domain.BaseEntity;
 import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -23,7 +21,7 @@ public class ImageUploads extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "IU_IM_ID", nullable = false)
+    @JoinColumn(name = "IU_IM_ID", nullable = true) // 추후 변경필요
     @Comment("INVITATION_MASTER_ID")
     private InvitationMaster invitationId;
 

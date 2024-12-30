@@ -1,6 +1,6 @@
 package com.example.wedlessInvite.dto;
 
-import com.example.wedlessInvite.domain.Post.ImageUploads;
+import com.example.wedlessInvite.domain.Image.ImageUploads;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

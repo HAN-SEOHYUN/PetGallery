@@ -61,8 +61,6 @@ public class S3FileService {
                 .fileSize(multipartFile.getSize())
                 .s3Url(s3Url)
                 .fileType(fileType)
-                .regTime(formattedTime(LocalDateTime.now()))
-                .modTime(formattedTime(LocalDateTime.now()))
                 .build();
 
         return imageUploadDto;

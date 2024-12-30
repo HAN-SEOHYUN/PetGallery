@@ -29,19 +29,15 @@ public class ImageUploadDto {
                 .fileSize(fileSize)
                 .fileType(fileType)
                 .isDeleted(false)
-                .regTime(regTime)
-                .modTime(modTime)
                 .build();
     }
 
     @Builder
-    public ImageUploadDto(String fileName, String orgFileName, String s3Url, Long fileSize, String fileType, LocalDateTime regTime, LocalDateTime modTime) {
+    public ImageUploadDto(String fileName, String orgFileName, String s3Url, Long fileSize, String fileType) {
         this.fileName = fileName;
         this.orgFileName = orgFileName;
         this.s3Url = s3Url;
         this.fileSize = fileSize;
         this.fileType = fileType;
-        this.regTime = regTime;
-        this.modTime = modTime;
     }
 }

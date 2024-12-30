@@ -3,6 +3,7 @@ package com.example.wedlessInvite.domain.Invitation;
 import com.example.wedlessInvite.common.YN;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -49,4 +50,17 @@ public class BrideInfo {
     @Column(name = "BI_MOTHER_DECEASED_YN", nullable = false, length = 1)
     @Comment("모친 사망 여부 (Y/N)")
     private YN motherDeceasedYN;
+
+    @Builder
+    public BrideInfo(String name, LocalDate birth, String phone, String fatherName, String fatherPhone, YN fatherDeceasedYN, String motherName, String motherPhone, YN motherDeceasedYN) {
+        this.name = name;
+        this.birth = birth;
+        this.phone = phone;
+        this.fatherName = fatherName;
+        this.fatherPhone = fatherPhone;
+        this.fatherDeceasedYN = fatherDeceasedYN;
+        this.motherName = motherName;
+        this.motherPhone = motherPhone;
+        this.motherDeceasedYN = motherDeceasedYN;
+    }
 }

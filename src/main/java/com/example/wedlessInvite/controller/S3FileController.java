@@ -24,7 +24,7 @@ public class S3FileController {
     private final S3FileService s3FileService;
     private final ImageUploadService imageUploadService;
 
-    @GetMapping("/get")
+    @GetMapping("/getList")
     public ResponseEntity<List<ImageListResponseDto>> getUploadedFileDetails(
             @RequestParam(required = false, defaultValue = S3_UPLOAD_FOLDER) String folder) throws IOException {
 
@@ -36,7 +36,7 @@ public class S3FileController {
         return ResponseEntity.ok(fileDetails);
     }
 
-    @PostMapping("/upload")
+    @PostMapping("/save")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             imageUploadService.validateFileSize(file);

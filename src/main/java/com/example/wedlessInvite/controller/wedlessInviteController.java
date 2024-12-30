@@ -9,4 +9,5 @@ public class wedlessInviteController {
     public String hello() {
         return "hello world";
     }
+
 }

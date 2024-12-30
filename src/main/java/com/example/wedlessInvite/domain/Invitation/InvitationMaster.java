@@ -4,6 +4,7 @@ import com.example.wedlessInvite.domain.BaseEntity;
 import com.example.wedlessInvite.domain.Post.ImageUploads;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -30,17 +31,17 @@ public class InvitationMaster extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "IM_BI_ID", nullable = false)
     @Comment("신부 정보")
-    private BrideInfo brideInfoId;
+    private BrideInfo brideInfo;
 
     @OneToOne
     @JoinColumn(name = "IM_GI_ID", nullable = false)
     @Comment("신랑 정보")
-    private GroomInfo groomInfoId;
+    private GroomInfo groomInfo;
 
     @OneToOne
     @JoinColumn(name = "IM_IU_ID")
     @Comment("메인 이미지")
-    private ImageUploads mainImageId;
+    private ImageUploads mainImage;
 
     @OneToMany(mappedBy = "invitationId", cascade = CascadeType.ALL, orphanRemoval = true)
     @Comment("웨딩사진")
@@ -57,4 +58,16 @@ public class InvitationMaster extends BaseEntity {
     @Column(name="IM_GREETING_TEXT")
     @Comment("인사말")
     private String greetTxt;
+
+    @Builder
+    public InvitationMaster(LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploads> imageList, String letterTxt, String mainTxt, String greetTxt) {
+        this.date = date;
+        this.brideInfo = brideInfo;
+        this.groomInfo = groomInfo;
+        this.mainImage = mainImage;
+        this.imageList = imageList;
+        this.letterTxt = letterTxt;
+        this.mainTxt = mainTxt;
+        this.greetTxt = greetTxt;
+    }
 }

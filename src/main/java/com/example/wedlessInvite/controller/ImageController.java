@@ -17,7 +17,7 @@ import java.util.List;
 import static com.example.wedlessInvite.common.VarConst.S3_UPLOAD_FOLDER;
 
 @RestController
-@RequestMapping("/images")
+@RequestMapping("/api/images")
 @RequiredArgsConstructor
 public class ImageController {
 

@@ -1,23 +1,48 @@
-const REQUEST_URL = "/api/invitations";
-$(document).ready(function() {
+const REQUEST_URL = '/api/invitations';
+const MAIN_PAGE = '/invitations/main';
 
-    // 폼 제출 시 호출되는 함수
-    $('#invitationForm').on('submit', function(event) {
-        event.preventDefault(); // 기본 폼 제출 방지
+$(document).ready(function () {
 
-        // 데이터 객체 빌드
-        const data = {
+    $('#submitBtn').on('click', function (event) {
+        event.preventDefault();
+
+        showTwoButtonAlert({
+            title: '등록하시겠습니까 ?',
+            text: '',
+            alertType: 'info',
+            callback() {
+                addData(REQUEST_URL,getFormInfo());
+            }
+        });
+    });
+
+    function addData(url, data) {
+        return fetchData(url, {
+            method: HTTP_METHODS.POST,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify(data)
+        })
+            .then(response => { // 성공
+                showSuccessAndRedirectAlert(MAIN_PAGE);
+            })
+            .catch(error => { // 실패
+                console.error('Error adding data:', error);
+                throw error;  // 에러 발생 시 에러를 다시 던짐
+            });
+    }
+
+    function getFormInfo() {
+        return data = {
             brideInfo: getBrideInfo(),
             groomInfo: getGroomInfo(),
             date: $('#weddingDate').val(),
             letterTxt: $('#letterTxt').val(),
             mainTxt: $('#mainTxt').val(),
             greetTxt: $('#greetTxt').val()
-        };
-
-        // 요청 보내기
-        addData(REQUEST_URL,data);
-    });
+        }
+    }
 
     function getBrideInfo() {
         return {
@@ -50,23 +75,23 @@ $(document).ready(function() {
     function getCheckboxValue(selector) {
         return $(selector).prop('checked') ? 'Y' : 'N';
     }
-
-    function addData(url, data) {
-        return fetchData(url, {
-            method: HTTP_METHODS.POST,  // HTTP 메서드 POST
-            headers: {
-                'Content-Type': 'application/json',  // JSON 형식으로 전송
-            },
-            data: JSON.stringify(data)  // 요청 데이터는 JSON 문자열로 변환
-        })
-            .then(response => {
-                console.log('Data added successfully:', response);
-                return response;  // 성공적으로 응답받은 데이터 반환
-            })
-            .catch(error => {
-                console.error('Error adding data:', error);
-                throw error;  // 에러 발생 시 에러를 다시 던짐
-            });
-    }
 });
+
+
+/**
+ * 등록 완료 후 알림을 표시하고, 알림이 닫히면 리다이렉트하는 함수
+ *
+ * @param {string} redirectUrl - 리다이렉트할 주소 (예: '/invitations/main')
+ */
+function showSuccessAndRedirectAlert(redirectUrl) {
+    showOneButtonAlert({
+        title: '등록되었습니다.',
+        alertType: 'success', // 주의 알림
+        callback(){
+            window.location.href = redirectUrl;
+        }
+    });
+}
+
+
 

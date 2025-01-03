@@ -10,6 +10,11 @@ public class InvitationPageController {
 
     @GetMapping("/create")
     public String showCreatePage() {
-        return "invitation/create"; // resources/templates/invitation/create.html
+        return "invitations/create";
+    }
+
+    @GetMapping("/main")
+    public String showMainPage() {
+        return "invitations/main";
     }
 }

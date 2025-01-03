@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+
+<body>
+<div th:replace="~{fragments/header :: body}"></div>
+<!-- 페이지 소스 시작 -->
+<link rel="stylesheet" href="/css/pages/invitation/main/app.css">
+
+<div class="container">
+    <h2>청첩장 관리</h2>
+    <div class="button-container mt-4">
+        <button class="btn btn-custom" id="registerButton" onclick="window.location.href='/invitations/create'">등록하기</button>
+        <button class="btn btn-custom" id="listButton" onclick="window.location.href='/invitation/list'">리스트 조회</button>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: body"></div>
+
+<!-- 추가적인 JS 또는 동작을 위한 스크립트 -->
+</body>
+</html>

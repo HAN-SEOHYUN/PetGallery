@@ -11,13 +11,13 @@ $(document).ready(function () {
             text: '',
             alertType: 'info',
             callback() {
-                addData(REQUEST_URL,getFormInfo());
+                addData(REQUEST_URL, getFormInfo());
             }
         });
     });
 
     function addData(url, data) {
-        return fetchData(url, {
+        fetchData(url, {
             method: HTTP_METHODS.POST,
             headers: {
                 'Content-Type': 'application/json',
@@ -28,8 +28,7 @@ $(document).ready(function () {
                 showSuccessAndRedirectAlert(MAIN_PAGE);
             })
             .catch(error => { // 실패
-                console.error('Error adding data:', error);
-                throw error;  // 에러 발생 시 에러를 다시 던짐
+                handleErrorResponse(JSON.parse(error));
             });
     }
 
@@ -77,6 +76,23 @@ $(document).ready(function () {
     }
 });
 
+/**
+ * 등록 실패 시 실패 사유를 알려주는 함수
+ *
+ * @param {JSON} error - API에서 응답받은 데이터
+ */
+function handleErrorResponse(error) {
+    if (error.statusCode === HTTP_STATUS.BAD_REQUEST) {
+        showOneButtonAlert({
+            title: '등록에 실패했습니다',
+            text: error.errorMsg,
+            alertType: 'error',
+            callback() {}
+        });
+    } else {
+        throw error;
+    }
+}
 
 /**
  * 등록 완료 후 알림을 표시하고, 알림이 닫히면 리다이렉트하는 함수
@@ -86,8 +102,8 @@ $(document).ready(function () {
 function showSuccessAndRedirectAlert(redirectUrl) {
     showOneButtonAlert({
         title: '등록되었습니다.',
-        alertType: 'success', // 주의 알림
-        callback(){
+        alertType: 'success',
+        callback() {
             window.location.href = redirectUrl;
         }
     });

@@ -1,4 +1,4 @@
-package com.example.wedlessInvite.controller;
+package com.example.wedlessInvite.controller.api;
 
 import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
 import com.example.wedlessInvite.dto.InvitationMasterDto;

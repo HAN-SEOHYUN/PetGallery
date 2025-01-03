@@ -1,4 +1,4 @@
-package com.example.wedlessInvite.controller;
+package com.example.wedlessInvite.controller.api;
 
 import com.example.wedlessInvite.dto.ImageListResponseDto;
 import com.example.wedlessInvite.dto.ImageUploadDto;

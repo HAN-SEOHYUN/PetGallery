@@ -14,8 +14,28 @@ function fetchData(url, options = {}) {
                 resolve(data);
             },
             error: function(xhr, status, error) {
-                console.error('요청 처리 중 문제가 발생했습니다.:', error);
-                reject(new Error(error));
+                const statusCode = xhr.status;
+                switch (statusCode) {
+                    case 401:
+                        console.error('Unauthorized - 401:', xhr.responseText);
+                        reject(new Error('Unauthorized: ' + xhr.responseText));
+                        break;
+                    case 403:
+                        console.error('Forbidden - 403:', xhr.responseText);
+                        reject(new Error('Forbidden: ' + xhr.responseText));
+                        break;
+                    case 404:
+                        console.error('Not Found - 404:', xhr.responseText);
+                        reject(new Error('Not Found: ' + xhr.responseText));
+                        break;
+                    case 500:
+                        console.error('Internal Server Error - 500:', xhr.responseText);
+                        reject(new Error('Internal Server Error: ' + xhr.responseText));
+                        break;
+                    default:
+                        reject(xhr.responseText);
+                        break;
+                }
             }
         });
     });

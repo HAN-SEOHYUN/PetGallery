@@ -17,19 +17,19 @@
  * });
  */
 function showOneButtonAlert({
-                                   title,  // 큰 문구
-                                   text,   // 작은 문구
-                                   alertType = 'info', // 알림 타입 (success, error, warning, info)
-                                   callback // 콜백 함수
-                               }) {
+                                title,  // 큰 문구
+                                text,   // 작은 문구
+                                alertType = 'info', // 알림 타입 (success, error, warning, info)
+                                callback // 콜백 함수
+                            }) {
     const buttonSettings = {
-        warning: { color: 'btn-danger', text: '확인' },
-        success: { color: 'btn-success', text: '확인' },
-        error: { color: 'btn-danger', text: '확인' },
-        info: { color: 'btn-secondary', text: '확인' },
+        warning: {color: 'btn-danger', text: '확인'},
+        success: {color: 'btn-success', text: '확인'},
+        error: {color: 'btn-danger', text: '확인'},
+        info: {color: 'btn-secondary', text: '확인'},
     };
 
-    const { color: buttonColor, text: buttonText } = buttonSettings[alertType] || buttonSettings.info;
+    const {color: buttonColor, text: buttonText} = buttonSettings[alertType] || buttonSettings.info;
 
     // SweetAlert2 호출
     Swal.fire({
@@ -74,27 +74,26 @@ function showOneButtonAlert({
  * });
  */
 function showTwoButtonAlert({
-                                   title,  // 큰 문구
-                                   text,   // 작은 문구
-                                   alertType = 'info', // 알림 타입 (success, error, warning, info)
-                                   callback // 콜백 함수
-                               }) {
+                                title,  // 큰 문구
+                                text,   // 작은 문구
+                                alertType = 'info', // 알림 타입 (success, error, warning, info)
+                                callback // 콜백 함수
+                            }) {
     const buttonSettings = {
-        warning: { confirmColor: 'btn-primary', cancelColor: 'btn-danger', confirmText: '등록하기', cancelText: '취소하기' },
-        success: { confirmColor: 'btn-primary', cancelColor: 'btn-secondary', confirmText: '등록하기', cancelText: '취소하기' },
-        error: { confirmColor: 'btn-primary', cancelColor: 'btn-danger', confirmText: '등록하기', cancelText: '취소하기' },
-        info: { confirmColor: 'btn-primary', cancelColor: 'btn-secondary', confirmText: '확인', cancelText: '취소' },
+        warning: {confirmColor: 'btn-primary', cancelColor: 'btn-danger', confirmText: '등록하기', cancelText: '취소하기'},
+        success: {confirmColor: 'btn-primary', cancelColor: 'btn-secondary', confirmText: '등록하기', cancelText: '취소하기'},
+        error: {confirmColor: 'btn-primary', cancelColor: 'btn-danger', confirmText: '등록하기', cancelText: '취소하기'},
+        info: {confirmColor: 'btn-primary', cancelColor: 'btn-secondary', confirmText: '확인', cancelText: '취소'},
     };
 
-    const { confirmColor, cancelColor, confirmText, cancelText } = buttonSettings[alertType] || buttonSettings.info;
+    const {confirmColor, cancelColor, confirmText, cancelText} = buttonSettings[alertType] || buttonSettings.info;
 
-    // SweetAlert2 호출
     Swal.fire({
         title: title,  // 큰 문구
         text: text,    // 작은 문구
         icon: alertType,  // 알림 타입 아이콘
         showCloseButton: true, // 닫기 버튼 표시
-        position: 'top-center', // 알림 위치
+        position: 'center', // 알림 위치
         timer: 5000, // 알림 자동 종료 시간 (ms)
         showConfirmButton: true, // 등록하기 버튼 표시
         confirmButtonText: confirmText, // 등록하기 버튼 텍스트

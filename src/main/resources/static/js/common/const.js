@@ -3,3 +3,6 @@ const HTTP_METHODS = {
     POST: 'POST'
 };
 
+const HTTP_STATUS = {
+    BAD_REQUEST : 'BAD_REQUEST'
+}

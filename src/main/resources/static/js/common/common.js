@@ -14,7 +14,7 @@ function fetchData(url, options = {}) {
                 resolve(data);
             },
             error: function(xhr, status, error) {
-                console.error('There was a problem with your AJAX operation:', error);
+                console.error('요청 처리 중 문제가 발생했습니다.:', error);
                 reject(new Error(error));
             }
         });

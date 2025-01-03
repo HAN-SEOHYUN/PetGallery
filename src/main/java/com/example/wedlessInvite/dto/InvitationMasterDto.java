@@ -8,11 +8,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 public class InvitationMasterDto {
+    @NotNull(message = "결혼일자는 필수 입력값입니다.")
     private LocalDate date;  // 결혼일자
     private BrideInfo brideInfo;  // 신부 정보
     private GroomInfo groomInfo;  // 신랑 정보

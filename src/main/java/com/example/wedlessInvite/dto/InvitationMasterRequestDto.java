@@ -3,7 +3,6 @@ package com.example.wedlessInvite.dto;
 import com.example.wedlessInvite.domain.Invitation.BrideInfo;
 import com.example.wedlessInvite.domain.Invitation.GroomInfo;
 import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +12,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class InvitationMasterDto {
+public class InvitationMasterRequestDto {
     @NotNull(message = "결혼일자는 필수 입력값입니다.")
     private LocalDate date;  // 결혼일자
     private BrideInfo brideInfo;  // 신부 정보
@@ -34,7 +33,7 @@ public class InvitationMasterDto {
     }
 
     @Builder
-    public InvitationMasterDto(LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo, String letterTxt, String mainTxt, String greetTxt) {
+    public InvitationMasterRequestDto(LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo, String letterTxt, String mainTxt, String greetTxt) {
         this.date = date;
         this.brideInfo = brideInfo;
         this.groomInfo = groomInfo;

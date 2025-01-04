@@ -15,16 +15,16 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor(access= AccessLevel.PROTECTED)
-@Table(name="INVITATION_MASTER")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "INVITATION_MASTER")
 public class InvitationMaster extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="IM_ID")
+    @Column(name = "IM_ID")
     private Long id;
 
-    @Column(name="IM_D_DATE", nullable = false)
+    @Column(name = "IM_D_DATE", nullable = false)
     @Comment("결혼일자")
     private LocalDate date;
 
@@ -47,15 +47,15 @@ public class InvitationMaster extends BaseEntity {
     @Comment("웨딩사진")
     private List<ImageUploads> imageList;
 
-    @Column(name="IM_LETTER_TEXT")
+    @Column(name = "IM_LETTER_TEXT")
     @Comment("레터링 문구")
     private String letterTxt;
 
-    @Column(name="IM_MAIN_TEXT")
+    @Column(name = "IM_MAIN_TEXT")
     @Comment("메인 텍스트")
     private String mainTxt;
 
-    @Column(name="IM_GREETING_TEXT")
+    @Column(name = "IM_GREETING_TEXT")
     @Comment("인사말")
     private String greetTxt;
 

@@ -16,13 +16,13 @@ $(document).ready(function () {
         });
     });
 
-    function addData(url, data) {
+    function addData(url, requestData) {
         fetchData(url, {
             method: HTTP_METHODS.POST,
             headers: {
                 'Content-Type': 'application/json',
             },
-            data: JSON.stringify(data)
+            data: JSON.stringify(requestData)
         })
             .then(response => { // 성공
                 showSuccessAndRedirectAlert(MAIN_PAGE);

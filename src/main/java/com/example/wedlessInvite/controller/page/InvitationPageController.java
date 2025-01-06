@@ -17,4 +17,9 @@ public class InvitationPageController {
     public String showMainPage() {
         return "invitations/main";
     }
+
+    @GetMapping("/list")
+    public String showListPage() {
+        return "invitations/list";
+    }
 }

@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -24,8 +27,12 @@ public class InvitationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<InvitationMasterResponseDto>> getInvitationList() {
-        List<InvitationMasterResponseDto> invitationList = invitationService.getAllInvitations();
+    public ResponseEntity<Page<InvitationMasterResponseDto>> getInvitationList(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<InvitationMasterResponseDto> invitationList = invitationService.getAllInvitations(pageable);
         return ResponseEntity.ok(invitationList);
     }
 }

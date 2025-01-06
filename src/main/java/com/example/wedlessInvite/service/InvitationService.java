@@ -3,6 +3,8 @@ package com.example.wedlessInvite.service;
 import com.example.wedlessInvite.domain.Invitation.*;
 import com.example.wedlessInvite.dto.InvitationMasterRequestDto;
 import com.example.wedlessInvite.dto.InvitationMasterResponseDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,24 +29,18 @@ public class InvitationService {
 
     }
 
-    public List<InvitationMasterResponseDto> getAllInvitations() {
-        List<InvitationMaster> entity =  invitationMasterRepository.findAll();
-        List<InvitationMasterResponseDto> dto = new ArrayList<>();
+    public Page<InvitationMasterResponseDto> getAllInvitations(Pageable pageable) {
+        Page<InvitationMaster> entityPage = invitationMasterRepository.findAll(pageable);
 
-        for (InvitationMaster invitation : entity) {
-            InvitationMasterResponseDto responseDto = InvitationMasterResponseDto.builder()
-                    .id(invitation.getId())
-                    .date(invitation.getDate())
-                    .brideInfo(invitation.getBrideInfo())
-                    .groomInfo(invitation.getGroomInfo())
-                    .letterTxt(invitation.getLetterTxt())
-                    .mainTxt(invitation.getMainTxt())
-                    .greetTxt(invitation.getGreetTxt())
-                    .build();
-            dto.add(responseDto);
-        }
-        return dto;
+        // Entity에서 DTO로 변환
+        return entityPage.map(invitation -> InvitationMasterResponseDto.builder()
+                .id(invitation.getId())
+                .date(invitation.getDate())
+                .brideInfo(invitation.getBrideInfo())
+                .groomInfo(invitation.getGroomInfo())
+                .letterTxt(invitation.getLetterTxt())
+                .mainTxt(invitation.getMainTxt())
+                .greetTxt(invitation.getGreetTxt())
+                .build());
     }
-
-
 }

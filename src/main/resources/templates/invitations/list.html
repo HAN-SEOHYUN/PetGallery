@@ -13,7 +13,7 @@
         <div class="card">
             <img src="https://via.placeholder.com/300" alt="Invitation Main Photo">
             <div class="card-content">
-                <p class="letter">You are invited to our special day!</p>
+                <p class="letter">예시</p>
                 <p class="date">2025-01-01</p>
             </div>
         </div>
@@ -21,16 +21,12 @@
     </div>
 
     <div class="pagination">
-        <a href="#">&laquo;</a>
-        <a href="#">1</a>
-        <a href="#" class="active">2</a>
-        <a href="#">3</a>
-        <a href="#">&raquo;</a>
     </div>
 </div>
 
 <div th:replace="fragments/footer :: body"></div>
 
+<script th:src="@{/js/common/pagination.js}"></script>
 <script th:src="@{/js/invitation/list/app.js}"></script>
 </body>
 </html>

@@ -1,10 +1,60 @@
 const REQUEST_URL = '/api/invitations';
+
 $(document).ready(function () {
     const $grid = $('.grid');
 
-    getList(REQUEST_URL);
+    getList(0);
 
-    function getList(url) {
+    function renderPagination(pagination) {
+        const container = $('.pagination'); // 페이징 컨테이너
+        container.empty(); // 기존의 페이징 항목들을 비웁니다
+
+        // 이전 버튼
+        if (pagination.hasPrevious()) {
+            container.append('<button class="prev">Previous</button>');
+        }
+
+        // 페이지 번호 버튼
+        pagination.pageRange.forEach(page => {
+            const pageButton = $('<button>')
+                .addClass('page')
+                .text(page)
+                .on('click', function() {
+                    pagination.setCurrentPage(page - 1); // 페이지 번호를 0 기반으로 설정
+                    getList(pagination.currentPage); // 페이지 데이터 가져오기
+                });
+
+            if (page - 1 === pagination.currentPage) {
+                pageButton.addClass('active'); // 현재 페이지 강조
+            }
+
+            container.append(pageButton);
+        });
+
+        // 다음 버튼
+        if (pagination.hasNext()) {
+            container.append('<button class="next">Next</button>');
+        }
+
+        // 이전 버튼 클릭 처리
+        container.find('.prev').on('click', function() {
+            if (pagination.hasPrevious()) {
+                pagination.setCurrentPage(pagination.currentPage - 1);
+                getList(pagination.currentPage);
+            }
+        });
+
+        // 다음 버튼 클릭 처리
+        container.find('.next').on('click', function() {
+            if (pagination.hasNext()) {
+                pagination.setCurrentPage(pagination.currentPage + 1);
+                getList(pagination.currentPage);
+            }
+        });
+    }
+
+    function getList(page) {
+        const url = `${REQUEST_URL}?page=${page}&size=3`;
         fetchData(url, {
             method: HTTP_METHODS.GET,
             headers: {
@@ -12,7 +62,10 @@ $(document).ready(function () {
             },
         })
             .then(response => { // 성공
-                $grid.html(buildCardList(response));
+                // 카드 목록 생성
+                const pagination = new Pagination(response);
+                $grid.html(buildCardList(response.content));
+                renderPagination(pagination);
             })
             .catch(error => { // 실패
                 handleErrorResponse(error);
@@ -62,6 +115,8 @@ function handleErrorResponse(error) {
         throw error;
     }
 }
+
+
 
 
 

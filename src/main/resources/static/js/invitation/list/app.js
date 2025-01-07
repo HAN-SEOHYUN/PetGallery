@@ -5,54 +5,96 @@ $(document).ready(function () {
 
     getList(0);
 
+    /**
+     * 메인 페이징 렌더링 함수.
+     * 이전, 다음, 페이지 번호 버튼을 생성하고 이벤트 핸들러를 설정합니다.
+     *
+     * @param {Pagination} pagination - 페이지네이션 정보를 담은 객체.
+     */
     function renderPagination(pagination) {
-        const container = $('.pagination'); // 페이징 컨테이너
-        container.empty(); // 기존의 페이징 항목들을 비웁니다
+        const container = $('.pagination');
+        container.empty(); // 기존의 페이징 항목들을 비움
 
-        // 이전 버튼
+        renderPreviousButton(container, pagination);
+        renderPageButtons(container, pagination);
+        renderNextButton(container, pagination);
+
+        setupPaginationEventHandlers(container, pagination);
+    }
+
+    /**
+     * 이전 버튼을 생성하여 페이징 컨테이너에 추가합니다.
+     *
+     * @param {jQuery} container - 페이징 버튼을 추가할 컨테이너 요소.
+     * @param {Pagination} pagination - 페이지네이션 정보를 담은 객체.
+     */
+    function renderPreviousButton(container, pagination) {
         if (pagination.hasPrevious()) {
             container.append('<button class="prev">Previous</button>');
         }
+    }
 
-        // 페이지 번호 버튼
+    /**
+     * 페이지 번호 버튼을 생성하여 페이징 컨테이너에 추가합니다.
+     *
+     * @param {jQuery} container - 페이징 버튼을 추가할 컨테이너 요소.
+     * @param {Pagination} pagination - 페이지네이션 정보를 담은 객체.
+     */
+    function renderPageButtons(container, pagination) {
         pagination.pageRange.forEach(page => {
             const pageButton = $('<button>')
                 .addClass('page')
                 .text(page)
-                .on('click', function() {
-                    pagination.setCurrentPage(page - 1); // 페이지 번호를 0 기반으로 설정
-                    getList(pagination.currentPage); // 페이지 데이터 가져오기
+                .toggleClass('active', page - 1 === pagination.currentPage) // 현재 페이지 강조
+                .on('click', function () {
+                    pagination.setCurrentPage(page - 1);
+                    getList(pagination.currentPage); // 버튼 누르면 해당 페이지 데이터 가져오기
                 });
-
-            if (page - 1 === pagination.currentPage) {
-                pageButton.addClass('active'); // 현재 페이지 강조
-            }
-
             container.append(pageButton);
         });
+    }
 
-        // 다음 버튼
+    /**
+     * 다음 버튼을 생성하여 페이징 컨테이너에 추가합니다.
+     *
+     * @param {jQuery} container - 페이징 버튼을 추가할 컨테이너 요소.
+     * @param {Pagination} pagination - 페이지네이션 정보를 담은 객체.
+     */
+    function renderNextButton(container, pagination) {
         if (pagination.hasNext()) {
             container.append('<button class="next">Next</button>');
         }
+    }
 
-        // 이전 버튼 클릭 처리
-        container.find('.prev').on('click', function() {
+    /**
+     * 이전, 다음 버튼의 이벤트 핸들러를 설정합니다.
+     *
+     * @param {jQuery} container - 페이징 버튼이 포함된 컨테이너 요소.
+     * @param {Pagination} pagination - 페이지네이션 정보를 담은 객체.
+     */
+    function setupPaginationEventHandlers(container, pagination) {
+        // 이전 버튼 클릭 이벤트
+        container.find('.prev').on('click', function () {
             if (pagination.hasPrevious()) {
-                pagination.setCurrentPage(pagination.currentPage - 1);
+                pagination.setCurrentPage(pagination.currentPage - 1); // 이전 페이지로 이동
                 getList(pagination.currentPage);
             }
         });
 
-        // 다음 버튼 클릭 처리
-        container.find('.next').on('click', function() {
+        // 다음 버튼 클릭 이벤트
+        container.find('.next').on('click', function () {
             if (pagination.hasNext()) {
-                pagination.setCurrentPage(pagination.currentPage + 1);
+                pagination.setCurrentPage(pagination.currentPage + 1); // 다음 페이지로 이동
                 getList(pagination.currentPage);
             }
         });
     }
 
+    /**
+     * 청첩장 리스트 목록을 요청하고 렌더링하는 함수.
+     *
+     * @param {number} page - 요청할 페이지 번호 (0부터 시작).
+     */
     function getList(page) {
         const url = `${REQUEST_URL}?page=${page}&size=${PAGINATION_SIZE}`;
         fetchData(url, {

@@ -7,4 +7,4 @@ const HTTP_STATUS = {
     BAD_REQUEST : 'BAD_REQUEST'
 }
 
-const PAGINATION_SIZE = 6;
+const PAGINATION_SIZE = 3;

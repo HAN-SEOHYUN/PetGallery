@@ -54,7 +54,7 @@ $(document).ready(function () {
     }
 
     function getList(page) {
-        const url = `${REQUEST_URL}?page=${page}&size=3`;
+        const url = `${REQUEST_URL}?page=${page}&size=${PAGINATION_SIZE}`;
         fetchData(url, {
             method: HTTP_METHODS.GET,
             headers: {

@@ -35,4 +35,10 @@ public class InvitationController {
         Page<InvitationMasterResponseDto> invitationList = invitationService.getAllInvitations(pageable);
         return ResponseEntity.ok(invitationList);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<InvitationMasterResponseDto> getInvitationDetail(@PathVariable Long id) {
+        InvitationMasterResponseDto invitationDetail = invitationService.getInvitationDetail(id);
+        return ResponseEntity.ok(invitationDetail);
+    }
 }

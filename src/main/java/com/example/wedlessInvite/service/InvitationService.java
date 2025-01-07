@@ -8,9 +8,6 @@ import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RequiredArgsConstructor
 @Service
 public class InvitationService {
@@ -30,10 +27,10 @@ public class InvitationService {
     }
 
     public Page<InvitationMasterResponseDto> getAllInvitations(Pageable pageable) {
-        Page<InvitationMaster> entityPage = invitationMasterRepository.findAll(pageable);
+        Page<InvitationMaster> entity = invitationMasterRepository.findAll(pageable);
 
         // Entity에서 DTO로 변환
-        return entityPage.map(invitation -> InvitationMasterResponseDto.builder()
+        return entity.map(invitation -> InvitationMasterResponseDto.builder()
                 .id(invitation.getId())
                 .date(invitation.getDate())
                 .brideInfo(invitation.getBrideInfo())
@@ -42,5 +39,21 @@ public class InvitationService {
                 .mainTxt(invitation.getMainTxt())
                 .greetTxt(invitation.getGreetTxt())
                 .build());
+    }
+
+    public InvitationMasterResponseDto getInvitationDetail(Long id) {
+        InvitationMaster entity = invitationMasterRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invitation not found for ID: " + id));
+
+        return InvitationMasterResponseDto.builder()
+                .id(entity.getId())
+                .brideInfo(entity.getBrideInfo())
+                .groomInfo(entity.getGroomInfo())
+                .mainImage(entity.getMainImage())
+                .date(entity.getDate())
+                .letterTxt(entity.getLetterTxt())
+                .mainTxt(entity.getMainTxt())
+                .greetTxt(entity.getGreetTxt())
+                .build();
     }
 }

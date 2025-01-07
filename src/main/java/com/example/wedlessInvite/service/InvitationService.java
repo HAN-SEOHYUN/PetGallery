@@ -35,6 +35,7 @@ public class InvitationService {
                 .date(invitation.getDate())
                 .brideInfo(invitation.getBrideInfo())
                 .groomInfo(invitation.getGroomInfo())
+                .mainImage(invitation.getMainImage())
                 .letterTxt(invitation.getLetterTxt())
                 .mainTxt(invitation.getMainTxt())
                 .greetTxt(invitation.getGreetTxt())

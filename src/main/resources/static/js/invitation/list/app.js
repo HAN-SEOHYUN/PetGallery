@@ -124,7 +124,7 @@ $(document).ready(function () {
 function buildCardList(data) {
     return data.map(invitation => {
         return `
-            <div class="card">
+            <div class="card" onclick="moveToDetail(${invitation.id})">
                 <img src="https://via.placeholder.com/300" alt="Invitation Main Photo">
                 <div class="card-content">
                     <p class="letter">${invitation.letterTxt}</p>
@@ -133,6 +133,14 @@ function buildCardList(data) {
             </div>
         `;
     }).join('');
+}
+
+/**
+ * Invitation ID를 기반으로 상세 페이지로 이동
+ * @param {number} invitationId - 청첩장 ID
+ */
+function moveToDetail(invitationId) {
+    window.location.href = `/invitations/detail?id=${invitationId}`;
 }
 
 /**

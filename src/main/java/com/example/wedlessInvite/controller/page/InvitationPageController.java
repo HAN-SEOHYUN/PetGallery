@@ -22,4 +22,9 @@ public class InvitationPageController {
     public String showListPage() {
         return "invitations/list";
     }
+
+    @GetMapping("/detail")
+    public String showDetailPage() {
+        return "invitations/detail";
+    }
 }

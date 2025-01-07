@@ -19,7 +19,7 @@ public class FlywayRunner {
     @PostConstruct
     public void runMigrations() {
         System.out.println("FLYWAY 시작...");
-        flyway.baseline();
+//        flyway.baseline();
         flyway.migrate();
     }
 }

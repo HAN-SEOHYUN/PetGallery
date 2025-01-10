@@ -1,12 +1,18 @@
 package com.example.wedlessInvite.service;
 
+import com.example.wedlessInvite.domain.Image.ImageUploads;
 import com.example.wedlessInvite.domain.Invitation.*;
+import com.example.wedlessInvite.dto.ImageUploadDto;
 import com.example.wedlessInvite.dto.InvitationMasterRequestDto;
 import com.example.wedlessInvite.dto.InvitationMasterResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @Service
@@ -18,12 +24,27 @@ public class InvitationService {
 
     private final GroomInfoRepository groomInfoRepository;
 
-    public InvitationMaster saveInvitationMaster(InvitationMasterRequestDto request) {
-        BrideInfo brideInfo = brideInfoRepository.save(request.getBrideInfo());
-        GroomInfo groomInfo = groomInfoRepository.save(request.getGroomInfo());
+    private final ImageUploadService imageUploadService;
 
-        return invitationMasterRepository.save(request.toEntity());
+    private final S3FileService s3FileService;
 
+    public InvitationMaster saveInvitationMaster(MultipartFile file, InvitationMasterRequestDto data) throws IOException {
+
+        ImageUploadDto imageDto = validateAndUploadS3(file);
+
+        BrideInfo brideInfo = brideInfoRepository.save(data.getBrideInfo());
+        GroomInfo groomInfo = groomInfoRepository.save(data.getGroomInfo());
+        ImageUploads imageUploads = imageUploadService.saveFile(imageDto);
+
+        data.setMainImage(imageUploads);
+
+        return invitationMasterRepository.save(data.toEntity());
+    }
+
+    private ImageUploadDto validateAndUploadS3(MultipartFile file) throws IOException {
+        imageUploadService.validateFileSize(file);
+        imageUploadService.validateFileExtension(file);
+        return s3FileService.uploadS3(file);
     }
 
     public Page<InvitationMasterResponseDto> getAllInvitations(Pageable pageable) {

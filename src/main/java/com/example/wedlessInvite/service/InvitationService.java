@@ -30,24 +30,22 @@ public class InvitationService {
 
     public InvitationMaster saveInvitationMaster(MultipartFile file, InvitationMasterRequestDto data) throws IOException {
 
-        ImageUploadDto imageDto = createImage(file);
+        ImageUploadDto imageDto = validateAndUploadS3(file);
 
-        ImageUploads imageUploads = imageUploadService.saveFile(imageDto);
         BrideInfo brideInfo = brideInfoRepository.save(data.getBrideInfo());
         GroomInfo groomInfo = groomInfoRepository.save(data.getGroomInfo());
+        ImageUploads imageUploads = imageUploadService.saveFile(imageDto);
 
         data.setMainImage(imageUploads);
 
         return invitationMasterRepository.save(data.toEntity());
     }
 
-    private ImageUploadDto createImage(MultipartFile file) throws IOException {
+    private ImageUploadDto validateAndUploadS3(MultipartFile file) throws IOException {
         imageUploadService.validateFileSize(file);
         imageUploadService.validateFileExtension(file);
         return s3FileService.uploadS3(file);
     }
-
-
 
     public Page<InvitationMasterResponseDto> getAllInvitations(Pageable pageable) {
         Page<InvitationMaster> entity = invitationMasterRepository.findAll(pageable);

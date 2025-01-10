@@ -1,5 +1,6 @@
 package com.example.wedlessInvite.dto;
 
+import com.example.wedlessInvite.domain.Image.ImageUploads;
 import com.example.wedlessInvite.domain.Invitation.BrideInfo;
 import com.example.wedlessInvite.domain.Invitation.GroomInfo;
 import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 public class InvitationMasterRequestDto {
     @NotNull(message = "결혼일자는 필수 입력값입니다.")
     private LocalDate date;  // 결혼일자
+    private ImageUploads mainImage; // 이미지 ID
     private BrideInfo brideInfo;  // 신부 정보
     private GroomInfo groomInfo;  // 신랑 정보
     private String letterTxt;  // 레터링 문구
@@ -23,6 +25,7 @@ public class InvitationMasterRequestDto {
 
     public InvitationMaster toEntity() {
         return InvitationMaster.builder()
+                .mainImage(mainImage)
                 .date(date)
                 .brideInfo(brideInfo)
                 .groomInfo(groomInfo)
@@ -33,12 +36,25 @@ public class InvitationMasterRequestDto {
     }
 
     @Builder
-    public InvitationMasterRequestDto(LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo, String letterTxt, String mainTxt, String greetTxt) {
+    public InvitationMasterRequestDto(LocalDate date, ImageUploads mainImage, BrideInfo brideInfo, GroomInfo groomInfo, String letterTxt, String mainTxt, String greetTxt) {
         this.date = date;
+        this.mainImage = mainImage;
         this.brideInfo = brideInfo;
         this.groomInfo = groomInfo;
         this.letterTxt = letterTxt;
         this.mainTxt = mainTxt;
         this.greetTxt = greetTxt;
+    }
+
+    @Override
+    public String toString() {
+        return "InvitationMasterRequestDto{" +
+                "brideInfo=" + (brideInfo != null ? brideInfo.toString() : "null") +
+                ", groomInfo=" + (groomInfo != null ? groomInfo.toString() : "null") +
+                ", letterTxt='" + letterTxt + '\'' +
+                ", mainTxt='" + mainTxt + '\'' +
+                ", greetTxt='" + greetTxt + '\'' +
+                ", date='" + date + '\'' +
+                '}';
     }
 }

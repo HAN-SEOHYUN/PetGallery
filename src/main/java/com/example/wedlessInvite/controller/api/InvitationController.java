@@ -7,12 +7,12 @@ import com.example.wedlessInvite.service.InvitationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/invitations")
@@ -20,9 +20,13 @@ import java.util.List;
 public class InvitationController {
     private final InvitationService invitationService;
 
-    @PostMapping
-    public ResponseEntity<InvitationMaster> createInvitation(@Valid @RequestBody InvitationMasterRequestDto request) {
-        InvitationMaster savedInvitation = invitationService.saveInvitationMaster(request);
+
+    @PostMapping(consumes = "multipart/form-data")
+    public ResponseEntity<InvitationMaster> createInvitation(
+            @RequestPart("file") MultipartFile file,
+            @RequestPart("data") InvitationMasterRequestDto dto) throws IOException {
+
+        InvitationMaster savedInvitation = invitationService.saveInvitationMaster(file, dto);
         return ResponseEntity.ok(savedInvitation);
     }
 

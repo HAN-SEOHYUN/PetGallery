@@ -1,6 +1,5 @@
 package com.example.wedlessInvite.controller.api;
 
-import com.example.wedlessInvite.common.ApiResponse;
 import com.example.wedlessInvite.domain.Image.ImageUploads;
 import com.example.wedlessInvite.dto.ImageListResponseDto;
 import com.example.wedlessInvite.dto.ImageUploadDto;

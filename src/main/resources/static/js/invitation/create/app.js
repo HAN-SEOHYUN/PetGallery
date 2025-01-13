@@ -2,6 +2,24 @@ const REQUEST_URL = '/api/invitations';
 const MAIN_PAGE = '/invitations/main';
 
 $(document).ready(function () {
+    const $fileInput = $('#fileInput');
+    const $previewImage = $('#previewImage');
+
+    /*파일 선택 관련*/
+    $('#mainImage').on('click', () => $fileInput.click());
+
+    // 파일이 선택되면 미리보기 이미지 갱신
+    $fileInput.on('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = e => $previewImage.attr('src', e.target.result).show();
+            reader.readAsDataURL(file);
+        } else {
+            $previewImage.hide(); // 파일이 선택되지 않으면 미리보기 숨기기
+        }
+    });
+
 
     $('#submitBtn').on('click', function (event) {
         event.preventDefault();
@@ -11,7 +29,7 @@ $(document).ready(function () {
             text: '',
             alertType: 'info',
             callback() {
-                addData(REQUEST_URL, getFormInfo());
+                addData(REQUEST_URL);
             }
         });
     });

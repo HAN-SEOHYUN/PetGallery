@@ -1,5 +1,7 @@
 package com.example.wedlessInvite.controller.api;
 
+import com.example.wedlessInvite.common.ApiResponse;
+import com.example.wedlessInvite.domain.Image.ImageUploads;
 import com.example.wedlessInvite.dto.ImageListResponseDto;
 import com.example.wedlessInvite.dto.ImageUploadDto;
 import com.example.wedlessInvite.service.ImageUploadService;
@@ -37,18 +39,19 @@ public class ImageController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createImage(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<Long> createImage(@RequestParam("file") MultipartFile file) {
         try {
             imageUploadService.validateFileSize(file);
             imageUploadService.validateFileExtension(file);
 
             ImageUploadDto dto = s3FileService.uploadS3(file);
-            imageUploadService.saveFile(dto);
+            ImageUploads imageUploads = imageUploadService.saveFile(dto);
 
-            return ResponseEntity.ok().body(dto.getS3Url());
+            Long imageID =  imageUploads.getId();
+            return ResponseEntity.ok().body(imageID);
 
         }  catch (IOException e) {
-            return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());
+            return ResponseEntity.status(500).body(null);
         }
     }
 }

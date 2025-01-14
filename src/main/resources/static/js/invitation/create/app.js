@@ -1,4 +1,5 @@
 const REQUEST_URL = '/api/invitations';
+const UPLOAD_URL = '/api/images'
 const MAIN_PAGE = '/invitations/main';
 
 $(document).ready(function () {
@@ -8,18 +9,36 @@ $(document).ready(function () {
     /*파일 선택 관련*/
     $('#mainImage').on('click', () => $fileInput.click());
 
-    // 파일이 선택되면 미리보기 이미지 갱신
-    $fileInput.on('change', function(event) {
+    $fileInput.on('change', handleFileChange);
+
+    function handleFileChange(event) {
         const file = event.target.files[0];
+
         if (file) {
-            const reader = new FileReader();
-            reader.onload = e => $previewImage.attr('src', e.target.result).show();
-            reader.readAsDataURL(file);
+            previewImage(file);
+            addFile(file);
         } else {
             $previewImage.hide(); // 파일이 선택되지 않으면 미리보기 숨기기
         }
-    });
+    }
 
+    function previewImage(file) {
+        const reader = new FileReader();
+        reader.onload = e => $previewImage.attr('src', e.target.result).show();
+        reader.readAsDataURL(file);
+    }
+
+    function addFile(file) {
+        uploadFile(UPLOAD_URL, {
+            file: file,
+            successCallback: function() {
+                console.log('등록');
+            },
+            errorCallback: function() {
+                console.log('실패');
+            }
+        })
+    }
 
     $('#submitBtn').on('click', function (event) {
         event.preventDefault();

@@ -16,7 +16,7 @@
         <!-- 결혼 날짜 -->
         <div class="form-group">
             <label for="weddingDate">결혼 날짜 <span class="required">*</span></label>
-            <input type="date" id="weddingDate" name="date" value="" required>
+            <input type="date" id="weddingDate" name="date" value="2025-01-01" required>
         </div>
 
         <!-- 감사 인사, 메인 메시지, 축하 메시지 -->
@@ -33,10 +33,12 @@
             <textarea id="greetTxt" name="greetTxt" required>와주셔서 축하해주세요</textarea>
         </div>
         <div class="form-group">
-            <label for="mainImg">메인 이미지 <span class="required">*</span></label>
-            <button class="add-button" id="mainImg">
+            <label for="mainImage">메인 이미지 <span class="required">*</span></label>
+            <button class="add-button" id="mainImage" type="button">
                 <span>+</span>
             </button>
+            <input type="file" id="fileInput" style="display: none;" accept="image/*" />
+            <img id="previewImage" src="" alt="Preview" style="display: none; width: 100px; height: 100px; margin-top: 10px;" />
         </div>
     </div>
     <!-- 결혼 정보 입력 끝 -->

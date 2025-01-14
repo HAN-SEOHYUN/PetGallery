@@ -12,6 +12,46 @@ $(document).ready(function () {
 
     $fileInput.on('change', handleFileChange);
 
+    /* form 제출 */
+    $('#submitBtn').on('click', function (event) {
+        event.preventDefault();
+
+        if (!validateInputs() || !validateImageAttached()) { return; }
+
+        showTwoButtonAlert({
+            title: '등록하시겠습니까 ?',
+            text: '',
+            alertType: 'info',
+            callback() {
+                addData(REQUEST_URL, getFormInfo());
+            }
+        });
+    });
+
+    function validateInputs() {
+        let isValid = true;
+
+        $('input[required], textarea[required]').each(function () {
+            if (!$(this).val().trim()) {
+                alert(`"${$(this).prev('label').text()}" 항목을 입력해주세요.`);
+                $(this).focus();
+                isValid = false;
+                return false;
+            }
+        });
+        return isValid;
+    }
+
+    function validateImageAttached() {
+        const fileInput = $('#fileInput')[0];
+        if (!fileInput.files || fileInput.files.length === 0) {
+            alert('메인 이미지를 첨부해주세요.');
+            $('#fileInput').focus();
+            return false;
+        }
+        return true;
+    }
+
     function handleFileChange(event) {
         const file = event.target.files[0];
 
@@ -39,19 +79,6 @@ $(document).ready(function () {
             });
     }
 
-    $('#submitBtn').on('click', function (event) {
-        event.preventDefault();
-
-        showTwoButtonAlert({
-            title: '등록하시겠습니까 ?',
-            text: '',
-            alertType: 'info',
-            callback() {
-                addData(REQUEST_URL);
-            }
-        });
-    });
-
     function addData(url, requestData) {
         fetchData(url, {
             method: HTTP_METHODS.POST,
@@ -75,7 +102,8 @@ $(document).ready(function () {
             date: $('#weddingDate').val(),
             letterTxt: $('#letterTxt').val(),
             mainTxt: $('#mainTxt').val(),
-            greetTxt: $('#greetTxt').val()
+            greetTxt: $('#greetTxt').val(),
+            mainImageId : mainImageId
         }
     }
 

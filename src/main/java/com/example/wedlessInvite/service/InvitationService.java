@@ -1,16 +1,19 @@
 package com.example.wedlessInvite.service;
 
 import com.example.wedlessInvite.domain.Image.ImageUploads;
+import com.example.wedlessInvite.domain.Image.ImageUploadsRepository;
 import com.example.wedlessInvite.domain.Invitation.*;
 import com.example.wedlessInvite.dto.ImageUploadDto;
 import com.example.wedlessInvite.dto.InvitationMasterRequestDto;
 import com.example.wedlessInvite.dto.InvitationMasterResponseDto;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import java.io.IOException;
 
@@ -27,18 +30,17 @@ public class InvitationService {
     private final ImageUploadService imageUploadService;
 
     private final S3FileService s3FileService;
+    private final ImageUploadsRepository imageUploadsRepository;
 
-    public InvitationMaster saveInvitationMaster(MultipartFile file, InvitationMasterRequestDto data) throws IOException {
+    @Transactional
+    public InvitationMaster saveInvitationMaster(InvitationMasterRequestDto dto) throws IOException {
 
-        ImageUploadDto imageDto = validateAndUploadS3(file);
+        BrideInfo brideInfo = brideInfoRepository.save(dto.getBrideInfo());
+        GroomInfo groomInfo = groomInfoRepository.save(dto.getGroomInfo());
+        ImageUploads imageUploads = imageUploadsRepository.findImageUploadsById(dto.getMainImageId());
+        dto.setMainImage(imageUploads);
 
-        BrideInfo brideInfo = brideInfoRepository.save(data.getBrideInfo());
-        GroomInfo groomInfo = groomInfoRepository.save(data.getGroomInfo());
-        ImageUploads imageUploads = imageUploadService.saveFile(imageDto);
-
-        data.setMainImage(imageUploads);
-
-        return invitationMasterRepository.save(data.toEntity());
+        return invitationMasterRepository.save(dto.toEntity());
     }
 
     private ImageUploadDto validateAndUploadS3(MultipartFile file) throws IOException {

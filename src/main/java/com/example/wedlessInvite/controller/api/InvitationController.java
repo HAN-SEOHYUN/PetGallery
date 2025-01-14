@@ -21,12 +21,11 @@ import java.io.IOException;
 public class InvitationController {
     private final InvitationService invitationService;
 
-    @PostMapping(consumes = "multipart/form-data")
+    @PostMapping
     public ResponseEntity<InvitationMaster> createInvitation(
-            @RequestPart("file") MultipartFile file,
-            @Valid @RequestPart("data") InvitationMasterRequestDto dto) throws IOException {
+            @Valid @RequestBody InvitationMasterRequestDto dto) throws IOException {
 
-        InvitationMaster savedInvitation = invitationService.saveInvitationMaster(file, dto);
+        InvitationMaster savedInvitation = invitationService.saveInvitationMaster(dto);
         return ResponseEntity.ok(savedInvitation);
     }
 

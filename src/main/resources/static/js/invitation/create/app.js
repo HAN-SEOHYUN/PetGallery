@@ -1,6 +1,7 @@
 const REQUEST_URL = '/api/invitations';
 const UPLOAD_URL = '/api/images'
 const MAIN_PAGE = '/invitations/main';
+let mainImageId = null;
 
 $(document).ready(function () {
     const $fileInput = $('#fileInput');
@@ -29,15 +30,13 @@ $(document).ready(function () {
     }
 
     function addFile(file) {
-        uploadFile(UPLOAD_URL, {
-            file: file,
-            successCallback: function() {
-                console.log('등록');
-            },
-            errorCallback: function() {
-                console.log('실패');
-            }
-        })
+        uploadFile(UPLOAD_URL, { file })
+            .then((response) => {
+                mainImageId = response;
+            })
+            .catch((error) => {
+                handleUploadErrorResponse(error);
+            });
     }
 
     $('#submitBtn').on('click', function (event) {
@@ -65,7 +64,7 @@ $(document).ready(function () {
                 showSuccessAndRedirectAlert(MAIN_PAGE);
             })
             .catch(error => { // 실패
-                handleErrorResponse(JSON.parse(error));
+                handleSubmitErrorResponse(JSON.parse(error));
             });
     }
 
@@ -114,11 +113,35 @@ $(document).ready(function () {
 });
 
 /**
+ * 업로드 실패 시 실패 사유를 사용자에게 알리는 함수입니다.
+ *
+ * @param {String} error - API에서 반환된 에러 응답.
+ *
+ *   {
+ *     timestamp: '2025-01-14T09:11:03.599+00:00',
+ *     status: 405,
+ *     error: 'Method Not Allowed',
+ *     path: '/invitations/create'
+ *   }
+ */
+function handleUploadErrorResponse(error) {
+    const errorResponse = JSON.parse(error);
+    showOneButtonAlert({
+        title: '사진 첨부에 실패했습니다. 재시도 해주세요.',
+        text: errorResponse.error,
+        alertType: 'error',
+        callback() {
+            $('#previewImage').hide();
+        }
+    });
+}
+
+/**
  * 등록 실패 시 실패 사유를 알려주는 함수
  *
  * @param {JSON} error - API에서 응답받은 데이터
  */
-function handleErrorResponse(error) {
+function handleSubmitErrorResponse(error) {
     if (error.statusCode === HTTP_STATUS.BAD_REQUEST) {
         showOneButtonAlert({
             title: '등록에 실패했습니다',

@@ -42,54 +42,55 @@ function fetchData(url, options = {}) {
 }
 
 /**
- * 파일 업로드를 처리 함수
+ * 비동기적으로 파일을 업로드하는 함수.
+ * 서버에 파일을 업로드하고, 서버의 응답 데이터를 Promise로 반환.
  *
- * @param {string} url - 파일 업로드를 처리할 API 엔드포인트 URL
- * @param {Object} [options={}] - 함수 옵션 객체
- * @param {File} options.file - 업로드할 파일 객체
- * @param {Function} [options.successCallback] - 업로드 성공 시 호출되는 콜백 함수
- * @param {Function} [options.errorCallback] - 업로드 실패 시 호출되는 콜백 함수
+ * @param {string} url - 파일 업로드 API 엔드포인트.
+ * @param {Object} options - 파일 업로드에 필요한 옵션 객체.
+ * @param {File} options.file - 업로드할 파일 객체.
+ * @returns {Promise<Object>} - 서버 응답 데이터를 포함한 Promise를 반환.
  *
- * @returns {void}
+ * @throws {Error} - 파일 유효성 검사가 실패하거나 업로드 요청이 실패할 경우 에러를 반환.
  *
  * @example
- * // 사용 예시
- * const file = document.querySelector('#fileInput').files[0];
- * uploadFile('/api/upload', {
- *     file: file,
- *     successCallback: function(response) {
- *         console.log('업로드 성공:', response);
- *     },
- *     errorCallback: function(xhr, status, error) {
- *         console.error('업로드 실패:', error);
- *     }
- * });
+ * uploadFile('/api/upload', { file: myFile })
+ *   .then((response) => {
+ *     console.log('업로드 성공:', response);
+ *   })
+ *   .catch((error) => {
+ *     console.error('업로드 실패:', error.message);
+ *   });
  */
 function uploadFile(url, options = {}) {
-    const { file, successCallback, errorCallback } = options;
+    const { file} = options;
 
-    if (!validateFile(file)) {return;}
+    if (!validateFile(file)) { return Promise.reject(new Error('유효하지 않은 파일입니다.')); }
 
     const formData = new FormData();
     formData.append('file', file);
 
-    $.ajax({
-        url: url,
-        type: HTTP_METHODS.POST,
-        data: formData,
-        processData: false,
-        contentType: false,
-        headers: {
-            'Accept': 'application/json'  // 'Accept' 헤더를 추가하여 응답 형식으로 JSON을 요청
-        },
-        success: successCallback,
-        error: errorCallback
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: url,
+            type: HTTP_METHODS.POST,
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: (response) => {
+                resolve(response);
+            },
+            error: (xhr, status, error) => {
+                reject(xhr.responseText);
+            }
+        });
     });
 }
 
 function validateFile(file) {
     if (!file) {
-        console.error('파일 없음');
         return false;
     }
     return true;

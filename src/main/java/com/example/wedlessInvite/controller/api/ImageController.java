@@ -7,6 +7,7 @@ import com.example.wedlessInvite.service.ImageUploadService;
 import com.example.wedlessInvite.service.S3FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,8 +38,8 @@ public class ImageController {
         return ResponseEntity.ok(fileDetails);
     }
 
-    @PostMapping
-    public ResponseEntity<Long> createImage(@RequestParam("file") MultipartFile file) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Long> createImage(@RequestPart("file") MultipartFile file) {
         try {
             imageUploadService.validateFileSize(file);
             imageUploadService.validateFileExtension(file);

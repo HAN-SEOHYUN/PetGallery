@@ -197,5 +197,18 @@ function showSuccessAndRedirectAlert(redirectUrl) {
     });
 }
 
+function validateNumber(inputElement) {
+    const value = inputElement.value;
+    if (!/^\d*$/.test(value)) {
+        inputElement.value = value.replace(/\D/g, ''); // 숫자가 아닌 값 제거
+        //alert('숫자만 입력 가능합니다.');
+        showOneButtonAlert({
+            title: '숫자만 입력 가능합니다.',
+            alertType: 'info',
+            callback() {}
+        });
+    }
+}
+
 
 

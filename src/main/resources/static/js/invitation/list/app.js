@@ -106,7 +106,10 @@ $(document).ready(function () {
             .then(response => { // 성공
                 // 카드 목록 생성
                 const pagination = new Pagination(response);
-                $grid.html(buildCardList(response.content));
+
+                const contentHtml = getContentHtml(response.content);
+                $grid.html(contentHtml);
+
                 renderPagination(pagination);
             })
             .catch(error => { // 실패
@@ -114,6 +117,20 @@ $(document).ready(function () {
             });
     }
 });
+
+/**
+ * 응답 데이터에 따라 카드 목록을 생성하거나, 게시물이 없다는 메시지를 반환하는 함수.
+ *
+ * @param {Array} data - 초대장 정보가 담긴 객체 배열.
+ * @returns {string} - 카드 목록 또는 "등록된 게시물이 없습니다." 메시지.
+ */
+function getContentHtml(data) {
+    if (data && data.length > 0) {
+        return buildCardList(data);
+    } else {
+        return '<p></p><p class="no-content">등록된 게시물이 없습니다.</p>';
+    }
+}
 
 /**
  * 카드 목록을 생성하는 함수.

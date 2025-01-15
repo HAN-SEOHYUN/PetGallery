@@ -156,7 +156,7 @@ function handleUploadErrorResponse(error) {
     const errorResponse = JSON.parse(error);
     showOneButtonAlert({
         title: '사진 첨부에 실패했습니다. 재시도 해주세요.',
-        text: errorResponse.error,
+        text: errorResponse.error || errorResponse.errorMsg,
         alertType: 'error',
         callback() {
             $('#previewImage').hide();

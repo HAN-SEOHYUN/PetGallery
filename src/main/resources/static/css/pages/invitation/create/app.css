@@ -33,7 +33,23 @@ textarea {
     resize: vertical;
 }
 
-/* 버튼 스타일 */
+.moveBtn {
+    width: 100%;
+    padding: 15px;
+    background-color: #FF5722;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.moveBtn:hover {
+    background-color: #e64a19;
+}
+
 button[type="submit"] {
     width: 100%;
     padding: 15px;

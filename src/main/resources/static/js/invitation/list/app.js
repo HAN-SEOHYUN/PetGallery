@@ -35,7 +35,7 @@ $(document).ready(function () {
     }
 
     /**
-     * 페이지 번호 버튼을 생성하여 페이징 컨테이너에 추가합니다.
+     * 페이지 번호 버튼을 생성하여 페이징 컨테이너에 추가함
      *
      * @param {jQuery} container - 페이징 버튼을 추가할 컨테이너 요소.
      * @param {Pagination} pagination - 페이지네이션 정보를 담은 객체.
@@ -55,7 +55,7 @@ $(document).ready(function () {
     }
 
     /**
-     * 다음 버튼을 생성하여 페이징 컨테이너에 추가합니다.
+     * > 버튼을 생성하여 페이징 컨테이너에 추가함
      *
      * @param {jQuery} container - 페이징 버튼을 추가할 컨테이너 요소.
      * @param {Pagination} pagination - 페이지네이션 정보를 담은 객체.
@@ -67,7 +67,7 @@ $(document).ready(function () {
     }
 
     /**
-     * 이전, 다음 버튼의 이벤트 핸들러를 설정합니다.
+     * <,> 버튼의 이벤트 핸들러를 설정함
      *
      * @param {jQuery} container - 페이징 버튼이 포함된 컨테이너 요소.
      * @param {Pagination} pagination - 페이지네이션 정보를 담은 객체.
@@ -123,12 +123,15 @@ $(document).ready(function () {
  */
 function buildCardList(data) {
     return data.map(invitation => {
+        const imageUrl = invitation.mainImage && invitation.mainImage.s3Url
+            ? invitation.mainImage.s3Url
+            : 'https://img.icons8.com/ios/500/no-image.png';
+
         return `
             <div class="card" onclick="moveToDetail(${invitation.id})">
-                <img src="https://via.placeholder.com/300" alt="Invitation Main Photo">
+                <img src=${imageUrl} alt="Invitation Main Photo">
                 <div class="card-content">
                     <p class="letter">${invitation.letterTxt}</p>
-                    <p class="date">${invitation.date}</p>
                 </div>
             </div>
         `;

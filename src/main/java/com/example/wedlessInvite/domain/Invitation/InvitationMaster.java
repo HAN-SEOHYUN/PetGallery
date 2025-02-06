@@ -59,8 +59,11 @@ public class InvitationMaster extends BaseEntity {
     @Comment("인사말")
     private String greetTxt;
 
+    @Column(nullable = false)
+    private String deleteYN;
+
     @Builder
-    public InvitationMaster(LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploads> imageList, String letterTxt, String mainTxt, String greetTxt) {
+    public InvitationMaster(LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploads> imageList, String letterTxt, String mainTxt, String greetTxt, String deleteYN) {
         this.date = date;
         this.brideInfo = brideInfo;
         this.groomInfo = groomInfo;
@@ -69,5 +72,10 @@ public class InvitationMaster extends BaseEntity {
         this.letterTxt = letterTxt;
         this.mainTxt = mainTxt;
         this.greetTxt = greetTxt;
+        this.deleteYN = "N";
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleteYN = deleted;
     }
 }

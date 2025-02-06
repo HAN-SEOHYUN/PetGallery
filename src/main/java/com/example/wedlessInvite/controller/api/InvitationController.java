@@ -44,4 +44,10 @@ public class InvitationController {
         InvitationMasterResponseDto invitationDetail = invitationService.getInvitationDetail(id);
         return ResponseEntity.ok(invitationDetail);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteInvitation(@PathVariable Long id) {
+        invitationService.deleteInvitation(id);
+        return ResponseEntity.noContent().build(); // 204 No Content 반환
+    }
 }

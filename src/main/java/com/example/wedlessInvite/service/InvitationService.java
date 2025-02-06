@@ -1,5 +1,6 @@
 package com.example.wedlessInvite.service;
 
+import com.example.wedlessInvite.common.YN;
 import com.example.wedlessInvite.domain.Image.ImageUploads;
 import com.example.wedlessInvite.domain.Image.ImageUploadsRepository;
 import com.example.wedlessInvite.domain.Invitation.*;
@@ -79,5 +80,12 @@ public class InvitationService {
                 .mainTxt(entity.getMainTxt())
                 .greetTxt(entity.getGreetTxt())
                 .build();
+    }
+
+    public void deleteInvitation(Long id) {
+        InvitationMaster entity = invitationMasterRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+        entity.setDeleted(String.valueOf(YN.Y));
+        invitationMasterRepository.save(entity);
     }
 }

@@ -1,17 +1,20 @@
 /* 버튼 스타일 */
 .btn-custom {
-    width: 200px;
+    width: 220px;
     height: 50px;
     border-radius: 25px;
     font-size: 16px;
     font-weight: bold;
-    transition: background-color 0.3s ease;  /* 색상 변화 애니메이션 */
+    border: none;
+    background-color: #8e44ad;
+    color: white;
+    transition: all 0.3s ease-in-out;
 }
 
-/* 마우스 오버 시 색상 변화 */
+/* 마우스 오버 효과 */
 .btn-custom:hover {
-    background-color: #007bff;
-    color: white;
+    background-color: #732d91;
+    transform: scale(1.05);
 }
 
 /* 버튼을 세로로 배치하고 정중앙에 위치 */
@@ -22,9 +25,88 @@
     align-items: center; /* 세로로 중앙 정렬 */
     width: 100%;
     max-width: 450px;
-    height: 100vh; /* 부모 요소의 전체 높이를 사용 */
+    height: 40vh; /* 부모 요소의 전체 높이를 사용 */
     margin: 0 auto;
     gap: 10px; /* 버튼 간의 간격 */
 }
 
+/* 프로젝트 섹션 (카드 스타일 적용) */
+.project-section {
+    border: 1px solid #d1d1d1;
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.85); /* 반투명한 카드 스타일 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    text-align: left;
+    backdrop-filter: blur(5px);
+}
+
+/* 제목 스타일 */
+.section-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+/* 하위 섹션 스타일 */
+.project-details, .project-infra, .project-goal {
+    margin-top: 20px;
+}
+
+.project-details h4, .project-infra h4, .project-goal h4 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* 리스트 스타일 */
+.project-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.project-section ul li {
+    font-size: 14px;
+    padding: 5px 0;
+    color: #555;
+}
+
+/* 버튼 스타일 */
+.btn-project {
+    width: 220px;
+    height: 50px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+/* 마우스 오버 효과 */
+.btn-project:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* 기존 버튼을 아래로 내리기 위한 스타일 */
+.button-container:last-of-type {
+    margin-top: 40px;
+}
+
+.project-button-container {
+    display: flex;
+    flex-direction: column; /* 세로로 배치 */
+    justify-content: center; /* 버튼 간의 세로 간격을 중앙 정렬 */
+    align-items: center; /* 세로로 중앙 정렬 */
+    width: 100%;
+    max-width: 450px;
+    height: 30vh; /* 부모 요소의 전체 높이를 사용 */
+    margin: 0 auto;
+    gap: 10px; /* 버튼 간의 간격 */
+}
 

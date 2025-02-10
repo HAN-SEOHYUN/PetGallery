@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+
+<body>
+<div th:replace="~{fragments/header :: body}"></div>
+<!-- 페이지 소스 시작 -->
+<link rel="stylesheet" href="/css/common/error.css">
+<div class="container">
+    <div class="error-container">
+        <div class="error-code">500</div>
+        <p th:text="${message}">서버 오류가 발생했습니다.</p>
+        <a href="/invitations/main" class="btn">🏠 메인으로 돌아가기</a>
+    </div>
+</div>
+<div th:replace="~{fragments/footer :: body}"></div>
+</body>
+</html>

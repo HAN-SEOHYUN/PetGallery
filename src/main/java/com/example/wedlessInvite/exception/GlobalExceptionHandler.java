@@ -7,7 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "com.example.wedlessInvite.api")
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomException.class)
@@ -32,5 +32,14 @@ public class GlobalExceptionHandler {
                 errorMsg.toString()
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    protected ResponseEntity<ErrorResponseDto> handleGenericException(Exception ex) {
+        ErrorResponseDto errorResponse = new ErrorResponseDto(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "서버 오류가 발생했습니다."
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

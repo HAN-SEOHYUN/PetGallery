@@ -1,8 +1,52 @@
 const REQUEST_URL = '/api/invitations';
+const MAIN_PAGE = '/invitations/main';
 
 $(document).ready(function () {
     const invitationId = getInvitationIdFromUrl();
     getData(invitationId);
+
+    $("#deleteBtn").on("click", function () {
+
+        const invitationId = getInvitationId(this);
+        if (!invitationId) return;
+
+        showTwoButtonAlert({
+            title: '삭제하시겠습니까 ?',
+            text: '',
+            alertType: 'error',
+            callback() {
+                deleteInvitation(invitationId, this);
+            }
+        });
+    });
+
+    function getInvitationId() {
+        const invitationId = $("#invitationId").val();
+        if (!invitationId) {
+            console.error("삭제할 초대장 ID가 없습니다.");
+            return null;
+        }
+        return invitationId;
+    }
+
+    // 초대장 삭제 요청을 보내는 함수
+    function deleteInvitation(invitationId, button) {
+        const url = `${REQUEST_URL}/${invitationId}`;
+
+        fetchData(url, {
+            method: HTTP_METHODS.DELETE,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(() => {
+                console.log(`Invitation ${invitationId} deleted successfully.`);
+                showSuccessAndRedirectAlert(MAIN_PAGE);
+            })
+            .catch(error => {
+                handleSubmitErrorResponse(JSON.parse(error));
+            });
+    }
 
     function getData(invitationId) {
         const url = `${REQUEST_URL}/${invitationId}`;
@@ -38,6 +82,7 @@ $(document).ready(function () {
         bindData("#letterTxt", data.letterTxt);
         bindData("#mainTxt", data.mainTxt);
         bindData("#greetTxt", data.greetTxt);
+        setInvitationId("#invitationId",data.id);
     }
 
     // 신부 정보 바인딩
@@ -82,6 +127,9 @@ $(document).ready(function () {
     function bindData(selector, data) {
         $(selector).text(data || "정보 없음");
     }
+    function setInvitationId(selector, data) {
+        $(selector).val(data);
+    }
 });
 
 /**
@@ -92,4 +140,37 @@ $(document).ready(function () {
 function getInvitationIdFromUrl() {
     const params = new URLSearchParams(window.location.search);
     return params.get('id');
+}
+
+/**
+ * 삭제 완료 후 알림을 표시하고, 알림이 닫히면 리다이렉트하는 함수
+ *
+ * @param {string} redirectUrl - 리다이렉트할 주소 (예: '/invitations/main')
+ */
+function showSuccessAndRedirectAlert(redirectUrl) {
+    showOneButtonAlert({
+        title: '삭제되었습니다.',
+        alertType: 'success',
+        callback() {
+            window.location.href = redirectUrl;
+        }
+    });
+}
+
+/**
+ * 삭제 실패 시 실패 사유를 알려주는 함수
+ *
+ * @param {JSON} error - API에서 응답받은 데이터
+ */
+function handleSubmitErrorResponse(error) {
+    if (error.statusCode === HTTP_STATUS.BAD_REQUEST) {
+        showOneButtonAlert({
+            title: '삭제에 실패했습니다',
+            text: error.errorMsg,
+            alertType: 'error',
+            callback() {}
+        });
+    } else {
+        throw error;
+    }
 }

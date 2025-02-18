@@ -9,6 +9,7 @@
 
 
 <div class="container">
+    <input type="hidden" id="invitationId" value="">
     <div class="image-box">
         <div class="image-placeholder">
             <img id="mainImage" src="" alt="청첩장 이미지" />
@@ -48,7 +49,7 @@
     <div class="button-group">
 <!--        <button class="action-button edit">수정</button>-->
         <button class="action-button list" onclick="location.href='/invitations/list'">목록</button>
-        <button class="action-button delete">삭제</button>
+        <button id="deleteBtn" class="action-button delete">삭제</button>
     </div>
 </div>
 

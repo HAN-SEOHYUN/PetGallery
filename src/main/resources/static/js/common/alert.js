@@ -80,9 +80,9 @@ function showTwoButtonAlert({
                                 callback // 콜백 함수
                             }) {
     const buttonSettings = {
-        warning: {confirmColor: 'btn-primary', cancelColor: 'btn-danger', confirmText: '등록하기', cancelText: '취소하기'},
-        success: {confirmColor: 'btn-primary', cancelColor: 'btn-secondary', confirmText: '등록하기', cancelText: '취소하기'},
-        error: {confirmColor: 'btn-primary', cancelColor: 'btn-danger', confirmText: '등록하기', cancelText: '취소하기'},
+        warning: {confirmColor: 'btn-primary', cancelColor: 'btn-danger', confirmText: '확인', cancelText: '취소'},
+        success: {confirmColor: 'btn-primary', cancelColor: 'btn-secondary', confirmText: '확인', cancelText: '취소'},
+        error: {confirmColor: 'btn-primary', cancelColor: 'btn-danger', confirmText: '확인', cancelText: '취소'},
         info: {confirmColor: 'btn-primary', cancelColor: 'btn-secondary', confirmText: '확인', cancelText: '취소'},
     };
 

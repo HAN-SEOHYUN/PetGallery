@@ -6,6 +6,16 @@ let mainImageId = null;
 $(document).ready(function () {
     const $fileInput = $('#fileInput');
     const $previewImage = $('#previewImage');
+    const $lottieSpinner = document.getElementById('lottie-spinner');
+
+    // Lottie(spinner) 애니메이션 초기화
+    let animation = lottie.loadAnimation({
+        container: $lottieSpinner,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/images/spinner.json'
+    });
 
     /*파일 선택 관련*/
     $('#mainImage').on('click', () => $fileInput.click());
@@ -16,7 +26,9 @@ $(document).ready(function () {
     $('#submitBtn').on('click', function (event) {
         event.preventDefault();
 
-        if (!validateInputs() || !validateImageAttached()) { return; }
+        if (!validateInputs() || !validateImageAttached()) {
+            return;
+        }
 
         showTwoButtonAlert({
             title: '등록하시겠습니까 ?',
@@ -69,16 +81,44 @@ $(document).ready(function () {
         reader.readAsDataURL(file);
     }
 
+    /**
+     * 파일을 S3 에 업로드하는 함수.
+     *
+     * @param {File} file - 업로드할 파일. 이 파일은 S3에 업로드됩니다.
+     */
     function addFile(file) {
-        uploadFile(UPLOAD_URL, { file })
+        toggleUploadState(true);
+        uploadFile(UPLOAD_URL, {file})
             .then((response) => {
                 mainImageId = response;
+                toggleUploadState(false);
             })
             .catch((error) => {
                 handleUploadErrorResponse(error);
+                toggleUploadState(false);
             });
     }
 
+    /**
+     * 업로드 상태에 따라 로딩 애니메이션을 표시하거나 숨기고, 등록 버튼을 활성화/비활성화하는 함수.
+     *
+     * @param {boolean} isUploading - 업로드 중인지 여부를 나타내는 값,
+     */
+    function toggleUploadState(isUploading) {
+        if (isUploading) {
+            $lottieSpinner.style.display = 'block';  // 로딩 애니메이션 표시
+        } else {
+            $lottieSpinner.style.display = 'none';  // 로딩 애니메이션 숨기기
+        }
+    }
+
+    /**
+     * 이미지 데이터를 서버에 전송하여 등록하는 함수.
+     *
+     * @param {String} url - 데이터를 전송할 API URL.
+     * @param {Object} requestData - 전송할 요청 데이터. JSON 형식으로 변환되어 서버로 전송됩니다.
+     *
+     */
     function addData(url, requestData) {
         fetchData(url, {
             method: HTTP_METHODS.POST,
@@ -103,7 +143,7 @@ $(document).ready(function () {
             letterTxt: $('#letterTxt').val(),
             mainTxt: $('#mainTxt').val(),
             greetTxt: $('#greetTxt').val(),
-            mainImageId : mainImageId
+            mainImageId: mainImageId
         }
     }
 
@@ -175,7 +215,8 @@ function handleSubmitErrorResponse(error) {
             title: '등록에 실패했습니다',
             text: error.errorMsg,
             alertType: 'error',
-            callback() {}
+            callback() {
+            }
         });
     } else {
         throw error;
@@ -205,7 +246,8 @@ function validateNumber(inputElement) {
         showOneButtonAlert({
             title: '숫자만 입력 가능합니다.',
             alertType: 'info',
-            callback() {}
+            callback() {
+            }
         });
     }
 }

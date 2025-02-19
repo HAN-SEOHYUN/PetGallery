@@ -32,6 +32,8 @@ $(document).ready(function () {
     // 초대장 삭제 요청을 보내는 함수
     function deleteInvitation(invitationId, button) {
         const url = `${REQUEST_URL}/${invitationId}`;
+        console.log("url:",url);
+        console.log("HTTP_METHODS.DELETE:", HTTP_METHODS.DELETE);
 
         fetchData(url, {
             method: HTTP_METHODS.DELETE,
@@ -41,7 +43,7 @@ $(document).ready(function () {
         })
             .then(() => {
                 console.log(`Invitation ${invitationId} deleted successfully.`);
-                showSuccessAndRedirectAlert(MAIN_PAGE);
+                //showSuccessAndRedirectAlert(MAIN_PAGE);
             })
             .catch(error => {
                 handleSubmitErrorResponse(JSON.parse(error));

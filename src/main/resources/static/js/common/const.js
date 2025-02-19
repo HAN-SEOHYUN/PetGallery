@@ -1,6 +1,8 @@
 const HTTP_METHODS = {
     GET: 'GET',
-    POST: 'POST'
+    POST: 'POST',
+    PUT: "PUT",
+    DELETE: "DELETE"
 };
 
 const HTTP_STATUS = {

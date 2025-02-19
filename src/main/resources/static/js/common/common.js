@@ -4,12 +4,16 @@ function fetchData(url, options = {}) {
         method: options.method || HTTP_METHODS.GET,  // 기본값은 GET
         dataType: 'json',       // 응답 데이터 타입
         headers: options.headers || {},  // 기본 헤더 설정
-        data: options.data || {},       // 요청 데이터
     };
+
+    if (options.method !== HTTP_METHODS.DELETE) {
+        settings.data = options.data || {};
+    }
 
     return new Promise((resolve, reject) => {
         $.ajax({
             ...settings,
+            type: settings.method,
             success: function(data) {
                 resolve(data);
             },

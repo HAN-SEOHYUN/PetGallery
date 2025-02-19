@@ -43,7 +43,7 @@ $(document).ready(function () {
         })
             .then(() => {
                 console.log(`Invitation ${invitationId} deleted successfully.`);
-                //showSuccessAndRedirectAlert(MAIN_PAGE);
+                showSuccessAndRedirectAlert(MAIN_PAGE);
             })
             .catch(error => {
                 handleSubmitErrorResponse(JSON.parse(error));
@@ -62,7 +62,6 @@ $(document).ready(function () {
                 populateInvitationDetail(response);
             })
             .catch(error => { // 실패
-
             });
     }
 

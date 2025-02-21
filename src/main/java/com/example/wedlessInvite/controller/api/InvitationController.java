@@ -1,5 +1,7 @@
 package com.example.wedlessInvite.controller.api;
 
+import com.example.wedlessInvite.common.logtrace.LogTrace;
+import com.example.wedlessInvite.common.template.AbstractLogTraceTemplate;
 import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
 import com.example.wedlessInvite.dto.InvitationMasterRequestDto;
 import com.example.wedlessInvite.dto.InvitationMasterResponseDto;
@@ -20,13 +22,20 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class InvitationController {
     private final InvitationService invitationService;
+    private final LogTrace trace;
 
     @PostMapping
     public ResponseEntity<InvitationMaster> createInvitation(
             @Valid @RequestBody InvitationMasterRequestDto dto) throws IOException {
 
-        InvitationMaster savedInvitation = invitationService.saveInvitationMaster(dto);
-        return ResponseEntity.ok(savedInvitation);
+        AbstractLogTraceTemplate<ResponseEntity<InvitationMaster>> template = new AbstractLogTraceTemplate<>(trace) {
+            @Override
+            protected ResponseEntity<InvitationMaster> call() throws IOException {
+                InvitationMaster savedInvitation = invitationService.saveInvitationMaster(dto);
+                return ResponseEntity.ok(savedInvitation);
+            }
+        };
+        return template.execute("OrderController.createInvitation()");
     }
 
     @GetMapping

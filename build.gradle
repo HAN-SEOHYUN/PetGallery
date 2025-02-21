@@ -36,6 +36,10 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 	implementation "org.flywaydb:flyway-mysql"
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	//테스트에서 lombok 사용
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {

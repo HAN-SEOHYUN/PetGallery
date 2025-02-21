@@ -1,6 +1,8 @@
 package com.example.wedlessInvite.service;
 
 import com.example.wedlessInvite.common.YN;
+import com.example.wedlessInvite.common.logtrace.LogTrace;
+import com.example.wedlessInvite.common.template.AbstractLogTraceTemplate;
 import com.example.wedlessInvite.domain.Image.ImageUploads;
 import com.example.wedlessInvite.domain.Image.ImageUploadsRepository;
 import com.example.wedlessInvite.domain.Invitation.*;
@@ -32,16 +34,25 @@ public class InvitationService {
 
     private final S3FileService s3FileService;
     private final ImageUploadsRepository imageUploadsRepository;
+    private final LogTrace trace;
 
     @Transactional
     public InvitationMaster saveInvitationMaster(InvitationMasterRequestDto dto) throws IOException {
+        AbstractLogTraceTemplate<InvitationMaster> template = new AbstractLogTraceTemplate<>(trace) {
+            @Override
+            protected InvitationMaster call() throws IOException {
+                // 비즈니스 로직 수행
+                BrideInfo brideInfo = brideInfoRepository.save(dto.getBrideInfo());
+                GroomInfo groomInfo = groomInfoRepository.save(dto.getGroomInfo());
+                ImageUploads imageUploads = imageUploadsRepository.findImageUploadsById(dto.getMainImageId());
+                dto.setMainImage(imageUploads);
 
-        BrideInfo brideInfo = brideInfoRepository.save(dto.getBrideInfo());
-        GroomInfo groomInfo = groomInfoRepository.save(dto.getGroomInfo());
-        ImageUploads imageUploads = imageUploadsRepository.findImageUploadsById(dto.getMainImageId());
-        dto.setMainImage(imageUploads);
-
-        return invitationMasterRepository.save(dto.toEntity());
+                // 엔티티 저장
+                return invitationMasterRepository.save(dto.toEntity());
+            }
+        };
+        // 예외 처리 및 실행
+        return template.execute("InvitationService.saveInvitationMaster");
     }
 
     private ImageUploadDto validateAndUploadS3(MultipartFile file) throws IOException {

@@ -57,9 +57,16 @@ public class InvitationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InvitationMasterResponseDto> getInvitationDetail(@PathVariable Long id) {
-        InvitationMasterResponseDto invitationDetail = invitationService.getInvitationDetail(id);
-        return ResponseEntity.ok(invitationDetail);
+    public ResponseEntity<InvitationMasterResponseDto> getInvitationDetail(@PathVariable Long id) throws IOException {
+
+        AbstractLogTraceTemplate<ResponseEntity<InvitationMasterResponseDto>> template = new AbstractLogTraceTemplate<>(trace) {
+            @Override
+            protected ResponseEntity<InvitationMasterResponseDto> call() throws IOException {
+                InvitationMasterResponseDto invitationDetail = invitationService.getInvitationDetail(id);
+                return ResponseEntity.ok(invitationDetail);
+            }
+        };
+        return template.execute("InvitationController.getInvitationDetail()");
     }
 
     @DeleteMapping("/{id}")

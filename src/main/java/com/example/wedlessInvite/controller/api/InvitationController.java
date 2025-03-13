@@ -35,28 +35,51 @@ public class InvitationController {
                 return ResponseEntity.ok(savedInvitation);
             }
         };
-        return template.execute("OrderController.createInvitation()");
+        return template.execute("InvitationController.createInvitation()");
     }
 
     @GetMapping
     public ResponseEntity<Page<InvitationMasterResponseDto>> getInvitationList(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size
-    ) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<InvitationMasterResponseDto> invitationList = invitationService.getAllInvitations(pageable);
-        return ResponseEntity.ok(invitationList);
+    ) throws IOException {
+
+        AbstractLogTraceTemplate<ResponseEntity<Page<InvitationMasterResponseDto>>> template = new AbstractLogTraceTemplate<>(trace) {
+            @Override
+            protected ResponseEntity<Page<InvitationMasterResponseDto>> call() throws IOException {
+                Pageable pageable = PageRequest.of(page, size);
+                Page<InvitationMasterResponseDto> invitationList = invitationService.getAllInvitations(pageable);
+                return ResponseEntity.ok(invitationList);
+            }
+        };
+
+        return template.execute("InvitationController.getInvitationList()");
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InvitationMasterResponseDto> getInvitationDetail(@PathVariable Long id) {
-        InvitationMasterResponseDto invitationDetail = invitationService.getInvitationDetail(id);
-        return ResponseEntity.ok(invitationDetail);
+    public ResponseEntity<InvitationMasterResponseDto> getInvitationDetail(@PathVariable Long id) throws IOException {
+
+        AbstractLogTraceTemplate<ResponseEntity<InvitationMasterResponseDto>> template = new AbstractLogTraceTemplate<>(trace) {
+            @Override
+            protected ResponseEntity<InvitationMasterResponseDto> call() throws IOException {
+                InvitationMasterResponseDto invitationDetail = invitationService.getInvitationDetail(id);
+                return ResponseEntity.ok(invitationDetail);
+            }
+        };
+        return template.execute("InvitationController.getInvitationDetail()");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteInvitation(@PathVariable Long id) {
-        invitationService.deleteInvitation(id);
-        return ResponseEntity.noContent().build(); // 204 No Content 반환
+    public ResponseEntity<Void> deleteInvitation(@PathVariable Long id) throws IOException {
+
+        AbstractLogTraceTemplate<ResponseEntity<Void>> template = new AbstractLogTraceTemplate<>(trace) {
+            @Override
+            protected ResponseEntity<Void> call() throws IOException {
+                invitationService.deleteInvitation(id);
+                return ResponseEntity.noContent().build();
+            }
+        };
+
+        return template.execute("InvitationController.deleteInvitation()");
     }
 }

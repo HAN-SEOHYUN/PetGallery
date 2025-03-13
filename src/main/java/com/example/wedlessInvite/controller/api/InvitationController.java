@@ -70,8 +70,16 @@ public class InvitationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteInvitation(@PathVariable Long id) {
-        invitationService.deleteInvitation(id);
-        return ResponseEntity.noContent().build(); // 204 No Content 반환
+    public ResponseEntity<Void> deleteInvitation(@PathVariable Long id) throws IOException {
+
+        AbstractLogTraceTemplate<ResponseEntity<Void>> template = new AbstractLogTraceTemplate<>(trace) {
+            @Override
+            protected ResponseEntity<Void> call() throws IOException {
+                invitationService.deleteInvitation(id);
+                return ResponseEntity.noContent().build();
+            }
+        };
+
+        return template.execute("InvitationController.deleteInvitation()");
     }
 }

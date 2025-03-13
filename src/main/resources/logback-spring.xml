@@ -1,0 +1,33 @@
+<configuration>
+    <!-- 콘솔 로그 설정 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                <!-- 시간 / 로그를 남긴 실행 스레드명 / 로그레벨 / 클래스 /
+                로거 이름 / 	로그 메시지 -->
+                <!-- 2025-03-13 16:33:59 [http-nio-8080-exec-2] INFO  c.e.w.c.logtrace.ThreadLocalLogTrace -
+                [52fbc020] |<-InvitationService.saveInvitationMaster time=32ms -->
+        </encoder>
+    </appender>
+
+    <!-- 파일 로그 설정 (RollingFileAppender) -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/log_%d{yyyyMMdd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>  <!-- 30일치 로그 보관 -->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 로그 레벨 설정 -->
+    <logger name="com.example.wedlessInvite" level="DEBUG" />
+    <logger name="org.springframework" level="WARN" />
+
+    <!-- 기본 로그 레벨 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

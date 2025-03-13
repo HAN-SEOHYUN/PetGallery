@@ -35,17 +35,25 @@ public class InvitationController {
                 return ResponseEntity.ok(savedInvitation);
             }
         };
-        return template.execute("OrderController.createInvitation()");
+        return template.execute("InvitationController.createInvitation()");
     }
 
     @GetMapping
     public ResponseEntity<Page<InvitationMasterResponseDto>> getInvitationList(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size
-    ) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<InvitationMasterResponseDto> invitationList = invitationService.getAllInvitations(pageable);
-        return ResponseEntity.ok(invitationList);
+    ) throws IOException {
+
+        AbstractLogTraceTemplate<ResponseEntity<Page<InvitationMasterResponseDto>>> template = new AbstractLogTraceTemplate<>(trace) {
+            @Override
+            protected ResponseEntity<Page<InvitationMasterResponseDto>> call() throws IOException {
+                Pageable pageable = PageRequest.of(page, size);
+                Page<InvitationMasterResponseDto> invitationList = invitationService.getAllInvitations(pageable);
+                return ResponseEntity.ok(invitationList);
+            }
+        };
+
+        return template.execute("InvitationController.getInvitationList()");
     }
 
     @GetMapping("/{id}")

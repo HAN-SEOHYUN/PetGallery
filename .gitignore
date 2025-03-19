@@ -39,3 +39,7 @@ out/
 ### key ###
 src/main/resources/application.properties
 logs/
+apache-jmeter-5.6.3/
+apache-jmeter-5.6.3.tgz
+jmeter.log
+*.jmx

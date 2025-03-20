@@ -1,7 +1,7 @@
 const REQUEST_URL = '/api/invitations';
 const UPLOAD_URL = '/api/images'
 const MAIN_PAGE = '/invitations/main';
-let mainImageId = null;
+let imageIdList = [];
 
 $(document).ready(function () {
     const $fileInput = $('#fileInput');
@@ -95,7 +95,7 @@ $(document).ready(function () {
         toggleUploadState(true);
         uploadFile(UPLOAD_URL, {file})
             .then((response) => {
-                mainImageId = response;
+                imageIdList.push(response);
                 toggleUploadState(false);
             })
             .catch((error) => {
@@ -148,7 +148,7 @@ $(document).ready(function () {
             letterTxt: $('#letterTxt').val(),
             mainTxt: $('#mainTxt').val(),
             greetTxt: $('#greetTxt').val(),
-            mainImageId: mainImageId
+            // imageIdList:imageIdList
         }
     }
 

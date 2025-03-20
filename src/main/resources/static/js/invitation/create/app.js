@@ -65,19 +65,24 @@ $(document).ready(function () {
     }
 
     function handleFileChange(event) {
-        const file = event.target.files[0];
+        const files = event.target.files;
 
-        if (file) {
-            previewImage(file);
-            addFile(file);
-        } else {
-            $previewImage.hide(); // 파일이 선택되지 않으면 미리보기 숨기기
+        if (files.length > 0) {
+            $.each(files, function (index, file) {
+                previewImage(file);
+                addFile(file);
+            });
         }
     }
 
     function previewImage(file) {
+        if (!file) return; // 파일이 없으면 함수 종료
+
         const reader = new FileReader();
-        reader.onload = e => $previewImage.attr('src', e.target.result).show();
+        reader.onload = function (e) {
+            const img = $("<img>").attr("src", e.target.result).css({ width: "100px", height: "100px", margin: "5px" });
+            $("#previewContainer").append(img);
+        };
         reader.readAsDataURL(file);
     }
 

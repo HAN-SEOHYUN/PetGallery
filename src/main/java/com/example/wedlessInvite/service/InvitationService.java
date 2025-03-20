@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -48,7 +49,17 @@ public class InvitationService {
                 dto.setMainImage(imageUploads);
 
                 // 엔티티 저장
-                return invitationMasterRepository.save(dto.toEntity());
+                InvitationMaster invitation = invitationMasterRepository.save(dto.toEntity());
+
+                // 이미지 리스트 처리
+                System.out.println(dto.getImageIdList());
+                if (dto.getImageIdList() != null && !dto.getImageIdList().isEmpty()) {
+                    List<ImageUploads> images = imageUploadsRepository.findAllById(dto.getImageIdList());
+                    images.forEach(image -> image.setInvitationId(invitation));
+                    imageUploadsRepository.saveAll(images);
+                }
+
+                return invitation;
             }
         };
         // 예외 처리 및 실행

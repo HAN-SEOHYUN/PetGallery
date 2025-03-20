@@ -1,7 +1,7 @@
 const REQUEST_URL = '/api/invitations';
 const UPLOAD_URL = '/api/images'
 const MAIN_PAGE = '/invitations/main';
-let mainImageId = null;
+let imageIdList = [];
 
 $(document).ready(function () {
     const $fileInput = $('#fileInput');
@@ -65,19 +65,24 @@ $(document).ready(function () {
     }
 
     function handleFileChange(event) {
-        const file = event.target.files[0];
+        const files = event.target.files;
 
-        if (file) {
-            previewImage(file);
-            addFile(file);
-        } else {
-            $previewImage.hide(); // 파일이 선택되지 않으면 미리보기 숨기기
+        if (files.length > 0) {
+            $.each(files, function (index, file) {
+                previewImage(file);
+                addFile(file);
+            });
         }
     }
 
     function previewImage(file) {
+        if (!file) return; // 파일이 없으면 함수 종료
+
         const reader = new FileReader();
-        reader.onload = e => $previewImage.attr('src', e.target.result).show();
+        reader.onload = function (e) {
+            const img = $("<img>").attr("src", e.target.result).css({ width: "100px", height: "100px", margin: "5px" });
+            $("#previewContainer").append(img);
+        };
         reader.readAsDataURL(file);
     }
 
@@ -90,7 +95,7 @@ $(document).ready(function () {
         toggleUploadState(true);
         uploadFile(UPLOAD_URL, {file})
             .then((response) => {
-                mainImageId = response;
+                imageIdList.push(response);
                 toggleUploadState(false);
             })
             .catch((error) => {
@@ -143,7 +148,7 @@ $(document).ready(function () {
             letterTxt: $('#letterTxt').val(),
             mainTxt: $('#mainTxt').val(),
             greetTxt: $('#greetTxt').val(),
-            mainImageId: mainImageId
+            imageIdList:imageIdList
         }
     }
 

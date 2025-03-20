@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,6 +19,7 @@ public class InvitationMasterRequestDto {
     private LocalDate date;  // 결혼일자
     private ImageUploads mainImage;
     private Long mainImageId; // 이미지 ID
+    private List<Long> imageIdList;
     private BrideInfo brideInfo;  // 신부 정보
     private GroomInfo groomInfo;  // 신랑 정보
     private String letterTxt;  // 레터링 문구
@@ -37,10 +39,11 @@ public class InvitationMasterRequestDto {
     }
 
     @Builder
-    public InvitationMasterRequestDto(LocalDate date, ImageUploads mainImage,Long mainImageId, BrideInfo brideInfo, GroomInfo groomInfo, String letterTxt, String mainTxt, String greetTxt) {
+    public InvitationMasterRequestDto(LocalDate date, ImageUploads mainImage,Long mainImageId, List<Long> imageIdList,BrideInfo brideInfo, GroomInfo groomInfo, String letterTxt, String mainTxt, String greetTxt) {
         this.date = date;
         this.mainImage = mainImage;
         this.mainImageId = mainImageId;
+        this.imageIdList = imageIdList;
         this.brideInfo = brideInfo;
         this.groomInfo = groomInfo;
         this.letterTxt = letterTxt;

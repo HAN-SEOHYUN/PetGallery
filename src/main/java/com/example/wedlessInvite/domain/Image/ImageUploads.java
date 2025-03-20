@@ -21,7 +21,7 @@ public class ImageUploads extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "IU_IM_ID", nullable = true) // 추후 변경필요
+    @JoinColumn(name = "IU_IM_ID", nullable = true)
     @Comment("INVITATION_MASTER_ID")
     private InvitationMaster invitationId;
 
@@ -46,6 +46,10 @@ public class ImageUploads extends BaseEntity {
     @Column(name="IS_DELETED")
     private Boolean isDeleted;
 
+    public void setInvitationId(InvitationMaster invitation) {
+        this.invitationId = invitation;
+    }
+
     @Builder
     public ImageUploads(InvitationMaster invitationId, String fileName, String orgFileName, String s3Url, Long fileSize, String fileType, Boolean isDeleted) {
         this.invitationId = invitationId;
@@ -56,4 +60,5 @@ public class ImageUploads extends BaseEntity {
         this.fileType = fileType;
         this.isDeleted = isDeleted;
     }
+
 }

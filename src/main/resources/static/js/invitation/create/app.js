@@ -148,7 +148,7 @@ $(document).ready(function () {
             letterTxt: $('#letterTxt').val(),
             mainTxt: $('#mainTxt').val(),
             greetTxt: $('#greetTxt').val(),
-            // imageIdList:imageIdList
+            imageIdList:imageIdList
         }
     }
 

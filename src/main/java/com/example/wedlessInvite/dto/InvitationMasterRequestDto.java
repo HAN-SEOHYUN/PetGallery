@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.validation.constraints.NotNull;
+
+import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,19 +19,18 @@ import java.util.List;
 public class InvitationMasterRequestDto {
     @NotNull(message = "결혼일자는 필수 입력값입니다.")
     private LocalDate date;  // 결혼일자
-    private ImageUploads mainImage;
-    private Long mainImageId; // 이미지 ID
-    private List<Long> imageIdList;
+    private Long mainImageId; // 메인 이미지
+    private List<Long> imageIdList; // 이미지 리스트
     private BrideInfo brideInfo;  // 신부 정보
     private GroomInfo groomInfo;  // 신랑 정보
     private String letterTxt;  // 레터링 문구
     private String mainTxt;  // 메인 텍스트
     private String greetTxt;  // 인사말
 
-    public InvitationMaster toEntity() {
+    public InvitationMaster toEntity(ImageUploads mainImage) {
         return InvitationMaster.builder()
-                .mainImage(mainImage)
                 .date(date)
+                .mainImage(mainImage)
                 .brideInfo(brideInfo)
                 .groomInfo(groomInfo)
                 .letterTxt(letterTxt)
@@ -39,10 +40,8 @@ public class InvitationMasterRequestDto {
     }
 
     @Builder
-    public InvitationMasterRequestDto(LocalDate date, ImageUploads mainImage,Long mainImageId, List<Long> imageIdList,BrideInfo brideInfo, GroomInfo groomInfo, String letterTxt, String mainTxt, String greetTxt) {
+    public InvitationMasterRequestDto(LocalDate date, ImageUploads mainImage, List<Long> imageIdList,BrideInfo brideInfo, GroomInfo groomInfo, String letterTxt, String mainTxt, String greetTxt) {
         this.date = date;
-        this.mainImage = mainImage;
-        this.mainImageId = mainImageId;
         this.imageIdList = imageIdList;
         this.brideInfo = brideInfo;
         this.groomInfo = groomInfo;

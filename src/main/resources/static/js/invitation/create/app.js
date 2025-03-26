@@ -96,6 +96,7 @@ $(document).ready(function () {
         uploadFile(UPLOAD_URL, {file})
             .then((response) => {
                 imageIdList.push(response);
+                console.log(imageIdList);
                 toggleUploadState(false);
             })
             .catch((error) => {
@@ -148,7 +149,8 @@ $(document).ready(function () {
             letterTxt: $('#letterTxt').val(),
             mainTxt: $('#mainTxt').val(),
             greetTxt: $('#greetTxt').val(),
-            imageIdList:imageIdList
+            imageIdList:imageIdList,
+            mainImageId: imageIdList[0] // 추후 변경 예정
         }
     }
 

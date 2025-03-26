@@ -46,10 +46,9 @@ public class InvitationService {
                 BrideInfo brideInfo = brideInfoRepository.save(dto.getBrideInfo());
                 GroomInfo groomInfo = groomInfoRepository.save(dto.getGroomInfo());
                 ImageUploads imageUploads = imageUploadsRepository.findImageUploadsById(dto.getMainImageId());
-                dto.setMainImage(imageUploads);
 
                 // 엔티티 저장
-                InvitationMaster invitation = invitationMasterRepository.save(dto.toEntity());
+                InvitationMaster invitation = invitationMasterRepository.save(dto.toEntity(imageUploads));
 
                 // 이미지 리스트 처리
                 System.out.println(dto.getImageIdList());

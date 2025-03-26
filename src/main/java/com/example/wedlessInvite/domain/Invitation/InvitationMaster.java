@@ -2,6 +2,7 @@ package com.example.wedlessInvite.domain.Invitation;
 
 import com.example.wedlessInvite.domain.BaseEntity;
 import com.example.wedlessInvite.domain.Image.ImageUploads;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -45,6 +46,7 @@ public class InvitationMaster extends BaseEntity {
 
     @OneToMany(mappedBy = "invitationId", cascade = CascadeType.ALL, orphanRemoval = true)
     @Comment("웨딩사진")
+    @JsonIgnore
     private List<ImageUploads> imageList;
 
     @Column(name = "IM_LETTER_TEXT")

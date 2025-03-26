@@ -2,6 +2,7 @@ package com.example.wedlessInvite.domain.Image;
 
 import com.example.wedlessInvite.domain.BaseEntity;
 import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -23,6 +24,7 @@ public class ImageUploads extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IU_IM_ID", nullable = true)
     @Comment("INVITATION_MASTER_ID")
+    @JsonIgnore
     private InvitationMaster invitationId;
 
     @Column(name="IU_FILE_NAME", nullable = false, length = 255, unique = true)

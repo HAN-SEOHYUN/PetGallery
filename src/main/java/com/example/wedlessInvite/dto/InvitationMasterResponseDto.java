@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,17 +18,19 @@ public class InvitationMasterResponseDto {
     private BrideInfo brideInfo;
     private GroomInfo groomInfo;
     private ImageUploads mainImage;
+    private List<ImageUploadDto> imageList;
     private String letterTxt;
     private String mainTxt;
     private String greetTxt;
 
     @Builder
-    public InvitationMasterResponseDto(Long id, LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo,ImageUploads mainImage, String letterTxt, String mainTxt, String greetTxt) {
+    public InvitationMasterResponseDto(Long id, LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo,ImageUploads mainImage, List<ImageUploadDto> imageList, String letterTxt, String mainTxt, String greetTxt) {
         this.id = id;
         this.date = date;
         this.brideInfo = brideInfo;
         this.groomInfo = groomInfo;
         this.mainImage = mainImage;
+        this.imageList = imageList;
         this.letterTxt = letterTxt;
         this.mainTxt = mainTxt;
         this.greetTxt = greetTxt;

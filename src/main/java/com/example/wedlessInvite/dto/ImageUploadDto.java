@@ -32,6 +32,16 @@ public class ImageUploadDto {
                 .build();
     }
 
+    public static ImageUploadDto fromEntity(ImageUploads imageUploads) {
+        return ImageUploadDto.builder()
+                .fileName(imageUploads.getFileName())
+                .orgFileName(imageUploads.getOrgFileName())
+                .s3Url(imageUploads.getS3Url())
+                .fileSize(imageUploads.getFileSize())
+                .fileType(imageUploads.getFileType())
+                .build();
+    }
+
     @Builder
     public ImageUploadDto(String fileName, String orgFileName, String s3Url, Long fileSize, String fileType) {
         this.fileName = fileName;

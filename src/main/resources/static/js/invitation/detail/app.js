@@ -66,15 +66,33 @@ $(document).ready(function () {
     }
 
     // 이미지 설정 함수
-    function setImage(imageData) {
-        const $imagePlaceholder = $(".image-placeholder");
-        if (imageData?.s3Url) {
-            $imagePlaceholder.html(
-                `<img src="${imageData.s3Url}" alt="${imageData.orgFileName}" class="main-image">`
+    function setMainImage(mainImageData) {
+        const $mainImageContainer = $(".main-image-container");
+        if (mainImageData?.s3Url) {
+            $mainImageContainer.html(
+                `<img src="${mainImageData.s3Url}" alt="${mainImageData.orgFileName}" class="main-image">`
             );
         } else {
-            $imagePlaceholder.html("이미지가 없습니다.");
+            $mainImageContainer.html("이미지가 없습니다.");
         }
+    }
+
+    function setImageList(imageList) {
+
+        if (!Array.isArray(imageList) || imageList.length === 0) {
+            console.error("Invalid image list data");
+        }
+        
+        const $imageListContainer = $(".image-list-container");
+        $imageListContainer.empty();
+
+        imageList.forEach(image => {
+            const $imgElement = $("<img>")
+                .attr("src", image.s3Url)
+                .attr("alt", image.orgFileName);
+
+            $imageListContainer.append($imgElement);
+        });
     }
 
     // 결혼 정보 바인딩
@@ -117,7 +135,8 @@ $(document).ready(function () {
         bindWeddingInfo(data);
         bindBrideInfo(data.brideInfo);
         bindGroomInfo(data.groomInfo);
-        setImage(data.mainImage);
+        setMainImage(data.mainImage);
+        setImageList(data.imageList);
     }
 
     // 체크박스를 설정하는 함수

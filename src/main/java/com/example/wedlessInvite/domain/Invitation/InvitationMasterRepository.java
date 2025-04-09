@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface InvitationMasterRepository extends JpaRepository<InvitationMaster, Long> {
 
-    Page<InvitationMaster> findByDeleteYN(String deleteYN, Pageable pageable);
+    Page<InvitationMaster> findByDeleteYNOrderByRegTimeDesc(String deleteYN, Pageable pageable);
 }

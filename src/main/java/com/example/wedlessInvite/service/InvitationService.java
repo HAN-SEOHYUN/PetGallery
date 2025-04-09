@@ -74,7 +74,7 @@ public class InvitationService {
     }
 
     public Page<InvitationMasterResponseDto> getAllInvitations(Pageable pageable) {
-        Page<InvitationMaster> entity = invitationMasterRepository.findByDeleteYN("N",pageable);
+        Page<InvitationMaster> entity = invitationMasterRepository.findByDeleteYNOrderByRegTimeDesc("N",pageable);
 
         // Entity에서 DTO로 변환
         return entity.map(invitation -> InvitationMasterResponseDto.builder()
@@ -86,6 +86,7 @@ public class InvitationService {
                 .letterTxt(invitation.getLetterTxt())
                 .mainTxt(invitation.getMainTxt())
                 .greetTxt(invitation.getGreetTxt())
+                .regTime(invitation.getRegTime())
                 .build());
     }
 

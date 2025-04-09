@@ -37,6 +37,8 @@ public class InvitationMasterResponseDto {
         this.letterTxt = letterTxt;
         this.mainTxt = mainTxt;
         this.greetTxt = greetTxt;
-        this.regTime = regTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        this.regTime = (regTime != null)
+                ? regTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                : null;
     }
 }

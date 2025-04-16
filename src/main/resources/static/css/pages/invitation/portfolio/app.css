@@ -1,0 +1,384 @@
+/* app.css */
+
+/* 페이지 레이아웃 설정 */
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    gap: 2rem;
+}
+
+/* 사이드바 영역 */
+.sidebar {
+    flex: 0 0 280px;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+}
+
+/* 프로필 이미지 */
+.profile-img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+}
+
+/* 이름 및 영문 이름 */
+.name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.name span {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: normal;
+    color: #666;
+}
+
+/* 기본 정보 리스트 */
+.info {
+    list-style: none;
+    font-size: 0.95rem;
+    color: #333;
+    padding-left: 0;
+}
+
+.info li {
+    margin-bottom: 0.5rem;
+}
+
+.info a {
+    color: #1e88e5;
+    text-decoration: none;
+}
+
+/* 메인 콘텐츠 */
+.main {
+    flex: 1;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 소개 섹션 타이틀 - marker 효과 추가 */
+.portfolio-section h2 {
+    position: relative;
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #1e88e5; /* 밑줄 유지 */
+    display: inline-block;
+    padding-bottom: 0.3rem;
+    z-index: 1; /* 텍스트가 형광펜 위로 오도록 */
+}
+
+.portfolio-section h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0.1rem; /* 텍스트보다 살짝 아래 */
+    width: 100%;
+    height: 0.8em;
+    background: #d3e9ff; /* 형광펜 색상 */
+    z-index: -1;
+    opacity: 0.6;
+    border-radius: 0.2em; /* 붓 느낌 부드럽게 */
+}
+
+
+
+.job .company-name {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+/* 소개 문단 스타일 */
+.portfolio-section p {
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.7;
+}
+
+/* 강조 텍스트 */
+.portfolio-section strong {
+    font-weight: bold;
+}
+
+/* 링크 스타일 */
+.portfolio-section a {
+    color: #1e88e5;
+    text-decoration: none;
+}
+
+/* 반응형 대응 */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+    }
+
+    .main {
+        width: 100%;
+    }
+}
+
+/* contact 섹션 스타일 */
+.contact {
+    margin-top: 2rem;
+}
+
+.contact h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #1e88e5;
+    padding-bottom: 0.3rem;
+}
+
+.contact ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.contact li {
+    font-size: 1rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.contact li i {
+    font-size: 1.2rem;
+    color: #1e88e5;
+    margin-right: 0.8rem;
+}
+
+.contact li a {
+    color: #1e88e5;
+    text-decoration: none;
+}
+
+.contact li a:hover {
+    text-decoration: underline;
+}
+
+/* job 섹션 스타일 */
+.job {
+    margin-bottom: 30px;
+}
+
+.job p {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.job .company-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.job .period {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.job .period span {
+    font-weight: bold;
+    color: #495057;
+}
+
+.job .company-desc,
+.job .project-desc,
+.job .functions {
+    font-size: 1rem;
+    color: #343a40;
+}
+
+/* 역할 (role) 스타일 */
+
+.role h4 {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    color: #343a40;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.role ul {
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.role ul li {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 8px;
+}
+
+.role ul li:last-child {
+    margin-bottom: 0;
+}
+
+/* 반응형 대응 */
+@media screen and (max-width: 768px) {
+    .job p {
+        font-size: 0.95rem;
+    }
+
+    .job .company-name {
+        font-size: 1.1rem;
+    }
+
+    .job .period {
+        font-size: 0.9rem;
+    }
+
+    .job .company-desc,
+    .job .project-desc,
+    .job .functions {
+        font-size: 1rem;
+    }
+
+    .role h4 {
+        font-size: 1.1rem;
+    }
+
+    .role ul li {
+        font-size: 0.95rem;
+    }
+}
+
+/* 학력 */
+
+.education-item {
+    border-left: 4px solid #adb5bd;
+    padding-left: 16px;
+    margin-bottom: 16px;
+}
+
+.school-name {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #212529;
+}
+
+.education-detail {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.education-detail li {
+    margin-bottom: 4px;
+    font-size: 14px;
+    color: #495057;
+}
+.portfolio-section .section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #343a40;
+}
+
+/* skills */
+.portfolio-section .skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+}
+
+.portfolio-section .skill-category {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.portfolio-section .skill-category h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #495057;
+}
+
+.portfolio-section .skill-category ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.portfolio-section .skill-category ul li {
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #212529;
+}
+
+.portfolio-section .articles .icon-pin {
+    color: #e08aa5;
+    margin-right: 6px;
+}
+
+.portfolio-section .articles ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.articles ul li {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.portfolio-section .project {
+    margin-bottom: 40px;
+}
+
+.project {
+    display: flex;
+}
+
+.period-area{
+    flex: 0 0 200px;
+}
+
+.period-area p {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #7d838a;
+}
+
+.project h4{
+    font-size:1.5rem;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #495057;
+}
+
+.project ul {
+    padding-left: 20px;
+}
+
+.project ul li {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}

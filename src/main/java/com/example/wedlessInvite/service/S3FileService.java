@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-import static com.example.wedlessInvite.common.Utils.formattedTime;
 import static com.example.wedlessInvite.common.Utils.getFileExtension;
 import static com.example.wedlessInvite.common.VarConst.S3_UPLOAD_FOLDER;
 

@@ -11,4 +11,5 @@ public final class VarConst {
     public static final String S3_UPLOAD_FOLDER = "uploads/";
     public static final long MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
     public static final Set<String> VALID_FILE_EXTENSIONS = new HashSet<>(Arrays.asList("png", "jpg", "jpeg"));
+    public static final String DOG_CAT_API_URL = "http://localhost:5000/predict";
 }

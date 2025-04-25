@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.example.wedlessInvite.common.VarConst.S3_UPLOAD_FOLDER;
+import static com.example.wedlessInvite.exception.ErrorCode.EXCEED_MAX_FILE_SIZE;
+import static com.example.wedlessInvite.exception.ErrorCode.INVALID_FILE_TYPE;
 
 @RestController
 @RequestMapping("/api/images")
@@ -41,6 +43,7 @@ public class ImageController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Long> createImage(@RequestPart("file") MultipartFile file) {
         try {
+            imageUploadService.validatePetImage(file);
             imageUploadService.validateFileSize(file);
             imageUploadService.validateFileExtension(file);
 
@@ -49,7 +52,6 @@ public class ImageController {
 
             Long imageID =  imageUploads.getId();
             return ResponseEntity.ok().body(imageID);
-
         }  catch (IOException e) {
             return ResponseEntity.status(500).body(null);
         }

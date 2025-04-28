@@ -6,9 +6,12 @@ import com.example.wedlessInvite.common.template.AbstractLogTraceTemplate;
 import com.example.wedlessInvite.domain.Image.ImageUploads;
 import com.example.wedlessInvite.domain.Image.ImageUploadsRepository;
 import com.example.wedlessInvite.domain.Invitation.*;
+import com.example.wedlessInvite.domain.User.MasterUser;
+import com.example.wedlessInvite.domain.User.MasterUserRepository;
 import com.example.wedlessInvite.dto.ImageUploadDto;
 import com.example.wedlessInvite.dto.InvitationMasterRequestDto;
 import com.example.wedlessInvite.dto.InvitationMasterResponseDto;
+import com.example.wedlessInvite.exception.CustomException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -23,20 +26,21 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.wedlessInvite.exception.ErrorCode.USER_NOT_FOUND;
+
 @RequiredArgsConstructor
 @Service
 public class InvitationService {
 
     private final InvitationMasterRepository invitationMasterRepository;
-
     private final BrideInfoRepository brideInfoRepository;
-
     private final GroomInfoRepository groomInfoRepository;
+    private final MasterUserRepository userRepository;
+    private final ImageUploadsRepository imageUploadsRepository;
 
     private final ImageUploadService imageUploadService;
-
     private final S3FileService s3FileService;
-    private final ImageUploadsRepository imageUploadsRepository;
+
     private final LogTrace trace;
 
     @Transactional
@@ -44,13 +48,20 @@ public class InvitationService {
         AbstractLogTraceTemplate<InvitationMaster> template = new AbstractLogTraceTemplate<>(trace) {
             @Override
             protected InvitationMaster call() throws IOException {
-                // 비즈니스 로직 수행
+
+                //User 정보 검증
+                MasterUser masterUser = userRepository.findById(dto.getUserId())
+                        .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+
+                // 기타정보 저장
                 BrideInfo brideInfo = brideInfoRepository.save(dto.getBrideInfo());
                 GroomInfo groomInfo = groomInfoRepository.save(dto.getGroomInfo());
                 ImageUploads imageUploads = imageUploadsRepository.findImageUploadsById(dto.getMainImageId());
 
                 // 엔티티 저장
-                InvitationMaster invitation = invitationMasterRepository.save(dto.toEntity(imageUploads));
+                InvitationMaster invitationMaster = dto.toEntity(imageUploads);
+                invitationMaster.setMasterUser(masterUser);
+                InvitationMaster invitation = invitationMasterRepository.save(invitationMaster);
 
                 // 이미지 리스트 처리
                 System.out.println(dto.getImageIdList());
@@ -63,7 +74,6 @@ public class InvitationService {
                 return invitation;
             }
         };
-        // 예외 처리 및 실행
         return template.execute("InvitationService.saveInvitationMaster");
     }
 

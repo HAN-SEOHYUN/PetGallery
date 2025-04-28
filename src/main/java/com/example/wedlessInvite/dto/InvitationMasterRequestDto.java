@@ -19,6 +19,8 @@ import java.util.List;
 public class InvitationMasterRequestDto {
     @NotNull(message = "결혼일자는 필수 입력값입니다.")
     private LocalDate date;  // 결혼일자
+    @NotNull
+    private Long userId;
     private Long mainImageId; // 메인 이미지
     private List<Long> imageIdList; // 이미지 리스트
     private BrideInfo brideInfo;  // 신부 정보

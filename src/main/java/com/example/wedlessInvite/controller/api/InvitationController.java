@@ -2,12 +2,17 @@ package com.example.wedlessInvite.controller.api;
 
 import com.example.wedlessInvite.common.logtrace.LogTrace;
 import com.example.wedlessInvite.common.template.AbstractLogTraceTemplate;
+import com.example.wedlessInvite.common.template.SuccessResponse;
 import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
+import com.example.wedlessInvite.domain.User.MasterUser;
+import com.example.wedlessInvite.domain.User.MasterUserRepository;
 import com.example.wedlessInvite.dto.InvitationMasterRequestDto;
 import com.example.wedlessInvite.dto.InvitationMasterResponseDto;
 import com.example.wedlessInvite.service.InvitationService;
+import com.example.wedlessInvite.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
@@ -17,22 +22,36 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+import static com.example.wedlessInvite.common.VarConst.SIGN_UP_SUCCESS_MESSAGE;
+
 @RestController
 @RequestMapping("/api/invitations")
 @RequiredArgsConstructor
 public class InvitationController {
     private final InvitationService invitationService;
+    private final MasterUserRepository userRepository;
     private final LogTrace trace;
 
     @PostMapping
-    public ResponseEntity<InvitationMaster> createInvitation(
+    public ResponseEntity<SuccessResponse<InvitationMasterResponseDto>> createInvitation(
             @Valid @RequestBody InvitationMasterRequestDto dto) throws IOException {
 
-        AbstractLogTraceTemplate<ResponseEntity<InvitationMaster>> template = new AbstractLogTraceTemplate<>(trace) {
+        AbstractLogTraceTemplate<ResponseEntity<SuccessResponse<InvitationMasterResponseDto>>> template = new AbstractLogTraceTemplate<>(trace) {
             @Override
-            protected ResponseEntity<InvitationMaster> call() throws IOException {
-                InvitationMaster savedInvitation = invitationService.saveInvitationMaster(dto);
-                return ResponseEntity.ok(savedInvitation);
+            protected ResponseEntity<SuccessResponse<InvitationMasterResponseDto>> call() throws IOException {
+
+                // InvitationMaster 저장 및 반환된 DTO 변환
+                InvitationMasterResponseDto savedInvitationDto = invitationService.saveInvitationMaster(dto);
+
+                // SuccessResponse 생성
+                SuccessResponse<InvitationMasterResponseDto> successResponse = new SuccessResponse<>(
+                        HttpStatus.CREATED,
+                        SIGN_UP_SUCCESS_MESSAGE,
+                        savedInvitationDto
+                );
+
+                // ResponseEntity로 감싸서 반환
+                return ResponseEntity.status(HttpStatus.CREATED).body(successResponse);
             }
         };
         return template.execute("InvitationController.createInvitation()");

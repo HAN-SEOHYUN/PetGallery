@@ -13,5 +13,7 @@ public final class VarConst {
     public static final Set<String> VALID_FILE_EXTENSIONS = new HashSet<>(Arrays.asList("png", "jpg", "jpeg"));
     public static final String DOG_CAT_API_URL = "http://localhost:5000/predict";
     public static final String SERVER_ERROR = "서버 오류가 발생했습니다.";
+    public static final String SIGN_UP_SUCCESS_MESSAGE = "회원가입이 완료되었습니다.";
+
 
 }

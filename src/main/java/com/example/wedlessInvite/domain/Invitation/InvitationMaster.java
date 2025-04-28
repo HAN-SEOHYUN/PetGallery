@@ -87,4 +87,8 @@ public class InvitationMaster extends BaseEntity {
     public void setDeleted(String deleted) {
         this.deleteYN = deleted;
     }
+
+    public void setMasterUser(MasterUser masterUser) {
+        this.masterUser = masterUser;
+    }
 }

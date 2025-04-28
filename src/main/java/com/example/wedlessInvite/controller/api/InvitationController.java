@@ -33,21 +33,24 @@ public class InvitationController {
     private final LogTrace trace;
 
     @PostMapping
-    public ResponseEntity<SuccessResponse<InvitationMaster>> createInvitation(
+    public ResponseEntity<SuccessResponse<InvitationMasterResponseDto>> createInvitation(
             @Valid @RequestBody InvitationMasterRequestDto dto) throws IOException {
 
-        AbstractLogTraceTemplate<ResponseEntity<SuccessResponse<InvitationMaster>>> template = new AbstractLogTraceTemplate<>(trace) {
+        AbstractLogTraceTemplate<ResponseEntity<SuccessResponse<InvitationMasterResponseDto>>> template = new AbstractLogTraceTemplate<>(trace) {
             @Override
-            protected ResponseEntity<SuccessResponse<InvitationMaster>> call() throws IOException {
+            protected ResponseEntity<SuccessResponse<InvitationMasterResponseDto>> call() throws IOException {
 
+                // InvitationMaster 저장 및 반환된 DTO 변환
+                InvitationMasterResponseDto savedInvitationDto = invitationService.saveInvitationMaster(dto);
 
-                InvitationMaster savedInvitation = invitationService.saveInvitationMaster(dto);
-
-                SuccessResponse<InvitationMaster> successResponse = new SuccessResponse<>(
+                // SuccessResponse 생성
+                SuccessResponse<InvitationMasterResponseDto> successResponse = new SuccessResponse<>(
                         HttpStatus.CREATED,
                         SIGN_UP_SUCCESS_MESSAGE,
-                        savedInvitation
+                        savedInvitationDto
                 );
+
+                // ResponseEntity로 감싸서 반환
                 return ResponseEntity.status(HttpStatus.CREATED).body(successResponse);
             }
         };

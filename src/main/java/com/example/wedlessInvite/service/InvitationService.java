@@ -44,10 +44,10 @@ public class InvitationService {
     private final LogTrace trace;
 
     @Transactional
-    public InvitationMaster saveInvitationMaster(InvitationMasterRequestDto dto) throws IOException {
-        AbstractLogTraceTemplate<InvitationMaster> template = new AbstractLogTraceTemplate<>(trace) {
+    public InvitationMasterResponseDto saveInvitationMaster(InvitationMasterRequestDto dto) throws IOException {
+        AbstractLogTraceTemplate<InvitationMasterResponseDto> template = new AbstractLogTraceTemplate<>(trace) {
             @Override
-            protected InvitationMaster call() throws IOException {
+            protected InvitationMasterResponseDto call() throws IOException {
 
                 //User 정보 검증
                 MasterUser masterUser = userRepository.findById(dto.getUserId())
@@ -71,9 +71,12 @@ public class InvitationService {
                     imageUploadsRepository.saveAll(images);
                 }
 
-                return invitation;
+                // DTO 변환 후 반환
+                return InvitationMasterResponseDto.fromEntity(invitation);
             }
         };
+
+        // template.execute()가 InvitationMasterResponseDto를 반환하도록 처리
         return template.execute("InvitationService.saveInvitationMaster");
     }
 
@@ -84,9 +87,10 @@ public class InvitationService {
     }
 
     public Page<InvitationMasterResponseDto> getAllInvitations(Pageable pageable) {
-        Page<InvitationMaster> entity = invitationMasterRepository.findByDeleteYNOrderByRegTimeDesc("N",pageable);
+        // InvitationMaster 엔티티를 페이지네이션으로 조회
+        Page<InvitationMaster> entity = invitationMasterRepository.findByDeleteYNOrderByRegTimeDesc("N", pageable);
 
-        // Entity에서 DTO로 변환
+        // Entity에서 DTO로 변환하여 반환
         return entity.map(invitation -> InvitationMasterResponseDto.builder()
                 .id(invitation.getId())
                 .date(invitation.getDate())

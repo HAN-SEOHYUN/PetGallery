@@ -12,4 +12,6 @@ public final class VarConst {
     public static final long MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
     public static final Set<String> VALID_FILE_EXTENSIONS = new HashSet<>(Arrays.asList("png", "jpg", "jpeg"));
     public static final String DOG_CAT_API_URL = "http://localhost:5000/predict";
+    public static final String SERVER_ERROR = "서버 오류가 발생했습니다.";
+
 }

@@ -1,11 +1,14 @@
 package com.example.wedlessInvite.domain.User;
 
 import com.example.wedlessInvite.domain.BaseEntity;
+import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,6 +26,9 @@ public class MasterUser extends BaseEntity {
 
     @Column(nullable = false, name="MU_PWD")
     private String pwd;
+
+    @OneToMany(mappedBy = "masterUser")
+    private List<InvitationMaster> invitationMasters;
 
     @Builder
     public MasterUser(String name, String pwd) {

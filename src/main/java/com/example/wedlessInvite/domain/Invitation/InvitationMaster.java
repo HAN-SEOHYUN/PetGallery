@@ -2,6 +2,7 @@ package com.example.wedlessInvite.domain.Invitation;
 
 import com.example.wedlessInvite.domain.BaseEntity;
 import com.example.wedlessInvite.domain.Image.ImageUploads;
+import com.example.wedlessInvite.domain.User.MasterUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -24,6 +25,11 @@ public class InvitationMaster extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IM_ID")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "IM_MU_ID", nullable = false)
+    @Comment("사용자 정보")
+    private MasterUser masterUser;  // master_user 테이블과의 관계
 
     @Column(name = "IM_D_DATE", nullable = false)
     @Comment("결혼일자")
@@ -65,7 +71,7 @@ public class InvitationMaster extends BaseEntity {
     private String deleteYN;
 
     @Builder
-    public InvitationMaster(LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploads> imageList, String letterTxt, String mainTxt, String greetTxt, String deleteYN) {
+    public InvitationMaster(LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploads> imageList, String letterTxt, String mainTxt, String greetTxt, String deleteYN, MasterUser masterUser) {
         this.date = date;
         this.brideInfo = brideInfo;
         this.groomInfo = groomInfo;
@@ -75,6 +81,7 @@ public class InvitationMaster extends BaseEntity {
         this.mainTxt = mainTxt;
         this.greetTxt = greetTxt;
         this.deleteYN = "N";
+        this.masterUser = masterUser;
     }
 
     public void setDeleted(String deleted) {

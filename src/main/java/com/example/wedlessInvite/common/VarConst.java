@@ -16,6 +16,9 @@ public final class VarConst {
     public static final String SIGN_UP_SUCCESS_MESSAGE = "회원가입이 완료되었습니다.";
     public static final String LIKE_SUCCESS_MESSAGE = "좋아요";
     public static final String LIKE_CANCEL_MESSAGE = "좋아요 취소";
+    public static final String INVITATION_LIST_FETCH_SUCCESS_MESSAGE = "리스트 조회";
+
+
 
 
 

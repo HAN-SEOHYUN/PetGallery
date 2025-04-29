@@ -6,6 +6,7 @@ import com.example.wedlessInvite.common.template.AbstractLogTraceTemplate;
 import com.example.wedlessInvite.domain.Image.ImageUploads;
 import com.example.wedlessInvite.domain.Image.ImageUploadsRepository;
 import com.example.wedlessInvite.domain.Invitation.*;
+import com.example.wedlessInvite.domain.Like.InvitationLikeRepository;
 import com.example.wedlessInvite.domain.User.MasterUser;
 import com.example.wedlessInvite.domain.User.MasterUserRepository;
 import com.example.wedlessInvite.dto.ImageUploadDto;
@@ -14,6 +15,7 @@ import com.example.wedlessInvite.dto.InvitationMasterResponseDto;
 import com.example.wedlessInvite.exception.CustomException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
 
 import static com.example.wedlessInvite.exception.ErrorCode.USER_NOT_FOUND;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class InvitationService {
@@ -42,6 +45,7 @@ public class InvitationService {
     private final S3FileService s3FileService;
 
     private final LogTrace trace;
+    private final InvitationLikeRepository invitationLikeRepository;
 
     @Transactional
     public InvitationMasterResponseDto saveInvitationMaster(InvitationMasterRequestDto dto) throws IOException {
@@ -94,13 +98,14 @@ public class InvitationService {
         return entity.map(invitation -> InvitationMasterResponseDto.builder()
                 .id(invitation.getId())
                 .date(invitation.getDate())
-                .brideInfo(invitation.getBrideInfo())
-                .groomInfo(invitation.getGroomInfo())
+//                .brideInfo(invitation.getBrideInfo())
+//                .groomInfo(invitation.getGroomInfo())
                 .mainImage(invitation.getMainImage())
                 .letterTxt(invitation.getLetterTxt())
                 .mainTxt(invitation.getMainTxt())
                 .greetTxt(invitation.getGreetTxt())
                 .regTime(invitation.getRegTime())
+                .likeCount(invitationLikeRepository.countByInvitationMasterId(invitation.getId()))
                 .build());
     }
 

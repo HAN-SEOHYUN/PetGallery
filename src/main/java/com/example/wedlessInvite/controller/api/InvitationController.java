@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+import static com.example.wedlessInvite.common.VarConst.INVITATION_LIST_FETCH_SUCCESS_MESSAGE;
 import static com.example.wedlessInvite.common.VarConst.SIGN_UP_SUCCESS_MESSAGE;
 
 @RestController
@@ -58,21 +59,20 @@ public class InvitationController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<InvitationMasterResponseDto>> getInvitationList(
+    public ResponseEntity<SuccessResponse<Page<InvitationMasterResponseDto>>> getInvitationList(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size
     ) throws IOException {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<InvitationMasterResponseDto> invitationListDto = invitationService.getAllInvitations(pageable);
 
-        AbstractLogTraceTemplate<ResponseEntity<Page<InvitationMasterResponseDto>>> template = new AbstractLogTraceTemplate<>(trace) {
-            @Override
-            protected ResponseEntity<Page<InvitationMasterResponseDto>> call() throws IOException {
-                Pageable pageable = PageRequest.of(page, size);
-                Page<InvitationMasterResponseDto> invitationList = invitationService.getAllInvitations(pageable);
-                return ResponseEntity.ok(invitationList);
-            }
-        };
-
-        return template.execute("InvitationController.getInvitationList()");
+        // SuccessResponse 생성
+        SuccessResponse<Page<InvitationMasterResponseDto>> successResponse = new SuccessResponse<>(
+                HttpStatus.OK,
+                INVITATION_LIST_FETCH_SUCCESS_MESSAGE,
+                invitationListDto
+        );
+        return ResponseEntity.status(HttpStatus.OK).body(successResponse);
     }
 
     @GetMapping("/{id}")

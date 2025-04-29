@@ -9,7 +9,8 @@ import java.util.Optional;
 public interface InvitationLikeRepository extends JpaRepository<InvitationLike, Long> {
     boolean existsByInvitationMasterAndMasterUser(InvitationMaster invitation, MasterUser user);
     Optional<InvitationLike> findByInvitationMasterAndMasterUser(InvitationMaster invitation, MasterUser user);
-    long countByInvitationMaster(InvitationMaster invitation);
+    int countByInvitationMasterId(Long invitationId);
+
 }
 
 

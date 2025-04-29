@@ -10,7 +10,6 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,9 +27,10 @@ public class InvitationMasterResponseDto {
     private String mainTxt;
     private String greetTxt;
     private LocalDateTime regTime;
+    private int likeCount;
 
     @Builder
-    public InvitationMasterResponseDto(Long id, LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo,ImageUploads mainImage, List<ImageUploadDto> imageList, String letterTxt, String mainTxt, String greetTxt, LocalDateTime regTime) {
+    public InvitationMasterResponseDto(Long id, LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo,ImageUploads mainImage, List<ImageUploadDto> imageList, String letterTxt, String mainTxt, String greetTxt, LocalDateTime regTime, int likeCount) {
         this.id = id;
         this.date = date;
         this.brideInfo = brideInfo;
@@ -40,9 +40,8 @@ public class InvitationMasterResponseDto {
         this.letterTxt = letterTxt;
         this.mainTxt = mainTxt;
         this.greetTxt = greetTxt;
-        this.regTime = (regTime != null)
-                ? this.regTime
-                : null;
+        this.regTime = regTime;
+        this.likeCount = likeCount;
     }
 
     public static InvitationMasterResponseDto fromEntity(InvitationMaster invitationMaster) {

@@ -14,6 +14,9 @@ public final class VarConst {
     public static final String DOG_CAT_API_URL = "http://localhost:5000/predict";
     public static final String SERVER_ERROR = "서버 오류가 발생했습니다.";
     public static final String SIGN_UP_SUCCESS_MESSAGE = "회원가입이 완료되었습니다.";
+    public static final String LIKE_SUCCESS_MESSAGE = "좋아요";
+    public static final String LIKE_CANCEL_MESSAGE = "좋아요 취소";
+
 
 
 }

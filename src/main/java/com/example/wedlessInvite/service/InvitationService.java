@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.wedlessInvite.exception.ErrorCode.POST_NOT_FOUND;
 import static com.example.wedlessInvite.exception.ErrorCode.USER_NOT_FOUND;
 
 @Slf4j
@@ -131,7 +132,7 @@ public class InvitationService {
 
     public void deleteInvitation(Long id) {
         InvitationMaster entity = invitationMasterRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
         entity.setDeleted(String.valueOf(YN.Y));
         invitationMasterRepository.save(entity);
     }

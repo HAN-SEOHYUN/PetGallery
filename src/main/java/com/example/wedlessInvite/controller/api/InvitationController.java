@@ -3,13 +3,10 @@ package com.example.wedlessInvite.controller.api;
 import com.example.wedlessInvite.common.logtrace.LogTrace;
 import com.example.wedlessInvite.common.template.AbstractLogTraceTemplate;
 import com.example.wedlessInvite.common.template.SuccessResponse;
-import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
-import com.example.wedlessInvite.domain.User.MasterUser;
 import com.example.wedlessInvite.domain.User.MasterUserRepository;
 import com.example.wedlessInvite.dto.InvitationMasterRequestDto;
 import com.example.wedlessInvite.dto.InvitationMasterResponseDto;
 import com.example.wedlessInvite.service.InvitationService;
-import com.example.wedlessInvite.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,12 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-import static com.example.wedlessInvite.common.VarConst.INVITATION_LIST_FETCH_SUCCESS_MESSAGE;
-import static com.example.wedlessInvite.common.VarConst.SIGN_UP_SUCCESS_MESSAGE;
+import static com.example.wedlessInvite.common.VarConst.*;
 
 @RestController
 @RequestMapping("/api/invitations")
@@ -47,7 +42,7 @@ public class InvitationController {
                 // SuccessResponse 생성
                 SuccessResponse<InvitationMasterResponseDto> successResponse = new SuccessResponse<>(
                         HttpStatus.CREATED,
-                        SIGN_UP_SUCCESS_MESSAGE,
+                        CREATED_SUCCESS_MESSAGE,
                         savedInvitationDto
                 );
 
@@ -89,16 +84,19 @@ public class InvitationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteInvitation(@PathVariable Long id) throws IOException {
-
-        AbstractLogTraceTemplate<ResponseEntity<Void>> template = new AbstractLogTraceTemplate<>(trace) {
+    public ResponseEntity<SuccessResponse<Boolean>> deleteInvitation(@PathVariable Long id) throws IOException {
+        AbstractLogTraceTemplate<ResponseEntity<SuccessResponse<Boolean>>> template = new AbstractLogTraceTemplate<>(trace) {
             @Override
-            protected ResponseEntity<Void> call() throws IOException {
+            protected ResponseEntity<SuccessResponse<Boolean>> call() throws IOException {
                 invitationService.deleteInvitation(id);
-                return ResponseEntity.noContent().build();
+                SuccessResponse<Boolean> response = new SuccessResponse<>(
+                        HttpStatus.OK,
+                        DELETED_SUCCESS_MESSAGE,
+                        null
+                );
+                return ResponseEntity.ok(response);
             }
         };
-
         return template.execute("InvitationController.deleteInvitation()");
     }
 }

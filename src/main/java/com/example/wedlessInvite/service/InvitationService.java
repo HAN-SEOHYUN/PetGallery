@@ -125,6 +125,7 @@ public class InvitationService {
                 .letterTxt(entity.getLetterTxt())
                 .mainTxt(entity.getMainTxt())
                 .greetTxt(entity.getGreetTxt())
+                .likeCount(invitationLikeRepository.countByInvitationMasterId(entity.getId()))
                 .build();
     }
 

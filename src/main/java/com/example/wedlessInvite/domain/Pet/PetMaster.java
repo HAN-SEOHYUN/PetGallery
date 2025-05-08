@@ -59,6 +59,10 @@ public class PetMaster extends BaseEntity {
     @JsonIgnore
     private List<ImageUploads> imageList;
 
+    @Column(name = "PM_NAME", nullable = false)
+    @Comment("반려동물 이름")
+    private String name;
+
     @Column(name = "PM_INTRO_TEXT")
     @Comment("반려동물 한줄소개")
     private String introText;
@@ -75,7 +79,7 @@ public class PetMaster extends BaseEntity {
     private String deleteYN;
 
     @Builder
-    public PetMaster(LocalDate date, OwnerInfo ownerInfo, PetDetailInfo petDetailInfo, ImageUploads mainImage, List<ImageUploads> imageList, String introText, String likeWord, String hateWord, String deleteYN, UserMaster userMaster, String accessKey) {
+    public PetMaster(LocalDate date, OwnerInfo ownerInfo, PetDetailInfo petDetailInfo, ImageUploads mainImage, List<ImageUploads> imageList, String introText, String likeWord, String hateWord, String deleteYN, UserMaster userMaster, String name) {
         this.date = date;
         this.ownerInfo = ownerInfo;
         this.petDetailInfo = petDetailInfo;
@@ -87,6 +91,7 @@ public class PetMaster extends BaseEntity {
         this.deleteYN = "N";
         this.userMaster = userMaster;
         this.accessKey = UUID.randomUUID().toString();
+        this.name = name;
     }
 
     public void setDeleted(String deleted) {

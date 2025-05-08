@@ -1,7 +1,7 @@
 package com.example.wedlessInvite.domain.User;
 
 import com.example.wedlessInvite.domain.BaseEntity;
-import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
+import com.example.wedlessInvite.domain.Pet.PetMaster;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -28,7 +28,7 @@ public class UserMaster extends BaseEntity {
     private String pwd;
 
     @OneToMany(mappedBy = "userMaster")
-    private List<InvitationMaster> invitationMasters;
+    private List<PetMaster> petMasters;
 
     @Builder
     public UserMaster(String name, String pwd) {

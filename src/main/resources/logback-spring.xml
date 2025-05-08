@@ -6,7 +6,7 @@
                 <!-- 시간 / 로그를 남긴 실행 스레드명 / 로그레벨 / 클래스 /
                 로거 이름 / 	로그 메시지 -->
                 <!-- 2025-03-13 16:33:59 [http-nio-8080-exec-2] INFO  c.e.w.c.logtrace.ThreadLocalLogTrace -
-                [52fbc020] |<-InvitationService.saveInvitationMaster time=32ms -->
+                [52fbc020] |<-PetMasterService.saveInvitationMaster time=32ms -->
         </encoder>
     </appender>
 

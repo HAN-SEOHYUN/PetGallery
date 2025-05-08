@@ -1,9 +1,9 @@
 package com.example.wedlessInvite.dto;
 
 import com.example.wedlessInvite.domain.Image.ImageUploads;
-import com.example.wedlessInvite.domain.Invitation.OwnerInfo;
-import com.example.wedlessInvite.domain.Invitation.GroomInfo;
-import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
+import com.example.wedlessInvite.domain.Pet.OwnerInfo;
+import com.example.wedlessInvite.domain.Pet.GroomInfo;
+import com.example.wedlessInvite.domain.Pet.PetMaster;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class InvitationMasterResponseDto {
+public class PetMasterResponseDto {
     private Long id;
     private LocalDate date;
     private OwnerInfo ownerInfo;
@@ -31,7 +31,7 @@ public class InvitationMasterResponseDto {
     private String accessKey;
 
     @Builder
-    public InvitationMasterResponseDto(Long id, LocalDate date, OwnerInfo ownerInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploadDto> imageList, String letterTxt, String mainTxt, String greetTxt, LocalDateTime regTime, int likeCount, String accessKey) {
+    public PetMasterResponseDto(Long id, LocalDate date, OwnerInfo ownerInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploadDto> imageList, String letterTxt, String mainTxt, String greetTxt, LocalDateTime regTime, int likeCount, String accessKey) {
         this.id = id;
         this.date = date;
         this.ownerInfo = ownerInfo;
@@ -46,21 +46,21 @@ public class InvitationMasterResponseDto {
         this.accessKey = accessKey;
     }
 
-    public static InvitationMasterResponseDto fromEntity(InvitationMaster invitationMaster) {
-        return InvitationMasterResponseDto.builder()
-                .id(invitationMaster.getId())
-                .date(invitationMaster.getDate())
-                .ownerInfo(invitationMaster.getOwnerInfo())
-                .groomInfo(invitationMaster.getGroomInfo())
-                .mainImage(invitationMaster.getMainImage())  // mainImage는 ImageUploads 타입 그대로
-                .imageList(invitationMaster.getImageList() != null ? invitationMaster.getImageList().stream()
+    public static PetMasterResponseDto fromEntity(PetMaster petMaster) {
+        return PetMasterResponseDto.builder()
+                .id(petMaster.getId())
+                .date(petMaster.getDate())
+                .ownerInfo(petMaster.getOwnerInfo())
+                .groomInfo(petMaster.getGroomInfo())
+                .mainImage(petMaster.getMainImage())  // mainImage는 ImageUploads 타입 그대로
+                .imageList(petMaster.getImageList() != null ? petMaster.getImageList().stream()
                         .map(ImageUploadDto::fromEntity)  // ImageUploads -> ImageUploadDto 변환
                         .collect(Collectors.toList()) : new ArrayList<>())  // imageList가 null일 경우 빈 리스트
-                .letterTxt(invitationMaster.getLetterTxt())
-                .mainTxt(invitationMaster.getMainTxt())
-                .greetTxt(invitationMaster.getGreetTxt())
-                .regTime(invitationMaster.getRegTime() != null
-                        ? invitationMaster.getRegTime()
+                .letterTxt(petMaster.getLetterTxt())
+                .mainTxt(petMaster.getMainTxt())
+                .greetTxt(petMaster.getGreetTxt())
+                .regTime(petMaster.getRegTime() != null
+                        ? petMaster.getRegTime()
                         : null)
                 .build();
     }

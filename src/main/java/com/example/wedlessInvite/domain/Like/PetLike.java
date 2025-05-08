@@ -1,7 +1,7 @@
 package com.example.wedlessInvite.domain.Like;
 
 import com.example.wedlessInvite.domain.BaseEntity;
-import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
+import com.example.wedlessInvite.domain.Pet.PetMaster;
 import com.example.wedlessInvite.domain.User.UserMaster;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -21,12 +21,12 @@ public class PetLike extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PL_IM_ID", nullable = false)
-    private InvitationMaster invitationMaster;
+    private PetMaster petMaster;
 
     @Builder
-    public PetLike(UserMaster userMaster, InvitationMaster invitationMaster) {
+    public PetLike(UserMaster userMaster, PetMaster petMaster) {
         this.userMaster = userMaster;
-        this.invitationMaster = invitationMaster;
+        this.petMaster = petMaster;
     }
 
     protected PetLike() {}

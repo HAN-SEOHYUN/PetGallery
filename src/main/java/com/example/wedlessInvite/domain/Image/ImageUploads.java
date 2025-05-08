@@ -1,7 +1,7 @@
 package com.example.wedlessInvite.domain.Image;
 
 import com.example.wedlessInvite.domain.BaseEntity;
-import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
+import com.example.wedlessInvite.domain.Pet.PetMaster;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -22,10 +22,10 @@ public class ImageUploads extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "IU_IM_ID", nullable = true)
-    @Comment("INVITATION_MASTER_ID")
+    @JoinColumn(name = "IU_PM_ID", nullable = true)
+    @Comment("PET_MASTER_ID")
     @JsonIgnore
-    private InvitationMaster invitationId;
+    private PetMaster petId;
 
     @Column(name="IU_FILE_NAME", nullable = false, length = 255, unique = true)
     @Comment("S3에 저장된 파일의 이름")
@@ -48,13 +48,13 @@ public class ImageUploads extends BaseEntity {
     @Column(name="IS_DELETED")
     private Boolean isDeleted;
 
-    public void setInvitationId(InvitationMaster invitation) {
-        this.invitationId = invitation;
+    public void setPetId(PetMaster petMaster) {
+        this.petId = petMaster;
     }
 
     @Builder
-    public ImageUploads(InvitationMaster invitationId, String fileName, String orgFileName, String s3Url, Long fileSize, String fileType, Boolean isDeleted) {
-        this.invitationId = invitationId;
+    public ImageUploads(PetMaster petId, String fileName, String orgFileName, String s3Url, Long fileSize, String fileType, Boolean isDeleted) {
+        this.petId = petId;
         this.fileName = fileName;
         this.orgFileName = orgFileName;
         this.s3Url = s3Url;

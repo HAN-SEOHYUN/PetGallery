@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/invitations")
-public class InvitationPageController {
+public class PetMasterPageController {
 
     @GetMapping("/create")
     public String showCreatePage() {

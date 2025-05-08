@@ -1,4 +1,4 @@
-package com.example.wedlessInvite.domain.Invitation;
+package com.example.wedlessInvite.domain.Pet;
 
 import com.example.wedlessInvite.common.YN;
 import jakarta.persistence.*;

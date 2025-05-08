@@ -5,13 +5,13 @@ import com.example.wedlessInvite.common.logtrace.LogTrace;
 import com.example.wedlessInvite.common.template.AbstractLogTraceTemplate;
 import com.example.wedlessInvite.domain.Image.ImageUploads;
 import com.example.wedlessInvite.domain.Image.ImageUploadsRepository;
-import com.example.wedlessInvite.domain.Invitation.*;
+import com.example.wedlessInvite.domain.Pet.*;
 import com.example.wedlessInvite.domain.Like.PetLikeRepository;
 import com.example.wedlessInvite.domain.User.UserMaster;
 import com.example.wedlessInvite.domain.User.UserMasterRepository;
 import com.example.wedlessInvite.dto.ImageUploadDto;
-import com.example.wedlessInvite.dto.InvitationMasterRequestDto;
-import com.example.wedlessInvite.dto.InvitationMasterResponseDto;
+import com.example.wedlessInvite.dto.PetMasterRequestDto;
+import com.example.wedlessInvite.dto.PetMasterResponseDto;
 import com.example.wedlessInvite.exception.CustomException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -26,15 +26,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.wedlessInvite.exception.ErrorCode.POST_NOT_FOUND;
-import static com.example.wedlessInvite.exception.ErrorCode.USER_NOT_FOUND;
+import static com.example.wedlessInvite.exception.ErrorCode.*;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class InvitationService {
+public class PetMasterService {
 
-    private final InvitationMasterRepository invitationMasterRepository;
+    private final PetMasterRepository petMasterRepository;
     private final OwnerInfoRepository ownerInfoRepository;
     private final GroomInfoRepository groomInfoRepository;
     private final UserMasterRepository userMasterRepository;
@@ -47,41 +46,40 @@ public class InvitationService {
     private final PetLikeRepository petLikeRepository;
 
     @Transactional
-    public InvitationMasterResponseDto saveInvitationMaster(InvitationMasterRequestDto dto) throws IOException {
-        AbstractLogTraceTemplate<InvitationMasterResponseDto> template = new AbstractLogTraceTemplate<>(trace) {
+    public PetMasterResponseDto saveInvitationMaster(PetMasterRequestDto request) throws IOException {
+        AbstractLogTraceTemplate<PetMasterResponseDto> template = new AbstractLogTraceTemplate<>(trace) {
             @Override
-            protected InvitationMasterResponseDto call() throws IOException {
+            protected PetMasterResponseDto call() throws IOException {
 
                 //User 정보 검증
-                UserMaster userMaster = userMasterRepository.findById(dto.getUserId())
+                UserMaster userMaster = userMasterRepository.findById(request.getUserId())
                         .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
                 // 기타정보 저장
-                OwnerInfo ownerInfo = ownerInfoRepository.save(dto.getOwnerInfo());
-                GroomInfo groomInfo = groomInfoRepository.save(dto.getGroomInfo());
-                ImageUploads imageUploads = imageUploadsRepository.findImageUploadsById(dto.getMainImageId());
+                OwnerInfo ownerInfo = ownerInfoRepository.save(request.getOwnerInfo());
+                GroomInfo groomInfo = groomInfoRepository.save(request.getGroomInfo());
+                ImageUploads imageUploads = imageUploadsRepository.findImageUploadsById(request.getMainImageId());
 
                 // 엔티티 저장
-                InvitationMaster invitationMaster = dto.toEntity(imageUploads);
-                invitationMaster.setAccessKey();
-                invitationMaster.setUserMaster(userMaster);
-                InvitationMaster invitation = invitationMasterRepository.save(invitationMaster);
+                PetMaster petMaster = request.toEntity(imageUploads);
+                petMaster.setUserMaster(userMaster);
+                PetMaster entity = petMasterRepository.save(petMaster);
 
                 // 이미지 리스트 처리
-                System.out.println(dto.getImageIdList());
-                if (dto.getImageIdList() != null && !dto.getImageIdList().isEmpty()) {
-                    List<ImageUploads> images = imageUploadsRepository.findAllById(dto.getImageIdList());
-                    images.forEach(image -> image.setInvitationId(invitation));
+                System.out.println(request.getImageIdList());
+                if (request.getImageIdList() != null && !request.getImageIdList().isEmpty()) {
+                    List<ImageUploads> images = imageUploadsRepository.findAllById(request.getImageIdList());
+                    images.forEach(image -> image.setPetId(entity));
                     imageUploadsRepository.saveAll(images);
                 }
 
                 // DTO 변환 후 반환
-                return InvitationMasterResponseDto.fromEntity(invitation);
+                return PetMasterResponseDto.fromEntity(entity);
             }
         };
 
         // template.execute()가 InvitationMasterResponseDto를 반환하도록 처리
-        return template.execute("InvitationService.saveInvitationMaster");
+        return template.execute("PetMasterService.saveInvitationMaster");
     }
 
     private ImageUploadDto validateAndUploadS3(MultipartFile file) throws IOException {
@@ -90,12 +88,12 @@ public class InvitationService {
         return s3FileService.uploadS3(file);
     }
 
-    public Page<InvitationMasterResponseDto> getAllInvitations(Pageable pageable) {
-        // InvitationMaster 엔티티를 페이지네이션으로 조회
-        Page<InvitationMaster> entity = invitationMasterRepository.findByDeleteYNOrderByRegTimeDesc("N", pageable);
+    public Page<PetMasterResponseDto> getAllInvitations(Pageable pageable) {
+        // PetMaster 엔티티를 페이지네이션으로 조회
+        Page<PetMaster> entity = petMasterRepository.findByDeleteYNOrderByRegTimeDesc("N", pageable);
 
         // Entity에서 DTO로 변환하여 반환
-        return entity.map(invitation -> InvitationMasterResponseDto.builder()
+        return entity.map(invitation -> PetMasterResponseDto.builder()
                 .id(invitation.getId())
                 .date(invitation.getDate())
                 .mainImage(invitation.getMainImage())
@@ -104,15 +102,15 @@ public class InvitationService {
                 .greetTxt(invitation.getGreetTxt())
                 .regTime(invitation.getRegTime())
                 .accessKey(invitation.getAccessKey())
-                .likeCount(petLikeRepository.countByInvitationMasterId(invitation.getId()))
+                .likeCount(petLikeRepository.countByPetMasterId(invitation.getId()))
                 .build());
     }
 
-    public InvitationMasterResponseDto getInvitationDetail(String accessKey) {
-        InvitationMaster entity = invitationMasterRepository.findByAccessKey(accessKey)
+    public PetMasterResponseDto getInvitationDetail(String accessKey) {
+        PetMaster entity = petMasterRepository.findByAccessKey(accessKey)
                 .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
 
-        return InvitationMasterResponseDto.builder()
+        return PetMasterResponseDto.builder()
                 .id(entity.getId())
                 .ownerInfo(entity.getOwnerInfo())
                 .groomInfo(entity.getGroomInfo())
@@ -124,14 +122,14 @@ public class InvitationService {
                 .letterTxt(entity.getLetterTxt())
                 .mainTxt(entity.getMainTxt())
                 .greetTxt(entity.getGreetTxt())
-                .likeCount(petLikeRepository.countByInvitationMasterId(entity.getId()))
+                .likeCount(petLikeRepository.countByPetMasterId(entity.getId()))
                 .build();
     }
 
     public void deleteInvitation(Long id) {
-        InvitationMaster entity = invitationMasterRepository.findById(id)
+        PetMaster entity = petMasterRepository.findById(id)
                 .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
         entity.setDeleted(String.valueOf(YN.Y));
-        invitationMasterRepository.save(entity);
+        petMasterRepository.save(entity);
     }
 }

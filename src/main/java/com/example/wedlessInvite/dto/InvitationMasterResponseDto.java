@@ -1,7 +1,7 @@
 package com.example.wedlessInvite.dto;
 
 import com.example.wedlessInvite.domain.Image.ImageUploads;
-import com.example.wedlessInvite.domain.Invitation.BrideInfo;
+import com.example.wedlessInvite.domain.Invitation.OwnerInfo;
 import com.example.wedlessInvite.domain.Invitation.GroomInfo;
 import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
 import lombok.Builder;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class InvitationMasterResponseDto {
     private Long id;
     private LocalDate date;
-    private BrideInfo brideInfo;
+    private OwnerInfo ownerInfo;
     private GroomInfo groomInfo;
     private ImageUploads mainImage;
     private List<ImageUploadDto> imageList;
@@ -31,10 +31,10 @@ public class InvitationMasterResponseDto {
     private String accessKey;
 
     @Builder
-    public InvitationMasterResponseDto(Long id, LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo,ImageUploads mainImage, List<ImageUploadDto> imageList, String letterTxt, String mainTxt, String greetTxt, LocalDateTime regTime, int likeCount, String accessKey) {
+    public InvitationMasterResponseDto(Long id, LocalDate date, OwnerInfo ownerInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploadDto> imageList, String letterTxt, String mainTxt, String greetTxt, LocalDateTime regTime, int likeCount, String accessKey) {
         this.id = id;
         this.date = date;
-        this.brideInfo = brideInfo;
+        this.ownerInfo = ownerInfo;
         this.groomInfo = groomInfo;
         this.mainImage = mainImage;
         this.imageList = imageList;
@@ -50,7 +50,7 @@ public class InvitationMasterResponseDto {
         return InvitationMasterResponseDto.builder()
                 .id(invitationMaster.getId())
                 .date(invitationMaster.getDate())
-                .brideInfo(invitationMaster.getBrideInfo())
+                .ownerInfo(invitationMaster.getOwnerInfo())
                 .groomInfo(invitationMaster.getGroomInfo())
                 .mainImage(invitationMaster.getMainImage())  // mainImage는 ImageUploads 타입 그대로
                 .imageList(invitationMaster.getImageList() != null ? invitationMaster.getImageList().stream()

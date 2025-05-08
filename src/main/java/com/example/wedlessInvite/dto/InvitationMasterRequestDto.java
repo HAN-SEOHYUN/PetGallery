@@ -1,7 +1,7 @@
 package com.example.wedlessInvite.dto;
 
 import com.example.wedlessInvite.domain.Image.ImageUploads;
-import com.example.wedlessInvite.domain.Invitation.BrideInfo;
+import com.example.wedlessInvite.domain.Invitation.OwnerInfo;
 import com.example.wedlessInvite.domain.Invitation.GroomInfo;
 import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
 import lombok.Builder;
@@ -10,7 +10,6 @@ import lombok.Setter;
 
 import jakarta.validation.constraints.NotNull;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class InvitationMasterRequestDto {
     private Long userId;
     private Long mainImageId; // 메인 이미지
     private List<Long> imageIdList; // 이미지 리스트
-    private BrideInfo brideInfo;  // 신부 정보
+    private OwnerInfo ownerInfo;  // 신부 정보
     private GroomInfo groomInfo;  // 신랑 정보
     private String letterTxt;  // 레터링 문구
     private String mainTxt;  // 메인 텍스트
@@ -34,7 +33,7 @@ public class InvitationMasterRequestDto {
         return InvitationMaster.builder()
                 .date(date)
                 .mainImage(mainImage)
-                .brideInfo(brideInfo)
+                .ownerInfo(ownerInfo)
                 .groomInfo(groomInfo)
                 .letterTxt(letterTxt)
                 .mainTxt(mainTxt)
@@ -44,10 +43,10 @@ public class InvitationMasterRequestDto {
     }
 
     @Builder
-    public InvitationMasterRequestDto(LocalDate date, ImageUploads mainImage, List<Long> imageIdList,BrideInfo brideInfo, GroomInfo groomInfo, String letterTxt, String mainTxt, String greetTxt) {
+    public InvitationMasterRequestDto(LocalDate date, ImageUploads mainImage, List<Long> imageIdList, OwnerInfo ownerInfo, GroomInfo groomInfo, String letterTxt, String mainTxt, String greetTxt) {
         this.date = date;
         this.imageIdList = imageIdList;
-        this.brideInfo = brideInfo;
+        this.ownerInfo = ownerInfo;
         this.groomInfo = groomInfo;
         this.letterTxt = letterTxt;
         this.mainTxt = mainTxt;
@@ -57,7 +56,7 @@ public class InvitationMasterRequestDto {
     @Override
     public String toString() {
         return "InvitationMasterRequestDto{" +
-                "brideInfo=" + (brideInfo != null ? brideInfo.toString() : "null") +
+                "ownerInfo=" + (ownerInfo != null ? ownerInfo.toString() : "null") +
                 ", groomInfo=" + (groomInfo != null ? groomInfo.toString() : "null") +
                 ", letterTxt='" + letterTxt + '\'' +
                 ", mainTxt='" + mainTxt + '\'' +

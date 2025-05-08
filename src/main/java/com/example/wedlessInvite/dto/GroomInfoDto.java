@@ -1,9 +1,7 @@
 package com.example.wedlessInvite.dto;
 
 import com.example.wedlessInvite.common.YN;
-import com.example.wedlessInvite.domain.Invitation.BrideInfo;
 import com.example.wedlessInvite.domain.Invitation.GroomInfo;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

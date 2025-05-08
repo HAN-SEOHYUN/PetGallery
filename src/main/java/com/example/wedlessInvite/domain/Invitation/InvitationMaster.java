@@ -40,9 +40,9 @@ public class InvitationMaster extends BaseEntity {
     private LocalDate date;
 
     @OneToOne
-    @JoinColumn(name = "IM_BI_ID", nullable = false)
+    @JoinColumn(name = "IM_OI_ID", nullable = false)
     @Comment("신부 정보")
-    private BrideInfo brideInfo;
+    private OwnerInfo ownerInfo;
 
     @OneToOne
     @JoinColumn(name = "IM_GI_ID", nullable = false)
@@ -75,9 +75,9 @@ public class InvitationMaster extends BaseEntity {
     private String deleteYN;
 
     @Builder
-    public InvitationMaster(LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploads> imageList, String letterTxt, String mainTxt, String greetTxt, String deleteYN, UserMaster userMaster, String accessKey) {
+    public InvitationMaster(LocalDate date, OwnerInfo ownerInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploads> imageList, String letterTxt, String mainTxt, String greetTxt, String deleteYN, UserMaster userMaster, String accessKey) {
         this.date = date;
-        this.brideInfo = brideInfo;
+        this.ownerInfo = ownerInfo;
         this.groomInfo = groomInfo;
         this.mainImage = mainImage;
         this.imageList = imageList;

@@ -35,7 +35,7 @@ import static com.example.wedlessInvite.exception.ErrorCode.USER_NOT_FOUND;
 public class InvitationService {
 
     private final InvitationMasterRepository invitationMasterRepository;
-    private final BrideInfoRepository brideInfoRepository;
+    private final OwnerInfoRepository ownerInfoRepository;
     private final GroomInfoRepository groomInfoRepository;
     private final UserMasterRepository userMasterRepository;
     private final ImageUploadsRepository imageUploadsRepository;
@@ -57,7 +57,7 @@ public class InvitationService {
                         .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
                 // 기타정보 저장
-                BrideInfo brideInfo = brideInfoRepository.save(dto.getBrideInfo());
+                OwnerInfo ownerInfo = ownerInfoRepository.save(dto.getOwnerInfo());
                 GroomInfo groomInfo = groomInfoRepository.save(dto.getGroomInfo());
                 ImageUploads imageUploads = imageUploadsRepository.findImageUploadsById(dto.getMainImageId());
 
@@ -114,7 +114,7 @@ public class InvitationService {
 
         return InvitationMasterResponseDto.builder()
                 .id(entity.getId())
-                .brideInfo(entity.getBrideInfo())
+                .ownerInfo(entity.getOwnerInfo())
                 .groomInfo(entity.getGroomInfo())
                 .mainImage(entity.getMainImage())
                 .imageList(entity.getImageList().stream()

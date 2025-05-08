@@ -36,54 +36,54 @@ public class PetMaster extends BaseEntity {
     private UserMaster userMaster;
 
     @Column(name = "PM_D_DATE", nullable = false)
-    @Comment("결혼일자")
+    @Comment("반려동물 생일")
     private LocalDate date;
 
     @OneToOne
     @JoinColumn(name = "PM_OI_ID", nullable = false)
-    @Comment("신부 정보")
+    @Comment("반려동물 집사 정보")
     private OwnerInfo ownerInfo;
 
     @OneToOne
-    @JoinColumn(name = "PM_GI_ID", nullable = false)
-    @Comment("신랑 정보")
-    private GroomInfo groomInfo;
+    @JoinColumn(name = "PM_PDI_ID", nullable = false)
+    @Comment("반려동물 상세 정보")
+    private PetDetailInfo petDetailInfo;
 
     @OneToOne
     @JoinColumn(name = "PM_IU_ID")
-    @Comment("메인 이미지")
+    @Comment("반려동물 메인 이미지")
     private ImageUploads mainImage;
 
     @OneToMany(mappedBy = "petId", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Comment("웨딩사진")
+    @Comment("반려동물 이미지")
     @JsonIgnore
     private List<ImageUploads> imageList;
 
-    @Column(name = "PM_LETTER_TEXT")
-    @Comment("레터링 문구")
-    private String letterTxt;
+    @Column(name = "PM_INTRO_TEXT")
+    @Comment("반려동물 한줄소개")
+    private String introText;
 
-    @Column(name = "PM_MAIN_TEXT")
-    @Comment("메인 텍스트")
-    private String mainTxt;
+    @Column(name = "PM_LIKE_WORD")
+    @Comment("반려동물이 좋아하는 단어")
+    private String likeWord;
 
-    @Column(name = "PM_GREETING_TEXT")
-    @Comment("인사말")
-    private String greetTxt;
+    @Column(name = "PM_HATE_WORD")
+    @Comment("반려동물이 싫어하는 단어")
+    private String hateWord;
 
     @Column(nullable = false)
     private String deleteYN;
 
     @Builder
-    public PetMaster(LocalDate date, OwnerInfo ownerInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploads> imageList, String letterTxt, String mainTxt, String greetTxt, String deleteYN, UserMaster userMaster, String accessKey) {
+    public PetMaster(LocalDate date, OwnerInfo ownerInfo, PetDetailInfo petDetailInfo, ImageUploads mainImage, List<ImageUploads> imageList, String introText, String likeWord, String hateWord, String deleteYN, UserMaster userMaster, String accessKey) {
         this.date = date;
         this.ownerInfo = ownerInfo;
-        this.groomInfo = groomInfo;
+        this.petDetailInfo = petDetailInfo;
         this.mainImage = mainImage;
         this.imageList = imageList;
-        this.letterTxt = letterTxt;
-        this.mainTxt = mainTxt;
-        this.greetTxt = greetTxt;
+        this.introText = introText;
+        this.likeWord = likeWord;
+        this.hateWord = hateWord;
         this.deleteYN = "N";
         this.userMaster = userMaster;
         this.accessKey = UUID.randomUUID().toString();

@@ -1,7 +1,7 @@
 package com.example.wedlessInvite.dto;
 
 import com.example.wedlessInvite.common.YN;
-import com.example.wedlessInvite.domain.Pet.GroomInfo;
+import com.example.wedlessInvite.domain.Pet.PetDetailInfo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,8 +21,8 @@ public class GroomInfoDto {
     private String motherPhone;
     private YN motherDeceasedYN;
 
-    public GroomInfo toEntity() {
-        return GroomInfo.builder()
+    public PetDetailInfo toEntity() {
+        return PetDetailInfo.builder()
                 .name(name)
                 .birth(birth)
                 .phone(phone)

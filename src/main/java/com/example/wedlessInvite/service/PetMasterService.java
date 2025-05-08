@@ -5,8 +5,8 @@ import com.example.wedlessInvite.common.logtrace.LogTrace;
 import com.example.wedlessInvite.common.template.AbstractLogTraceTemplate;
 import com.example.wedlessInvite.domain.Image.ImageUploads;
 import com.example.wedlessInvite.domain.Image.ImageUploadsRepository;
-import com.example.wedlessInvite.domain.Pet.*;
 import com.example.wedlessInvite.domain.Like.PetLikeRepository;
+import com.example.wedlessInvite.domain.Pet.*;
 import com.example.wedlessInvite.domain.User.UserMaster;
 import com.example.wedlessInvite.domain.User.UserMasterRepository;
 import com.example.wedlessInvite.dto.ImageUploadDto;
@@ -35,7 +35,7 @@ public class PetMasterService {
 
     private final PetMasterRepository petMasterRepository;
     private final OwnerInfoRepository ownerInfoRepository;
-    private final GroomInfoRepository groomInfoRepository;
+    private final PetDetailInfoRepository petDetailInfoRepository;
     private final UserMasterRepository userMasterRepository;
     private final ImageUploadsRepository imageUploadsRepository;
 
@@ -57,7 +57,7 @@ public class PetMasterService {
 
                 // 기타정보 저장
                 OwnerInfo ownerInfo = ownerInfoRepository.save(request.getOwnerInfo());
-                GroomInfo groomInfo = groomInfoRepository.save(request.getGroomInfo());
+                PetDetailInfo petDetailInfo = petDetailInfoRepository.save(request.getPetDetailInfo());
                 ImageUploads imageUploads = imageUploadsRepository.findImageUploadsById(request.getMainImageId());
 
                 // 엔티티 저장
@@ -97,9 +97,9 @@ public class PetMasterService {
                 .id(invitation.getId())
                 .date(invitation.getDate())
                 .mainImage(invitation.getMainImage())
-                .letterTxt(invitation.getLetterTxt())
-                .mainTxt(invitation.getMainTxt())
-                .greetTxt(invitation.getGreetTxt())
+                .introText(invitation.getIntroText())
+                .likeWord(invitation.getLikeWord())
+                .hateWord(invitation.getHateWord())
                 .regTime(invitation.getRegTime())
                 .accessKey(invitation.getAccessKey())
                 .likeCount(petLikeRepository.countByPetMasterId(invitation.getId()))
@@ -113,15 +113,15 @@ public class PetMasterService {
         return PetMasterResponseDto.builder()
                 .id(entity.getId())
                 .ownerInfo(entity.getOwnerInfo())
-                .groomInfo(entity.getGroomInfo())
+                .petDetailInfo(entity.getPetDetailInfo())
                 .mainImage(entity.getMainImage())
                 .imageList(entity.getImageList().stream()
                         .map(ImageUploadDto::fromEntity)
                         .collect(Collectors.toList()))
                 .date(entity.getDate())
-                .letterTxt(entity.getLetterTxt())
-                .mainTxt(entity.getMainTxt())
-                .greetTxt(entity.getGreetTxt())
+                .introText(entity.getIntroText())
+                .likeWord(entity.getLikeWord())
+                .hateWord(entity.getHateWord())
                 .likeCount(petLikeRepository.countByPetMasterId(entity.getId()))
                 .build();
     }

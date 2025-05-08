@@ -65,6 +65,7 @@ public class InvitationService {
 
                 // 엔티티 저장
                 InvitationMaster invitationMaster = dto.toEntity(imageUploads);
+                invitationMaster.setAccessKey();
                 invitationMaster.setMasterUser(masterUser);
                 InvitationMaster invitation = invitationMasterRepository.save(invitationMaster);
 

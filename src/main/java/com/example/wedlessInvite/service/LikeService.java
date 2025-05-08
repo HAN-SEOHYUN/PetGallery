@@ -6,10 +6,15 @@ import com.example.wedlessInvite.domain.Like.PetLike;
 import com.example.wedlessInvite.domain.User.UserMasterRepository;
 import com.example.wedlessInvite.domain.Pet.*;
 import com.example.wedlessInvite.domain.User.UserMaster;
+import com.example.wedlessInvite.dto.PetLikeRankingResponseDto;
 import com.example.wedlessInvite.exception.CustomException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.wedlessInvite.exception.ErrorCode.*;
 
@@ -51,5 +56,18 @@ public class LikeService {
                 .orElseThrow(() -> new CustomException(NOT_LIKED_YET_MESSAGE));
 
         likeRepository.delete(like);
+    }
+
+    @Transactional
+    public List<PetLikeRankingResponseDto> getTop5MostLikedInvitations() {
+        LocalDateTime threeDaysAgo = LocalDateTime.now().minusDays(3);  // 최근 3일
+        List<Object[]> results = likeRepository.findTop5InvitationMasterByLikeCount(threeDaysAgo);
+
+        return results.stream()
+                .map(result -> {
+                    PetMaster petMaster = (PetMaster) result[0];
+                    return new PetLikeRankingResponseDto(petMaster);
+                })
+                .collect(Collectors.toList());
     }
 }

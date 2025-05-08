@@ -19,9 +19,5 @@ public final class VarConst {
     public static final String LIKE_SUCCESS_MESSAGE = "좋아요";
     public static final String LIKE_CANCEL_MESSAGE = "좋아요 취소";
     public static final String INVITATION_LIST_FETCH_SUCCESS_MESSAGE = "리스트 조회";
-
-
-
-
-
+    public static final String LIKE_LIST_FETCH_SUCCESS_MESSAGE = "최근 3일간 좋아요 TOP5";
 }

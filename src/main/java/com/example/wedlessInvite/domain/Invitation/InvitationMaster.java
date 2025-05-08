@@ -13,6 +13,7 @@ import org.hibernate.annotations.Comment;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 
 @Entity
@@ -25,6 +26,9 @@ public class InvitationMaster extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IM_ID")
     private Long id;
+
+    @Column(unique = true, nullable = false, length = 64)
+    private String accessKey;
 
     @ManyToOne
     @JoinColumn(name = "IM_MU_ID", nullable = false)
@@ -71,7 +75,7 @@ public class InvitationMaster extends BaseEntity {
     private String deleteYN;
 
     @Builder
-    public InvitationMaster(LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploads> imageList, String letterTxt, String mainTxt, String greetTxt, String deleteYN, MasterUser masterUser) {
+    public InvitationMaster(LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploads> imageList, String letterTxt, String mainTxt, String greetTxt, String deleteYN, MasterUser masterUser, String accessKey) {
         this.date = date;
         this.brideInfo = brideInfo;
         this.groomInfo = groomInfo;
@@ -82,6 +86,7 @@ public class InvitationMaster extends BaseEntity {
         this.greetTxt = greetTxt;
         this.deleteYN = "N";
         this.masterUser = masterUser;
+        this.accessKey = accessKey;
     }
 
     public void setDeleted(String deleted) {
@@ -90,5 +95,11 @@ public class InvitationMaster extends BaseEntity {
 
     public void setMasterUser(MasterUser masterUser) {
         this.masterUser = masterUser;
+    }
+
+    public void setAccessKey() {
+        if (this.accessKey == null || this.accessKey.isBlank()) {
+            this.accessKey = UUID.randomUUID().toString();
+        }
     }
 }

@@ -65,6 +65,7 @@ public class InvitationService {
 
                 // 엔티티 저장
                 InvitationMaster invitationMaster = dto.toEntity(imageUploads);
+                invitationMaster.setAccessKey();
                 invitationMaster.setMasterUser(masterUser);
                 InvitationMaster invitation = invitationMasterRepository.save(invitationMaster);
 
@@ -99,20 +100,19 @@ public class InvitationService {
         return entity.map(invitation -> InvitationMasterResponseDto.builder()
                 .id(invitation.getId())
                 .date(invitation.getDate())
-//                .brideInfo(invitation.getBrideInfo())
-//                .groomInfo(invitation.getGroomInfo())
                 .mainImage(invitation.getMainImage())
                 .letterTxt(invitation.getLetterTxt())
                 .mainTxt(invitation.getMainTxt())
                 .greetTxt(invitation.getGreetTxt())
                 .regTime(invitation.getRegTime())
+                .accessKey(invitation.getAccessKey())
                 .likeCount(invitationLikeRepository.countByInvitationMasterId(invitation.getId()))
                 .build());
     }
 
-    public InvitationMasterResponseDto getInvitationDetail(Long id) {
-        InvitationMaster entity = invitationMasterRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Invitation not found for ID: " + id));
+    public InvitationMasterResponseDto getInvitationDetail(String accessKey) {
+        InvitationMaster entity = invitationMasterRepository.findByAccessKey(accessKey)
+                .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
 
         return InvitationMasterResponseDto.builder()
                 .id(entity.getId())

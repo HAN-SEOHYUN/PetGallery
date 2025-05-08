@@ -28,9 +28,10 @@ public class InvitationMasterResponseDto {
     private String greetTxt;
     private LocalDateTime regTime;
     private int likeCount;
+    private String accessKey;
 
     @Builder
-    public InvitationMasterResponseDto(Long id, LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo,ImageUploads mainImage, List<ImageUploadDto> imageList, String letterTxt, String mainTxt, String greetTxt, LocalDateTime regTime, int likeCount) {
+    public InvitationMasterResponseDto(Long id, LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo,ImageUploads mainImage, List<ImageUploadDto> imageList, String letterTxt, String mainTxt, String greetTxt, LocalDateTime regTime, int likeCount, String accessKey) {
         this.id = id;
         this.date = date;
         this.brideInfo = brideInfo;
@@ -42,6 +43,7 @@ public class InvitationMasterResponseDto {
         this.greetTxt = greetTxt;
         this.regTime = regTime;
         this.likeCount = likeCount;
+        this.accessKey = accessKey;
     }
 
     public static InvitationMasterResponseDto fromEntity(InvitationMaster invitationMaster) {

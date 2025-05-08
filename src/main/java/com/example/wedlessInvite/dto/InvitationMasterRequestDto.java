@@ -28,6 +28,7 @@ public class InvitationMasterRequestDto {
     private String letterTxt;  // 레터링 문구
     private String mainTxt;  // 메인 텍스트
     private String greetTxt;  // 인사말
+    private String accessKey;
 
     public InvitationMaster toEntity(ImageUploads mainImage) {
         return InvitationMaster.builder()
@@ -38,6 +39,7 @@ public class InvitationMasterRequestDto {
                 .letterTxt(letterTxt)
                 .mainTxt(mainTxt)
                 .greetTxt(greetTxt)
+                .accessKey(null)
                 .build();
     }
 

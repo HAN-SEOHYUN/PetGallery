@@ -70,14 +70,19 @@ public class InvitationController {
         return ResponseEntity.status(HttpStatus.OK).body(successResponse);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<InvitationMasterResponseDto> getInvitationDetail(@PathVariable Long id) throws IOException {
+    @GetMapping("/")
+    public ResponseEntity<SuccessResponse<InvitationMasterResponseDto>> getInvitationDetail(@RequestParam String accessKey) throws IOException {
 
-        AbstractLogTraceTemplate<ResponseEntity<InvitationMasterResponseDto>> template = new AbstractLogTraceTemplate<>(trace) {
+        AbstractLogTraceTemplate<ResponseEntity<SuccessResponse<InvitationMasterResponseDto>>> template = new AbstractLogTraceTemplate<>(trace) {
             @Override
-            protected ResponseEntity<InvitationMasterResponseDto> call() throws IOException {
-                InvitationMasterResponseDto invitationDetail = invitationService.getInvitationDetail(id);
-                return ResponseEntity.ok(invitationDetail);
+            protected ResponseEntity<SuccessResponse<InvitationMasterResponseDto>> call() throws IOException {
+                InvitationMasterResponseDto invitationDetail = invitationService.getInvitationDetail(accessKey);
+                SuccessResponse<InvitationMasterResponseDto> response = new SuccessResponse<>(
+                        HttpStatus.OK,
+                        GET_SUCCESS_MESSAGE,
+                        invitationDetail
+                );
+                return ResponseEntity.ok(response);
             }
         };
         return template.execute("InvitationController.getInvitationDetail()");

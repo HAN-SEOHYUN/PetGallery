@@ -3,10 +3,10 @@ package com.example.wedlessInvite.controller.api;
 import com.example.wedlessInvite.common.logtrace.LogTrace;
 import com.example.wedlessInvite.common.template.AbstractLogTraceTemplate;
 import com.example.wedlessInvite.common.template.SuccessResponse;
-import com.example.wedlessInvite.domain.User.MasterUserRepository;
-import com.example.wedlessInvite.dto.InvitationMasterRequestDto;
-import com.example.wedlessInvite.dto.InvitationMasterResponseDto;
-import com.example.wedlessInvite.service.InvitationService;
+import com.example.wedlessInvite.domain.User.UserMasterRepository;
+import com.example.wedlessInvite.dto.PetMasterRequestDto;
+import com.example.wedlessInvite.dto.PetMasterResponseDto;
+import com.example.wedlessInvite.service.PetMasterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,26 +21,26 @@ import java.io.IOException;
 import static com.example.wedlessInvite.common.VarConst.*;
 
 @RestController
-@RequestMapping("/api/invitations")
+@RequestMapping("/api")
 @RequiredArgsConstructor
-public class InvitationController {
-    private final InvitationService invitationService;
-    private final MasterUserRepository userRepository;
+public class PetMasterController {
+    private final PetMasterService petMasterService;
+    private final UserMasterRepository userMasterRepository;
     private final LogTrace trace;
 
     @PostMapping
-    public ResponseEntity<SuccessResponse<InvitationMasterResponseDto>> createInvitation(
-            @Valid @RequestBody InvitationMasterRequestDto dto) throws IOException {
+    public ResponseEntity<SuccessResponse<PetMasterResponseDto>> createInvitation(
+            @Valid @RequestBody PetMasterRequestDto request) throws IOException {
 
-        AbstractLogTraceTemplate<ResponseEntity<SuccessResponse<InvitationMasterResponseDto>>> template = new AbstractLogTraceTemplate<>(trace) {
+        AbstractLogTraceTemplate<ResponseEntity<SuccessResponse<PetMasterResponseDto>>> template = new AbstractLogTraceTemplate<>(trace) {
             @Override
-            protected ResponseEntity<SuccessResponse<InvitationMasterResponseDto>> call() throws IOException {
+            protected ResponseEntity<SuccessResponse<PetMasterResponseDto>> call() throws IOException {
 
-                // InvitationMaster 저장 및 반환된 DTO 변환
-                InvitationMasterResponseDto savedInvitationDto = invitationService.saveInvitationMaster(dto);
+                // PetMaster 저장 및 반환된 DTO 변환
+                PetMasterResponseDto savedInvitationDto = petMasterService.saveInvitationMaster(request);
 
                 // SuccessResponse 생성
-                SuccessResponse<InvitationMasterResponseDto> successResponse = new SuccessResponse<>(
+                SuccessResponse<PetMasterResponseDto> successResponse = new SuccessResponse<>(
                         HttpStatus.CREATED,
                         CREATED_SUCCESS_MESSAGE,
                         savedInvitationDto
@@ -50,19 +50,19 @@ public class InvitationController {
                 return ResponseEntity.status(HttpStatus.CREATED).body(successResponse);
             }
         };
-        return template.execute("InvitationController.createInvitation()");
+        return template.execute("PetMasterController.createInvitation()");
     }
 
     @GetMapping
-    public ResponseEntity<SuccessResponse<Page<InvitationMasterResponseDto>>> getInvitationList(
+    public ResponseEntity<SuccessResponse<Page<PetMasterResponseDto>>> getInvitationList(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size
     ) throws IOException {
         Pageable pageable = PageRequest.of(page, size);
-        Page<InvitationMasterResponseDto> invitationListDto = invitationService.getAllInvitations(pageable);
+        Page<PetMasterResponseDto> invitationListDto = petMasterService.getAllInvitations(pageable);
 
         // SuccessResponse 생성
-        SuccessResponse<Page<InvitationMasterResponseDto>> successResponse = new SuccessResponse<>(
+        SuccessResponse<Page<PetMasterResponseDto>> successResponse = new SuccessResponse<>(
                 HttpStatus.OK,
                 INVITATION_LIST_FETCH_SUCCESS_MESSAGE,
                 invitationListDto
@@ -71,13 +71,13 @@ public class InvitationController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<SuccessResponse<InvitationMasterResponseDto>> getInvitationDetail(@RequestParam String accessKey) throws IOException {
+    public ResponseEntity<SuccessResponse<PetMasterResponseDto>> getInvitationDetail(@RequestParam String accessKey) throws IOException {
 
-        AbstractLogTraceTemplate<ResponseEntity<SuccessResponse<InvitationMasterResponseDto>>> template = new AbstractLogTraceTemplate<>(trace) {
+        AbstractLogTraceTemplate<ResponseEntity<SuccessResponse<PetMasterResponseDto>>> template = new AbstractLogTraceTemplate<>(trace) {
             @Override
-            protected ResponseEntity<SuccessResponse<InvitationMasterResponseDto>> call() throws IOException {
-                InvitationMasterResponseDto invitationDetail = invitationService.getInvitationDetail(accessKey);
-                SuccessResponse<InvitationMasterResponseDto> response = new SuccessResponse<>(
+            protected ResponseEntity<SuccessResponse<PetMasterResponseDto>> call() throws IOException {
+                PetMasterResponseDto invitationDetail = petMasterService.getInvitationDetail(accessKey);
+                SuccessResponse<PetMasterResponseDto> response = new SuccessResponse<>(
                         HttpStatus.OK,
                         GET_SUCCESS_MESSAGE,
                         invitationDetail
@@ -85,7 +85,7 @@ public class InvitationController {
                 return ResponseEntity.ok(response);
             }
         };
-        return template.execute("InvitationController.getInvitationDetail()");
+        return template.execute("PetMasterController.getInvitationDetail()");
     }
 
     @DeleteMapping("/{id}")
@@ -93,7 +93,7 @@ public class InvitationController {
         AbstractLogTraceTemplate<ResponseEntity<SuccessResponse<Boolean>>> template = new AbstractLogTraceTemplate<>(trace) {
             @Override
             protected ResponseEntity<SuccessResponse<Boolean>> call() throws IOException {
-                invitationService.deleteInvitation(id);
+                petMasterService.deleteInvitation(id);
                 SuccessResponse<Boolean> response = new SuccessResponse<>(
                         HttpStatus.OK,
                         DELETED_SUCCESS_MESSAGE,
@@ -102,6 +102,6 @@ public class InvitationController {
                 return ResponseEntity.ok(response);
             }
         };
-        return template.execute("InvitationController.deleteInvitation()");
+        return template.execute("PetMasterController.deleteInvitation()");
     }
 }

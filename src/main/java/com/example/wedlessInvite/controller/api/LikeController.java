@@ -15,9 +15,9 @@ import static com.example.wedlessInvite.common.VarConst.*;
 public class LikeController {
     private final LikeService likeService;
 
-    @PostMapping("/{invitationId}")
-    public ResponseEntity<SuccessResponse<Void>> like(@PathVariable Long invitationId, Long userId) {
-        likeService.like(invitationId, userId);
+    @PostMapping("/{petId}")
+    public ResponseEntity<SuccessResponse<Void>> like(@PathVariable Long petId, Long userId) {
+        likeService.like(petId, userId);
 
         SuccessResponse<Void> successResponse = new SuccessResponse<>(
                 HttpStatus.OK,
@@ -27,9 +27,9 @@ public class LikeController {
         return ResponseEntity.status(HttpStatus.OK).body(successResponse);
     }
 
-    @DeleteMapping("/{invitationId}")
-    public ResponseEntity<SuccessResponse<Void>> unlike(@PathVariable Long invitationId, Long userId) {
-        likeService.unlike(invitationId, userId);
+    @DeleteMapping("/{petId}")
+    public ResponseEntity<SuccessResponse<Void>> unlike(@PathVariable Long petId, Long userId) {
+        likeService.unlike(petId, userId);
 
         SuccessResponse<Void> successResponse = new SuccessResponse<>(
                 HttpStatus.OK,

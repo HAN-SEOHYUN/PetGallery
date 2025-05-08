@@ -1,7 +1,7 @@
 package com.example.wedlessInvite.service;
 
-import com.example.wedlessInvite.domain.User.MasterUser;
-import com.example.wedlessInvite.domain.User.MasterUserRepository;
+import com.example.wedlessInvite.domain.User.UserMaster;
+import com.example.wedlessInvite.domain.User.UserMasterRepository;
 import com.example.wedlessInvite.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,30 +13,30 @@ import static com.example.wedlessInvite.exception.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserMasterService {
 
-    private final MasterUserRepository masterUserRepository;
+    private final UserMasterRepository userMasterRepository;
 
     private static final Pattern NICKNAME_PATTERN = Pattern.compile("^[a-zA-Z가-힣]+$");
 
     @Transactional
-    public MasterUser register(String name, String password) {
+    public UserMaster register(String name, String password) {
         validateName(name);
         validatePassword(password);
 
-        MasterUser masterUser = MasterUser.builder()
+        UserMaster userMaster = UserMaster.builder()
                 .name(name)
                 .pwd(password)
                 .build();
 
-        return masterUserRepository.save(masterUser);
+        return userMasterRepository.save(userMaster);
     }
 
     private void validateName(String name) {
         if (!NICKNAME_PATTERN.matcher(name).matches()) {
             throw new CustomException(INVALID_NICKNAME_PATTERN);
         }
-        if (masterUserRepository.existsByName(name)) {
+        if (userMasterRepository.existsByName(name)) {
             throw new CustomException(DUPLICATED_NICKNAME);
         }
     }

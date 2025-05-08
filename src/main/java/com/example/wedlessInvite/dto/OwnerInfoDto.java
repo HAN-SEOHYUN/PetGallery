@@ -1,8 +1,7 @@
 package com.example.wedlessInvite.dto;
 
 import com.example.wedlessInvite.common.YN;
-import com.example.wedlessInvite.domain.Invitation.BrideInfo;
-import lombok.AllArgsConstructor;
+import com.example.wedlessInvite.domain.Pet.OwnerInfo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +10,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class BrideInfoDto {
+public class OwnerInfoDto {
     private String name;
     private LocalDate birth;
     private String phone;
@@ -22,8 +21,8 @@ public class BrideInfoDto {
     private String motherPhone;
     private YN motherDeceasedYN;
 
-    public BrideInfo toEntity() {
-        return BrideInfo.builder()
+    public OwnerInfo toEntity() {
+        return OwnerInfo.builder()
                 .name(name)
                 .birth(birth)
                 .phone(phone)
@@ -37,7 +36,7 @@ public class BrideInfoDto {
     }
 
     @Builder
-    public BrideInfoDto(String name, LocalDate birth, String phone, String fatherName, String fatherPhone, YN fatherDeceasedYN, String motherName, String motherPhone, YN motherDeceasedYN) {
+    public OwnerInfoDto(String name, LocalDate birth, String phone, String fatherName, String fatherPhone, YN fatherDeceasedYN, String motherName, String motherPhone, YN motherDeceasedYN) {
         this.name = name;
         this.birth = birth;
         this.phone = phone;

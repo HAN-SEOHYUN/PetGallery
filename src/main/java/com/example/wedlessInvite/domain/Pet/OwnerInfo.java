@@ -1,4 +1,4 @@
-package com.example.wedlessInvite.domain.Invitation;
+package com.example.wedlessInvite.domain.Pet;
 
 import com.example.wedlessInvite.common.YN;
 import jakarta.persistence.*;
@@ -13,46 +13,46 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
-@Table(name="BRIDE_INFO")
-public class BrideInfo {
+@Table(name="OWNER_INFO")
+public class OwnerInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="BI_ID")
+    @Column(name="OI_ID")
     private Long id;
 
-    @Column(name="BI_NAME")
+    @Column(name="OI_NAME")
     private String name;
 
-    @Column(name="BI_BIRTH")
+    @Column(name="OI_BIRTH")
     private LocalDate birth;
 
-    @Column(name="BI_PHONE")
+    @Column(name="OI_PHONE")
     private String phone;
 
-    @Column(name="BI_FATHER_NAME")
+    @Column(name="OI_FATHER_NAME")
     private String fatherName;
 
-    @Column(name="BI_FATHER_PHONE")
+    @Column(name="OI_FATHER_PHONE")
     private String fatherPhone;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "BI_FATHER_DECEASED_YN", nullable = false, length = 1)
+    @Column(name = "OI_FATHER_DECEASED_YN", nullable = false, length = 1)
     @Comment("부친 사망 여부 (Y/N)")
     private YN fatherDeceasedYN;
 
-    @Column(name="BI_MOTHER_NAME")
+    @Column(name="OI_MOTHER_NAME")
     private String motherName;
 
-    @Column(name="BI_MOTHER_PHONE")
+    @Column(name="OI_MOTHER_PHONE")
     private String motherPhone;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "BI_MOTHER_DECEASED_YN", nullable = false, length = 1)
+    @Column(name = "OI_MOTHER_DECEASED_YN", nullable = false, length = 1)
     @Comment("모친 사망 여부 (Y/N)")
     private YN motherDeceasedYN;
 
     @Builder
-    public BrideInfo(String name, LocalDate birth, String phone, String fatherName, String fatherPhone, YN fatherDeceasedYN, String motherName, String motherPhone, YN motherDeceasedYN) {
+    public OwnerInfo(String name, LocalDate birth, String phone, String fatherName, String fatherPhone, YN fatherDeceasedYN, String motherName, String motherPhone, YN motherDeceasedYN) {
         this.name = name;
         this.birth = birth;
         this.phone = phone;

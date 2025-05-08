@@ -156,7 +156,7 @@ function buildCardList(data) {
 }
 
 /**
- * Invitation ID를 기반으로 상세 페이지로 이동
+ * Pet ID를 기반으로 상세 페이지로 이동
  * @param {number} invitationId - 청첩장 ID
  */
 function moveToDetail(invitationId) {

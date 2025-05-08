@@ -2,33 +2,33 @@ package com.example.wedlessInvite.domain.Like;
 
 import com.example.wedlessInvite.domain.BaseEntity;
 import com.example.wedlessInvite.domain.Invitation.InvitationMaster;
-import com.example.wedlessInvite.domain.User.MasterUser;
+import com.example.wedlessInvite.domain.User.UserMaster;
 import jakarta.persistence.*;
 import lombok.Builder;
 
 @Entity
-@Table(name = "INVITATION_LIKE")
-public class InvitationLike extends BaseEntity {
+@Table(name = "PET_LIKE")
+public class PetLike extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IL_ID")
+    @Column(name = "PL_ID")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "IL_MU_ID", nullable = false)
-    private MasterUser masterUser;
+    @JoinColumn(name = "PL_MU_ID", nullable = false)
+    private UserMaster userMaster;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "IL_IM_ID", nullable = false)
+    @JoinColumn(name = "PL_IM_ID", nullable = false)
     private InvitationMaster invitationMaster;
 
     @Builder
-    public InvitationLike(MasterUser masterUser, InvitationMaster invitationMaster) {
-        this.masterUser = masterUser;
+    public PetLike(UserMaster userMaster, InvitationMaster invitationMaster) {
+        this.userMaster = userMaster;
         this.invitationMaster = invitationMaster;
     }
 
-    protected InvitationLike() {}
+    protected PetLike() {}
 }
 

@@ -13,7 +13,7 @@ import static com.example.wedlessInvite.exception.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserMasterService {
 
     private final UserMasterRepository userMasterRepository;
 

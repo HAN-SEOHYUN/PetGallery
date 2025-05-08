@@ -1,11 +1,11 @@
 package com.example.wedlessInvite.service;
 
 import com.example.wedlessInvite.domain.Invitation.InvitationMasterRepository;
-import com.example.wedlessInvite.domain.Like.InvitationLike;
-import com.example.wedlessInvite.domain.Like.InvitationLikeRepository;
-import com.example.wedlessInvite.domain.User.MasterUserRepository;
+import com.example.wedlessInvite.domain.Like.PetLike;
+import com.example.wedlessInvite.domain.Like.PetLikeRepository;
+import com.example.wedlessInvite.domain.User.UserMasterRepository;
 import com.example.wedlessInvite.domain.Invitation.*;
-import com.example.wedlessInvite.domain.User.MasterUser;
+import com.example.wedlessInvite.domain.User.UserMaster;
 import com.example.wedlessInvite.exception.CustomException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,25 +18,25 @@ import static com.example.wedlessInvite.exception.ErrorCode.*;
 @RequiredArgsConstructor
 public class LikeService {
 
-    private final InvitationLikeRepository likeRepository;
+    private final PetLikeRepository likeRepository;
     private final InvitationMasterRepository invitationRepository;
-    private final MasterUserRepository userRepository;
+    private final UserMasterRepository userRepository;
 
     @Transactional
     public void like(Long invitationId, Long userId) {
         InvitationMaster invitation = invitationRepository.findById(invitationId)
                 .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
-        MasterUser user = userRepository.findById(userId)
+        UserMaster user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
-        boolean exists = likeRepository.existsByInvitationMasterAndMasterUser(invitation, user);
+        boolean exists = likeRepository.existsByInvitationMasterAndUserMaster(invitation, user);
         if (exists) {
             throw new CustomException(ALREADY_LIKED_MESSAGE);
         }
 
-        likeRepository.save(InvitationLike.builder()
+        likeRepository.save(PetLike.builder()
                 .invitationMaster(invitation)
-                .masterUser(user)
+                .userMaster(user)
                 .build());
     }
 
@@ -44,10 +44,10 @@ public class LikeService {
     public void unlike(Long invitationId, Long userId) {
         InvitationMaster invitation = invitationRepository.findById(invitationId)
                 .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
-        MasterUser user = userRepository.findById(userId)
+        UserMaster user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
-        InvitationLike like = likeRepository.findByInvitationMasterAndMasterUser(invitation, user)
+        PetLike like = likeRepository.findByInvitationMasterAndUserMaster(invitation, user)
                 .orElseThrow(() -> new CustomException(NOT_LIKED_YET_MESSAGE));
 
         likeRepository.delete(like);

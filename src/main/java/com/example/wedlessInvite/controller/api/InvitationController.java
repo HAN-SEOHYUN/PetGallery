@@ -3,7 +3,7 @@ package com.example.wedlessInvite.controller.api;
 import com.example.wedlessInvite.common.logtrace.LogTrace;
 import com.example.wedlessInvite.common.template.AbstractLogTraceTemplate;
 import com.example.wedlessInvite.common.template.SuccessResponse;
-import com.example.wedlessInvite.domain.User.MasterUserRepository;
+import com.example.wedlessInvite.domain.User.UserMasterRepository;
 import com.example.wedlessInvite.dto.InvitationMasterRequestDto;
 import com.example.wedlessInvite.dto.InvitationMasterResponseDto;
 import com.example.wedlessInvite.service.InvitationService;
@@ -25,7 +25,7 @@ import static com.example.wedlessInvite.common.VarConst.*;
 @RequiredArgsConstructor
 public class InvitationController {
     private final InvitationService invitationService;
-    private final MasterUserRepository userRepository;
+    private final UserMasterRepository userMasterRepository;
     private final LogTrace trace;
 
     @PostMapping

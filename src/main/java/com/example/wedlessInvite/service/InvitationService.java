@@ -6,20 +6,18 @@ import com.example.wedlessInvite.common.template.AbstractLogTraceTemplate;
 import com.example.wedlessInvite.domain.Image.ImageUploads;
 import com.example.wedlessInvite.domain.Image.ImageUploadsRepository;
 import com.example.wedlessInvite.domain.Invitation.*;
-import com.example.wedlessInvite.domain.Like.InvitationLikeRepository;
-import com.example.wedlessInvite.domain.User.MasterUser;
-import com.example.wedlessInvite.domain.User.MasterUserRepository;
+import com.example.wedlessInvite.domain.Like.PetLikeRepository;
+import com.example.wedlessInvite.domain.User.UserMaster;
+import com.example.wedlessInvite.domain.User.UserMasterRepository;
 import com.example.wedlessInvite.dto.ImageUploadDto;
 import com.example.wedlessInvite.dto.InvitationMasterRequestDto;
 import com.example.wedlessInvite.dto.InvitationMasterResponseDto;
 import com.example.wedlessInvite.exception.CustomException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,14 +37,14 @@ public class InvitationService {
     private final InvitationMasterRepository invitationMasterRepository;
     private final BrideInfoRepository brideInfoRepository;
     private final GroomInfoRepository groomInfoRepository;
-    private final MasterUserRepository userRepository;
+    private final UserMasterRepository userMasterRepository;
     private final ImageUploadsRepository imageUploadsRepository;
 
     private final ImageUploadService imageUploadService;
     private final S3FileService s3FileService;
 
     private final LogTrace trace;
-    private final InvitationLikeRepository invitationLikeRepository;
+    private final PetLikeRepository petLikeRepository;
 
     @Transactional
     public InvitationMasterResponseDto saveInvitationMaster(InvitationMasterRequestDto dto) throws IOException {
@@ -55,7 +53,7 @@ public class InvitationService {
             protected InvitationMasterResponseDto call() throws IOException {
 
                 //User 정보 검증
-                MasterUser masterUser = userRepository.findById(dto.getUserId())
+                UserMaster userMaster = userMasterRepository.findById(dto.getUserId())
                         .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
                 // 기타정보 저장
@@ -66,7 +64,7 @@ public class InvitationService {
                 // 엔티티 저장
                 InvitationMaster invitationMaster = dto.toEntity(imageUploads);
                 invitationMaster.setAccessKey();
-                invitationMaster.setMasterUser(masterUser);
+                invitationMaster.setUserMaster(userMaster);
                 InvitationMaster invitation = invitationMasterRepository.save(invitationMaster);
 
                 // 이미지 리스트 처리
@@ -106,7 +104,7 @@ public class InvitationService {
                 .greetTxt(invitation.getGreetTxt())
                 .regTime(invitation.getRegTime())
                 .accessKey(invitation.getAccessKey())
-                .likeCount(invitationLikeRepository.countByInvitationMasterId(invitation.getId()))
+                .likeCount(petLikeRepository.countByInvitationMasterId(invitation.getId()))
                 .build());
     }
 
@@ -126,7 +124,7 @@ public class InvitationService {
                 .letterTxt(entity.getLetterTxt())
                 .mainTxt(entity.getMainTxt())
                 .greetTxt(entity.getGreetTxt())
-                .likeCount(invitationLikeRepository.countByInvitationMasterId(entity.getId()))
+                .likeCount(petLikeRepository.countByInvitationMasterId(entity.getId()))
                 .build();
     }
 

@@ -2,7 +2,7 @@ package com.example.wedlessInvite.domain.Invitation;
 
 import com.example.wedlessInvite.domain.BaseEntity;
 import com.example.wedlessInvite.domain.Image.ImageUploads;
-import com.example.wedlessInvite.domain.User.MasterUser;
+import com.example.wedlessInvite.domain.User.UserMaster;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -33,7 +33,7 @@ public class InvitationMaster extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "IM_MU_ID", nullable = false)
     @Comment("사용자 정보")
-    private MasterUser masterUser;  // master_user 테이블과의 관계
+    private UserMaster userMaster;  // master_user 테이블과의 관계
 
     @Column(name = "IM_D_DATE", nullable = false)
     @Comment("결혼일자")
@@ -75,7 +75,7 @@ public class InvitationMaster extends BaseEntity {
     private String deleteYN;
 
     @Builder
-    public InvitationMaster(LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploads> imageList, String letterTxt, String mainTxt, String greetTxt, String deleteYN, MasterUser masterUser, String accessKey) {
+    public InvitationMaster(LocalDate date, BrideInfo brideInfo, GroomInfo groomInfo, ImageUploads mainImage, List<ImageUploads> imageList, String letterTxt, String mainTxt, String greetTxt, String deleteYN, UserMaster userMaster, String accessKey) {
         this.date = date;
         this.brideInfo = brideInfo;
         this.groomInfo = groomInfo;
@@ -85,7 +85,7 @@ public class InvitationMaster extends BaseEntity {
         this.mainTxt = mainTxt;
         this.greetTxt = greetTxt;
         this.deleteYN = "N";
-        this.masterUser = masterUser;
+        this.userMaster = userMaster;
         this.accessKey = accessKey;
     }
 
@@ -93,8 +93,8 @@ public class InvitationMaster extends BaseEntity {
         this.deleteYN = deleted;
     }
 
-    public void setMasterUser(MasterUser masterUser) {
-        this.masterUser = masterUser;
+    public void setUserMaster(UserMaster userMaster) {
+        this.userMaster = userMaster;
     }
 
     public void setAccessKey() {

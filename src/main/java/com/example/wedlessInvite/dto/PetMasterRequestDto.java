@@ -16,17 +16,18 @@ import java.util.List;
 @Getter
 @Setter
 public class PetMasterRequestDto {
-    @NotNull(message = "결혼일자는 필수 입력값입니다.")
+    @NotNull(message = "반려동물 생일은 필수입력 값입니다.")
     private LocalDate date;  // 결혼일자
     @NotNull
     private Long userId;
-    private Long mainImageId; // 메인 이미지
-    private List<Long> imageIdList; // 이미지 리스트
-    private OwnerInfo ownerInfo;  // 신부 정보
-    private PetDetailInfo petDetailInfo;  // 신랑 정보
-    private String introText;  // 레터링 문구
-    private String likeWord;  // 메인 텍스트
-    private String hateWord;  // 인사말
+    private Long mainImageId;
+    private List<Long> imageIdList;
+    private OwnerInfo ownerInfo;
+    private PetDetailInfo petDetailInfo;
+    private String introText;
+    private String likeWord;
+    private String hateWord;
+    private String name;
 
     public PetMaster toEntity(ImageUploads mainImage) {
         return PetMaster.builder()
@@ -37,18 +38,8 @@ public class PetMasterRequestDto {
                 .introText(introText)
                 .likeWord(likeWord)
                 .hateWord(hateWord)
+                .name(name)
                 .build();
-    }
-
-    @Builder
-    public PetMasterRequestDto(LocalDate date, ImageUploads mainImage, List<Long> imageIdList, OwnerInfo ownerInfo, PetDetailInfo petDetailInfo, String introText, String likeWord, String hateWord) {
-        this.date = date;
-        this.imageIdList = imageIdList;
-        this.ownerInfo = ownerInfo;
-        this.petDetailInfo = petDetailInfo;
-        this.introText = introText;
-        this.likeWord = likeWord;
-        this.hateWord = hateWord;
     }
 
     @Override
@@ -59,6 +50,7 @@ public class PetMasterRequestDto {
                 ", letterTxt='" + introText + '\'' +
                 ", mainTxt='" + likeWord + '\'' +
                 ", greetTxt='" + hateWord + '\'' +
+                ", name='" + name + '\'' +
                 ", date='" + date + '\'' +
                 '}';
     }

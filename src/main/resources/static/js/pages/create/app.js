@@ -143,7 +143,7 @@ $(document).ready(function () {
 
     function getFormInfo() {
         return data = {
-            brideInfo: getBrideInfo(),
+            ownerInfo: getOwnerInfo(),
             groomInfo: getGroomInfo(),
             date: $('#weddingDate').val(),
             letterTxt: $('#letterTxt').val(),
@@ -154,17 +154,17 @@ $(document).ready(function () {
         }
     }
 
-    function getBrideInfo() {
+    function getOwnerInfo() {
         return {
-            name: $('#brideName').val(),
-            birth: $('#brideBirth').val(),
-            phone: $('#bridePhone').val(),
-            fatherName: $('#brideFatherName').val(),
-            fatherPhone: $('#brideFatherPhone').val(),
-            fatherDeceasedYN: getCheckboxValue('#brideFatherDeceasedYN'),
-            motherName: $('#brideMotherName').val(),
-            motherPhone: $('#brideMotherPhone').val(),
-            motherDeceasedYN: getCheckboxValue('#brideMotherDeceasedYN')
+            name: $('#ownerName').val(),
+            birth: $('#ownerBirth').val(),
+            phone: $('#ownerPhone').val(),
+            fatherName: $('#ownerFatherName').val(),
+            fatherPhone: $('#ownerFatherPhone').val(),
+            fatherDeceasedYN: getCheckboxValue('#ownerFatherDeceasedYN'),
+            motherName: $('#ownerMotherName').val(),
+            motherPhone: $('#ownerMotherPhone').val(),
+            motherDeceasedYN: getCheckboxValue('#ownerMotherDeceasedYN')
         };
     }
 

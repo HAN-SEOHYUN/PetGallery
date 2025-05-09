@@ -76,7 +76,7 @@ button[type="submit"]:hover {
 
 /* 신랑, 신부 정보 그룹 */
 .groom-info,
-.bride-info {
+.owner-info {
     margin-bottom: 40px;
 }
 

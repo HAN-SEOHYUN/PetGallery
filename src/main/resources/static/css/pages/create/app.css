@@ -74,8 +74,6 @@ button[type="submit"]:hover {
     background-color: #45a049;
 }
 
-/* 신랑, 신부 정보 그룹 */
-.groom-info,
 .owner-info {
     margin-bottom: 40px;
 }
@@ -107,6 +105,10 @@ button[type="submit"]:hover {
 
 .add-button span {
     line-height: 0;
+}
+
+.pet-info h3 {
+    text-align: center;
 }
 
 

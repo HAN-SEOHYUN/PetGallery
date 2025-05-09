@@ -1,6 +1,6 @@
-const REQUEST_URL = '/api/invitations';
+const REQUEST_URL = '/api/pages';
 const UPLOAD_URL = '/api/images'
-const MAIN_PAGE = '/invitations/main';
+const MAIN_PAGE = '/pages/main';
 let imageIdList = [];
 
 $(document).ready(function () {
@@ -196,7 +196,7 @@ $(document).ready(function () {
  *     timestamp: '2025-01-14T09:11:03.599+00:00',
  *     status: 405,
  *     error: 'Method Not Allowed',
- *     path: '/invitations/create'
+ *     path: '/pages/create'
  *   }
  */
 function handleUploadErrorResponse(error) {
@@ -233,7 +233,7 @@ function handleSubmitErrorResponse(error) {
 /**
  * 등록 완료 후 알림을 표시하고, 알림이 닫히면 리다이렉트하는 함수
  *
- * @param {string} redirectUrl - 리다이렉트할 주소 (예: '/invitations/main')
+ * @param {string} redirectUrl - 리다이렉트할 주소 (예: '/pages/main')
  */
 function showSuccessAndRedirectAlert(redirectUrl) {
     showOneButtonAlert({

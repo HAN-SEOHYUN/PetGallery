@@ -1,5 +1,5 @@
-const REQUEST_URL = '/api/invitations';
-const MAIN_PAGE = '/invitations/main';
+const REQUEST_URL = '/api/pages';
+const MAIN_PAGE = '/pages/main';
 
 $(document).ready(function () {
     const invitationId = getInvitationIdFromUrl();
@@ -165,7 +165,7 @@ function getInvitationIdFromUrl() {
 /**
  * 삭제 완료 후 알림을 표시하고, 알림이 닫히면 리다이렉트하는 함수
  *
- * @param {string} redirectUrl - 리다이렉트할 주소 (예: '/invitations/main')
+ * @param {string} redirectUrl - 리다이렉트할 주소 (예: '/pages/main')
  */
 function showSuccessAndRedirectAlert(redirectUrl) {
     showOneButtonAlert({

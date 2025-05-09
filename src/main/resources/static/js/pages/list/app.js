@@ -1,4 +1,4 @@
-const REQUEST_URL = '/api/invitations';
+const REQUEST_URL = '/api/pages';
 
 $(document).ready(function () {
     const $grid = $('.grid');
@@ -178,7 +178,7 @@ function handleErrorResponse(error) {
             text: '버튼을 클릭하시면 메인 화면으로 이동합니다.',
             alertType: 'error',
             callback() {
-                window.location.href = '/invitations/main';
+                window.location.href = '/pages/main';
             }
         });
     } else {

@@ -68,15 +68,20 @@ $(document).ready(function () {
         const files = event.target.files;
 
         if (files.length > 0) {
-            $.each(files, function (index, file) {
-                previewImage(file);
-                addFile(file);
-            });
+            const file = files[0]; // 첫 번째 파일만 사용
+            previewImage(file);
+            addFile(file);
+            // $.each(files, function (index, file) {
+            //     previewImage(file);
+            //     addFile(file);
+            // });
         }
     }
 
     function previewImage(file) {
         if (!file) return; // 파일이 없으면 함수 종료
+
+        $("#previewContainer").empty();
 
         const reader = new FileReader();
         reader.onload = function (e) {
@@ -93,6 +98,7 @@ $(document).ready(function () {
      */
     function addFile(file) {
         toggleUploadState(true);
+        imageIdList = [];
         uploadFile(UPLOAD_URL, {file})
             .then((response) => {
                 imageIdList.push(response);
@@ -206,7 +212,7 @@ function handleUploadErrorResponse(error) {
         text: errorResponse.error || errorResponse.errorMsg,
         alertType: 'error',
         callback() {
-            $('#previewImage').hide();
+            $("#previewContainer").empty();
         }
     });
 }

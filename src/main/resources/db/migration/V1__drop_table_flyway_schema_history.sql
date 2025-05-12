@@ -1,1 +1,1 @@
-# DELETE FROM flyway_schema_history;
+DELETE FROM flyway_schema_history;

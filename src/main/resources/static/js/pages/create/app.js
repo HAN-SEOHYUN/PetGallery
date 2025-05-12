@@ -1,6 +1,6 @@
-const REQUEST_URL = '/api/pages';
+const REQUEST_URL = '/api';
 const UPLOAD_URL = '/api/images'
-const MAIN_PAGE = '/pages/main';
+const MAIN_PAGE = '/main';
 let imageIdList = [];
 
 $(document).ready(function () {
@@ -71,10 +71,6 @@ $(document).ready(function () {
             const file = files[0]; // 첫 번째 파일만 사용
             previewImage(file);
             addFile(file);
-            // $.each(files, function (index, file) {
-            //     previewImage(file);
-            //     addFile(file);
-            // });
         }
     }
 
@@ -149,14 +145,18 @@ $(document).ready(function () {
 
     function getFormInfo() {
         return data = {
-            ownerInfo: getOwnerInfo(),
-            groomInfo: getGroomInfo(),
-            date: $('#weddingDate').val(),
-            letterTxt: $('#letterTxt').val(),
-            mainTxt: $('#mainTxt').val(),
-            greetTxt: $('#greetTxt').val(),
+            // ownerInfo: getOwnerInfo(),
+            // petDetailInfo: getPetDetailInfo(),
+            ownerInfo: {},
+            petDetailInfo: {},
+            name: $('#name').val(),
+            date: $('#date').val(),
+            introText: $('#intro-text').val(),
+            likeWord: $('#like-word').val(),
+            hateWord: $('#hate-word').val(),
             imageIdList:imageIdList,
-            mainImageId: imageIdList[0] // 추후 변경 예정
+            mainImageId: imageIdList[0],
+            userId: 1// 추후 변경 예정
         }
     }
 
@@ -174,7 +174,7 @@ $(document).ready(function () {
         };
     }
 
-    function getGroomInfo() {
+    function getPetDetailInfo() {
         return {
             name: $('#groomName').val(),
             birth: $('#groomBirth').val(),

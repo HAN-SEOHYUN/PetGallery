@@ -111,6 +111,23 @@ button[type="submit"]:hover {
     text-align: center;
 }
 
+/* 기존 previewContainer 스타일 수정 */
+#previewContainer {
+    display: inline-block; /* 이미지 크기에 맞게 줄어듦 */
+    border: 2px dashed #ccc;
+    background-color: #fafafa;
+    margin-bottom: 10px;
+}
+
+#previewContainer img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.add-button {
+    display: block;
+}
 
 /* 반응형 디자인 */
 @media screen and (max-width: 768px) {

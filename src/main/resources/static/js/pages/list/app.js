@@ -1,4 +1,4 @@
-const REQUEST_URL = '/api/pages';
+const REQUEST_URL = '/api';
 
 $(document).ready(function () {
     const $grid = $('.grid');
@@ -105,9 +105,9 @@ $(document).ready(function () {
         })
             .then(response => { // 성공
                 // 카드 목록 생성
-                const pagination = new Pagination(response);
+                const pagination = new Pagination(response.data);
 
-                const contentHtml = getContentHtml(response.content);
+                const contentHtml = getContentHtml(response.data.content);
                 $grid.html(contentHtml);
 
                 renderPagination(pagination);
@@ -139,16 +139,16 @@ function getContentHtml(data) {
  * @returns {string} - 생성된 카드 목록을 포함하는 HTML 문자열.
  */
 function buildCardList(data) {
-    return data.map(invitation => {
-        const imageUrl = invitation.mainImage && invitation.mainImage.s3Url
-            ? invitation.mainImage.s3Url
+    return data.map(pet => {
+        const imageUrl = pet.mainImage && pet.mainImage.s3Url
+            ? pet.mainImage.s3Url
             : 'https://img.icons8.com/ios/500/no-image.png';
 
         return `
-            <div class="card" onclick="moveToDetail(${invitation.id})">
-                <img src=${imageUrl} alt="Invitation Main Photo">
+            <div class="card" onclick="moveToDetail('${pet.accessKey}')">
+                <img src=${imageUrl} alt="Pet Main Photo">
                 <div class="card-content">
-                    <p class="letter">${invitation.letterTxt}</p>
+                    <p class="introText">${pet.introText}</p>
                 </div>
             </div>
         `;
@@ -156,11 +156,11 @@ function buildCardList(data) {
 }
 
 /**
- * Pet ID를 기반으로 상세 페이지로 이동
- * @param {number} invitationId - 청첩장 ID
+ * accessKey 를 기반으로 상세 페이지로 이동
+ * @param {String} accessKey - 청첩장 ID
  */
-function moveToDetail(invitationId) {
-    window.location.href = `/invitations/detail?id=${invitationId}`;
+function moveToDetail(accessKey) {
+    window.location.href = `/detail?accessKey=${accessKey}`;
 }
 
 /**
@@ -172,13 +172,14 @@ function moveToDetail(invitationId) {
  * @throws {Object} - `BAD_REQUEST` 오류가 아닌 경우 원래의 오류 객체를 다시 던짐
  */
 function handleErrorResponse(error) {
+    const errorResponse = JSON.parse(error);
     if (error.statusCode === HTTP_STATUS.BAD_REQUEST) {
         showOneButtonAlert({
-            title: '조회에 실패했습니다.',
-            text: '버튼을 클릭하시면 메인 화면으로 이동합니다.',
+            title: errorResponse.message,
+            text: null,
             alertType: 'error',
             callback() {
-                window.location.href = '/pages/main';
+                window.location.href = '/main';
             }
         });
     } else {

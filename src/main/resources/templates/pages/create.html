@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+
+<body>
+<div th:replace="~{fragments/header :: body}"></div>
+<!-- 페이지 소스 시작 -->
+<link rel="stylesheet" href="/css/pages/create/app.css">
+
+<div class="container">
+<form id="invitationForm" action="" method="POST">
+    <div class="pet-info">
+        <h3><i class="fas fa-dog"></i>
+            프로필</h3>
+        <!-- 사진 -->
+<!--        <div class="form-group">-->
+<!--            <label for="mainImage"><i class="fas fa-paw"></i>-->
+<!--                사진 <span class="required">*</span></label>-->
+<!--&lt;!&ndash;            <input type="file" id="fileInput" style="display: none;" accept="image/*" multiple/>&ndash;&gt;-->
+<!--            <input type="file" id="fileInput" style="display: none;" accept="image/*"/>-->
+<!--            <div id="previewContainer"></div>-->
+<!--            <div id="lottie-spinner" style="display:none; width: 50px; height: 50px;"></div>-->
+<!--            <div>-->
+<!--                <button class="add-button" id="mainImage" type="button">-->
+<!--                    <span>+</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="form-group">
+            <label for="mainImage">
+                <i class="fas fa-paw"></i> 사진 <span class="required">*</span>
+            </label>
+
+            <input type="file" id="fileInput" style="display: none;" accept="image/*" />
+
+            <!-- 이미지와 버튼을 묶는 래퍼 div -->
+            <div id="imageWrapper" style="display: flex; flex-direction: column; align-items: flex-start;">
+                <div id="previewContainer" style="margin-bottom: 10px;"></div>
+
+                <div id="lottie-spinner" style="display:none; width: 50px; height: 50px;"></div>
+
+                <button class="add-button" id="mainImage" type="button" style="margin-top: 10px;">
+                    <span>+</span>
+                </button>
+            </div>
+        </div>
+        <!-- 이름 -->
+        <div class="form-group">
+            <label for="name"><i class="fas fa-paw"></i>
+                이름 <span class="required">*</span></label>
+            <input type="text" id="name" name="name" value="" required>
+        </div>
+        <!-- 생일 -->
+        <div class="form-group">
+            <label for="date"><i class="fas fa-paw"></i>
+                생일 <span class="required">*</span></label>
+            <input type="date" id="date" name="date" value="" required>
+        </div>
+
+        <!-- 한줄소개, 좋아하는 단어, 싫어하는 단어 -->
+        <div class="form-group">
+            <label for="intro-text"><i class="fas fa-paw"></i>
+                한줄소개 <span class="required">*</span></label>
+            <textarea id="intro-text" name="intro-text" required placeholder="처음 본 사람한테도 꼬리부터 흔드는 동네 인기쟁이"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="like-word"><i class="fas fa-paw"></i>
+                좋아하는 단어 <span class="required">*</span></label>
+            <textarea id="like-word" name="like-word" required placeholder="산책, 공놀이, 간식, 냠냠, 놀자, 드라이브"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="hate-word"><i class="fas fa-paw"></i>
+                싫어하는 단어 <span class="required">*</span></label>
+            <textarea id="hate-word" name="hate-word" required placeholder="목욕, 병원, 안돼, 빗질, 그만, 손톱깎자, 혼나"></textarea>
+        </div>
+    </div>
+    <!-- pet 정보 입력 끝 -->
+
+<!-- owenr 정보 시작 -->
+<!--    <div class="owner-info">-->
+<!--        <h3>신부측 정보</h3>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="ownerName">신부 이름 </label>-->
+<!--            <input type="text" id="ownerName" name="ownerInfo.name" value="">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="ownerBirth">신부 생일 </label>-->
+<!--            <input type="date" id="ownerBirth" name="ownerInfo.birth" value="">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="ownerPhone">신부 전화번호 </label>-->
+<!--            <input type="tel" id="ownerPhone" name="ownerInfo.phone" oninput="validateNumber(this)" value="">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="ownerFatherName">신부 아버지 이름 </label>-->
+<!--            <input type="text" id="ownerFatherName" name="ownerInfo.fatherName" value="">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="ownerFatherPhone">신부 아버지 전화번호 </label>-->
+<!--            <input type="tel" id="ownerFatherPhone" name="ownerInfo.fatherPhone" oninput="validateNumber(this)" value="">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="ownerFatherDeceasedYN">신부 아버지 생존 여부 </label>-->
+<!--            <input type="checkbox" id="ownerFatherDeceasedYN" name="ownerInfo.fatherDeceasedYN" value=""> &nbsp 고인-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="ownerMotherName">신부 어머니 이름 </label>-->
+<!--            <input type="text" id="ownerMotherName" name="ownerInfo.motherName" value="">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="ownerMotherPhone">신부 어머니 전화번호 </label>-->
+<!--            <input type="tel" id="ownerMotherPhone" name="ownerInfo.motherPhone" oninput="validateNumber(this)" value="">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="ownerMotherDeceasedYN">신부 어머니 생존 여부 </label>-->
+<!--            <input type="checkbox" id="ownerMotherDeceasedYN" name="ownerInfo.motherDeceasedYN" value="">&nbsp 고인-->
+<!--        </div>-->
+<!--        <div>-->
+
+        <div class="button-group">
+            <button type="button" id="" class="moveBtn" onclick="location.href='/main'">메인</button>
+            <!-- 제출 버튼 -->
+            <button type="submit" id="submitBtn" class="button">등록</button>
+        </div>
+</form>
+</div>
+<div th:replace="~{fragments/footer :: body}"></div>
+
+<script th:src="@{/js/pages/create/app.js}"></script>
+</body>
+</html>

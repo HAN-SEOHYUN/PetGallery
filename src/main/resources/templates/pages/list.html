@@ -5,16 +5,15 @@
 <body>
 <div th:replace="~{fragments/header :: body}"></div>
 <!-- 페이지 소스 시작 -->
-<link rel="stylesheet" href="/css/pages/invitation/list/app.css">
+<link rel="stylesheet" href="/css/pages/list/app.css">
 <link rel="stylesheet" href="/css/common/pagination.css">
 
 <div class="container">
 
     <div class="grid">
-
     </div>
 
-    <button type="button" id="" class="moveBtn" onclick="location.href='/invitations/main'">메인</button>
+    <button type="button" id="" class="moveBtn" onclick="location.href='/main'">메인</button>
     <div class="pagination">
     </div>
 </div>
@@ -22,6 +21,6 @@
 <div th:replace="fragments/footer :: body"></div>
 
 <script th:src="@{/js/common/pagination.js}"></script>
-<script th:src="@{/js/invitation/list/app.js}"></script>
+<script th:src="@{/js/pages/list/app.js}"></script>
 </body>
 </html>

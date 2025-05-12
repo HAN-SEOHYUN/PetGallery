@@ -5,7 +5,7 @@
 <body>
 <div th:replace="~{fragments/header :: body}"></div>
 <!-- 페이지 소스 시작 -->
-<link rel="stylesheet" href="/css/pages/invitation/detail/app.css">
+<link rel="stylesheet" href="/css/pages/detail/app.css">
 
 
 <div class="container">
@@ -33,15 +33,15 @@
     </div>
     <div class="info">
         <h3>신부측 정보</h3>
-        <p>이름: <span id="brideName"></span></p>
-        <p>생일: <span id="brideBirth"></span></p>
-        <p>전화번호: <span id="bridePhone"></span></p>
-        <p>아버지 이름: <span id="brideFatherName"></span></p>
-        <p>아버지 전화번호: <span id="brideFatherPhone"></span></p>
-        <p>아버지 생존 여부: <span id="brideFatherDeceasedYN"></span></p>
-        <p>어머니 이름: <span id="brideMotherName"></span></p>
-        <p>어머니 전화번호: <span id="brideMotherPhone"></span></p>
-        <p>어머니 생존 여부: <span id="brideMotherDeceasedYN"></span></p>
+        <p>이름: <span id="ownerName"></span></p>
+        <p>생일: <span id="ownerBirth"></span></p>
+        <p>전화번호: <span id="ownerPhone"></span></p>
+        <p>아버지 이름: <span id="ownerFatherName"></span></p>
+        <p>아버지 전화번호: <span id="ownerFatherPhone"></span></p>
+        <p>아버지 생존 여부: <span id="ownerFatherDeceasedYN"></span></p>
+        <p>어머니 이름: <span id="ownerMotherName"></span></p>
+        <p>어머니 전화번호: <span id="ownerMotherPhone"></span></p>
+        <p>어머니 생존 여부: <span id="ownerMotherDeceasedYN"></span></p>
     </div>
     <div class="info">
         <h3>신랑측 정보</h3>
@@ -64,6 +64,6 @@
 
 <div th:replace="~{fragments/footer :: body}"></div>
 
-<script th:src="@{/js/invitation/detail/app.js}"></script>
+<script th:src="@{/js/pages/detail/app.js}"></script>
 </body>
 </html>

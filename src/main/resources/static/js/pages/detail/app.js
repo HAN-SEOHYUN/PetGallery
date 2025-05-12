@@ -1,5 +1,5 @@
-const REQUEST_URL = '/api/invitations';
-const MAIN_PAGE = '/invitations/main';
+const REQUEST_URL = '/api/pages';
+const MAIN_PAGE = '/pages/main';
 
 $(document).ready(function () {
     const invitationId = getInvitationIdFromUrl();
@@ -105,16 +105,16 @@ $(document).ready(function () {
     }
 
     // 신부 정보 바인딩
-    function bindBrideInfo(bride) {
-        bindData("#brideName", bride.name);
-        bindData("#brideBirth", bride.birth);
-        bindData("#bridePhone", bride.phone);
-        bindData("#brideFatherName", bride.fatherName);
-        bindData("#brideFatherPhone", bride.fatherPhone);
-        setCheckbox("#brideFatherDeceasedYN", bride.fatherDeceasedYN);
-        bindData("#brideMotherName", bride.motherName);
-        bindData("#brideMotherPhone", bride.motherPhone);
-        setCheckbox("#brideMotherDeceasedYN", bride.motherDeceasedYN);
+    function bindOwnerInfo(owner) {
+        bindData("#ownerName", owner.name);
+        bindData("#ownerBirth", owner.birth);
+        bindData("#ownerPhone", owner.phone);
+        bindData("#ownerFatherName", owner.fatherName);
+        bindData("#ownerFatherPhone", owner.fatherPhone);
+        setCheckbox("#ownerFatherDeceasedYN", owner.fatherDeceasedYN);
+        bindData("#ownerMotherName", owner.motherName);
+        bindData("#ownerMotherPhone", owner.motherPhone);
+        setCheckbox("#ownerMotherDeceasedYN", owner.motherDeceasedYN);
     }
 
     // 신랑 정보 바인딩
@@ -133,7 +133,7 @@ $(document).ready(function () {
     // 데이터 바인딩 메인 함수
     function populateInvitationDetail(data) {
         bindWeddingInfo(data);
-        bindBrideInfo(data.brideInfo);
+        bindOwnerInfo(data.ownerInfo);
         bindGroomInfo(data.groomInfo);
         setMainImage(data.mainImage);
         setImageList(data.imageList);
@@ -165,7 +165,7 @@ function getInvitationIdFromUrl() {
 /**
  * 삭제 완료 후 알림을 표시하고, 알림이 닫히면 리다이렉트하는 함수
  *
- * @param {string} redirectUrl - 리다이렉트할 주소 (예: '/invitations/main')
+ * @param {string} redirectUrl - 리다이렉트할 주소 (예: '/pages/main')
  */
 function showSuccessAndRedirectAlert(redirectUrl) {
     showOneButtonAlert({

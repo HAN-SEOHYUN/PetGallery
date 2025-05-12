@@ -5,26 +5,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/invitations")
+@RequestMapping("/")
 public class PetMasterPageController {
 
     @GetMapping("/create")
     public String showCreatePage() {
-        return "invitations/create";
+        return "pages/create";
     }
 
     @GetMapping("/main")
     public String showMainPage() {
-        return "invitations/main";
+        return "pages/main";
     }
 
     @GetMapping("/list")
     public String showListPage() {
-        return "invitations/list";
+        return "pages/list";
     }
 
     @GetMapping("/detail")
     public String showDetailPage() {
-        return "invitations/detail";
+        return "pages/detail";
     }
 }

@@ -1,6 +1,6 @@
-const REQUEST_URL = '/api/invitations';
+const REQUEST_URL = '/api';
 const UPLOAD_URL = '/api/images'
-const MAIN_PAGE = '/invitations/main';
+const MAIN_PAGE = '/main';
 let imageIdList = [];
 
 $(document).ready(function () {
@@ -68,15 +68,16 @@ $(document).ready(function () {
         const files = event.target.files;
 
         if (files.length > 0) {
-            $.each(files, function (index, file) {
-                previewImage(file);
-                addFile(file);
-            });
+            const file = files[0]; // 첫 번째 파일만 사용
+            previewImage(file);
+            addFile(file);
         }
     }
 
     function previewImage(file) {
         if (!file) return; // 파일이 없으면 함수 종료
+
+        $("#previewContainer").empty();
 
         const reader = new FileReader();
         reader.onload = function (e) {
@@ -93,6 +94,7 @@ $(document).ready(function () {
      */
     function addFile(file) {
         toggleUploadState(true);
+        imageIdList = [];
         uploadFile(UPLOAD_URL, {file})
             .then((response) => {
                 imageIdList.push(response);
@@ -143,32 +145,36 @@ $(document).ready(function () {
 
     function getFormInfo() {
         return data = {
-            brideInfo: getBrideInfo(),
-            groomInfo: getGroomInfo(),
-            date: $('#weddingDate').val(),
-            letterTxt: $('#letterTxt').val(),
-            mainTxt: $('#mainTxt').val(),
-            greetTxt: $('#greetTxt').val(),
+            // ownerInfo: getOwnerInfo(),
+            // petDetailInfo: getPetDetailInfo(),
+            ownerInfo: {},
+            petDetailInfo: {},
+            name: $('#name').val(),
+            date: $('#date').val(),
+            introText: $('#intro-text').val(),
+            likeWord: $('#like-word').val(),
+            hateWord: $('#hate-word').val(),
             imageIdList:imageIdList,
-            mainImageId: imageIdList[0] // 추후 변경 예정
+            mainImageId: imageIdList[0],
+            userId: 1// 추후 변경 예정
         }
     }
 
-    function getBrideInfo() {
+    function getOwnerInfo() {
         return {
-            name: $('#brideName').val(),
-            birth: $('#brideBirth').val(),
-            phone: $('#bridePhone').val(),
-            fatherName: $('#brideFatherName').val(),
-            fatherPhone: $('#brideFatherPhone').val(),
-            fatherDeceasedYN: getCheckboxValue('#brideFatherDeceasedYN'),
-            motherName: $('#brideMotherName').val(),
-            motherPhone: $('#brideMotherPhone').val(),
-            motherDeceasedYN: getCheckboxValue('#brideMotherDeceasedYN')
+            name: $('#ownerName').val(),
+            birth: $('#ownerBirth').val(),
+            phone: $('#ownerPhone').val(),
+            fatherName: $('#ownerFatherName').val(),
+            fatherPhone: $('#ownerFatherPhone').val(),
+            fatherDeceasedYN: getCheckboxValue('#ownerFatherDeceasedYN'),
+            motherName: $('#ownerMotherName').val(),
+            motherPhone: $('#ownerMotherPhone').val(),
+            motherDeceasedYN: getCheckboxValue('#ownerMotherDeceasedYN')
         };
     }
 
-    function getGroomInfo() {
+    function getPetDetailInfo() {
         return {
             name: $('#groomName').val(),
             birth: $('#groomBirth').val(),
@@ -196,17 +202,17 @@ $(document).ready(function () {
  *     timestamp: '2025-01-14T09:11:03.599+00:00',
  *     status: 405,
  *     error: 'Method Not Allowed',
- *     path: '/invitations/create'
+ *     path: '/pages/create'
  *   }
  */
 function handleUploadErrorResponse(error) {
     const errorResponse = JSON.parse(error);
     showOneButtonAlert({
-        title: '사진 첨부에 실패했습니다. 재시도 해주세요.',
-        text: errorResponse.error || errorResponse.errorMsg,
+        title: '업로드에 실패했습니다.',
+        text: errorResponse.message,
         alertType: 'error',
         callback() {
-            $('#previewImage').hide();
+            $("#previewContainer").empty();
         }
     });
 }
@@ -220,7 +226,7 @@ function handleSubmitErrorResponse(error) {
     if (error.statusCode === HTTP_STATUS.BAD_REQUEST) {
         showOneButtonAlert({
             title: '등록에 실패했습니다',
-            text: error.errorMsg,
+            text: error.message,
             alertType: 'error',
             callback() {
             }
@@ -233,7 +239,7 @@ function handleSubmitErrorResponse(error) {
 /**
  * 등록 완료 후 알림을 표시하고, 알림이 닫히면 리다이렉트하는 함수
  *
- * @param {string} redirectUrl - 리다이렉트할 주소 (예: '/invitations/main')
+ * @param {string} redirectUrl - 리다이렉트할 주소 (예: '/pages/main')
  */
 function showSuccessAndRedirectAlert(redirectUrl) {
     showOneButtonAlert({

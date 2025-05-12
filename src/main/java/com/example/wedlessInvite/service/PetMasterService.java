@@ -93,16 +93,17 @@ public class PetMasterService {
         Page<PetMaster> entity = petMasterRepository.findByDeleteYNOrderByRegTimeDesc("N", pageable);
 
         // Entity에서 DTO로 변환하여 반환
-        return entity.map(invitation -> PetMasterResponseDto.builder()
-                .id(invitation.getId())
-                .date(invitation.getDate())
-                .mainImage(invitation.getMainImage())
-                .introText(invitation.getIntroText())
-                .likeWord(invitation.getLikeWord())
-                .hateWord(invitation.getHateWord())
-                .regTime(invitation.getRegTime())
-                .accessKey(invitation.getAccessKey())
-                .likeCount(petLikeRepository.countByPetMasterId(invitation.getId()))
+        return entity.map(pet -> PetMasterResponseDto.builder()
+                .id(pet.getId())
+                .date(pet.getDate())
+                .mainImage(pet.getMainImage())
+                .introText(pet.getIntroText())
+                .likeWord(pet.getLikeWord())
+                .hateWord(pet.getHateWord())
+                .regTime(pet.getRegTime())
+                .accessKey(pet.getAccessKey())
+                .name(pet.getName())
+                .likeCount(petLikeRepository.countByPetMasterId(pet.getId()))
                 .build());
     }
 

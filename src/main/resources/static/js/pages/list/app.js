@@ -138,7 +138,7 @@ function getContentHtml(data) {
 /**
  * 카드 목록을 생성하는 함수.
  *
- * @param {Array} data - 초대장 정보가 담긴 객체 배열.
+ * @param {Array} data - pet 정보가 담긴 객체 배열.
  * @returns {string} - 생성된 카드 목록을 포함하는 HTML 문자열.
  */
 function buildCardList(data) {
@@ -151,7 +151,7 @@ function buildCardList(data) {
             <div class="card" onclick="moveToDetail('${pet.accessKey}')">
                 <img src=${imageUrl} alt="Pet Main Photo">
                 <div class="card-content">
-                    <p class="name">${pet.name ? pet.name : ""}</p>
+                    <p class="name"><i class="fas fa-paw"></i> ${pet.name ? pet.name : ""}</p>
                     <p class="age"> ${calculateAge(pet.date)} 살</p>
                 </div>
             </div>

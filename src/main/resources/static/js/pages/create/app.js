@@ -208,8 +208,8 @@ $(document).ready(function () {
 function handleUploadErrorResponse(error) {
     const errorResponse = JSON.parse(error);
     showOneButtonAlert({
-        title: '사진 첨부에 실패했습니다. 재시도 해주세요.',
-        text: errorResponse.error || errorResponse.errorMsg,
+        title: '업로드에 실패했습니다.',
+        text: errorResponse.message,
         alertType: 'error',
         callback() {
             $("#previewContainer").empty();
@@ -226,7 +226,7 @@ function handleSubmitErrorResponse(error) {
     if (error.statusCode === HTTP_STATUS.BAD_REQUEST) {
         showOneButtonAlert({
             title: '등록에 실패했습니다',
-            text: error.errorMsg,
+            text: error.message,
             alertType: 'error',
             callback() {
             }

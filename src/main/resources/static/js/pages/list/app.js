@@ -128,14 +128,17 @@ function getContentHtml(data) {
     if (data && data.length > 0) {
         return buildCardList(data);
     } else {
-        return '<p></p><p class="no-content">등록된 게시물이 없습니다.</p>';
+        // return '<p class="no-content">등록된 게시물이 없습니다.</p>';
+        return '<p></p><p class="no-content">' +
+            '<i class="fas fa-box-open"></i>\n' +
+            '  아직 게시물이 없어요!</p></p>';
     }
 }
 
 /**
  * 카드 목록을 생성하는 함수.
  *
- * @param {Array} data - 초대장 정보가 담긴 객체 배열.
+ * @param {Array} data - pet 정보가 담긴 객체 배열.
  * @returns {string} - 생성된 카드 목록을 포함하는 HTML 문자열.
  */
 function buildCardList(data) {
@@ -148,12 +151,30 @@ function buildCardList(data) {
             <div class="card" onclick="moveToDetail('${pet.accessKey}')">
                 <img src=${imageUrl} alt="Pet Main Photo">
                 <div class="card-content">
-                    <p class="introText">${pet.introText}</p>
+                    <p class="name"><i class="fas fa-paw"></i> ${pet.name ? pet.name : ""}</p>
+                    <p class="age"> ${calculateAge(pet.date)} 살</p>
                 </div>
             </div>
         `;
     }).join('');
 }
+
+function calculateAge(dateStr) {
+    const birthDate = new Date(dateStr);
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const hasHadBirthdayThisYear =
+        today.getMonth() > birthDate.getMonth() ||
+        (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+    if (!hasHadBirthdayThisYear) {
+        age--;
+    }
+
+    return age; // 나이 리턴
+}
+
 
 /**
  * accessKey 를 기반으로 상세 페이지로 이동

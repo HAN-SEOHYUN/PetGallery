@@ -6,20 +6,62 @@
 
 .card {
     background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 1px solid #f0c7f0;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    width: 220px;
+    padding: 15px;
+    margin: 10px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .card img {
     width: 100%;
-    height: auto;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
 }
 
 .card-content {
-    padding: 15px;
+    padding: 10px;
+}
+
+.card-content .name {
+    font-size: 1.2rem;
+    color: #f78fb3; /* 연한 핑크색 */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.card-content .age {
+    font-size: 1rem;
+    color: #7b6f7a; /* 부드러운 연보라색 */
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    background-color: #f4e1f4; /* 배경에 약간의 핑크색 */
+    padding: 8px 12px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.card-content .age:hover {
+    background-color: #f78fb3; /* hover시 핑크색으로 변경 */
+    color: white;
+}
+
+.card-content .name, .card-content .age {
+    transition: color 0.3s ease;
 }
 
 .card-content .introText {
@@ -43,27 +85,27 @@
     margin: 0 5px;
     padding: 10px 15px;
     text-decoration: none;
-    color: #007bff;
+    color: #f78fb3;
     border: 1px solid #ddd;
     border-radius: 4px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .pagination a:hover {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #d8b4f8;
+    color: white;
 }
 
 .pagination .active {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #f78fb3;
+    color: white;
     border: none;
 }
 
 .moveBtn {
     width: 100%;
     padding: 15px;
-    background-color: #FF5722;
+    background-color: #f78fb3;
     color: white;
     font-size: 18px;
     border: none;
@@ -73,6 +115,6 @@
     transition: background-color 0.3s ease;
 }
 
-.moveBtn :hover {
-    background-color: #e64a19;
+.moveBtn:hover {
+    background-color: #d8b4f8;
 }

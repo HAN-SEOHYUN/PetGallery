@@ -6,47 +6,60 @@
     font-size: 16px;
     font-weight: bold;
     border: none;
-    background-color: #8e44ad;
+    background-color: #f78fb3;
     color: white;
     transition: all 0.3s ease-in-out;
 }
 
-/* 마우스 오버 효과 */
 .btn-custom:hover {
-    background-color: #732d91;
+    background-color: #d8b4f8;
     transform: scale(1.05);
 }
 
-/* 버튼을 세로로 배치하고 정중앙에 위치 */
+/* 버튼 컨테이너 스타일 */
 .button-container {
     display: flex;
-    flex-direction: column; /* 세로로 배치 */
-    justify-content: center; /* 버튼 간의 세로 간격을 중앙 정렬 */
-    align-items: center; /* 세로로 중앙 정렬 */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     max-width: 450px;
-    height: 40vh; /* 부모 요소의 전체 높이를 사용 */
+    height: 40vh;
     margin: 0 auto;
-    gap: 10px; /* 버튼 간의 간격 */
+    gap: 10px;
 }
 
-/* 프로젝트 섹션 (카드 스타일 적용) */
+/* 카드 스타일 */
+.card {
+    border: 2px solid #f8bbd0;
+    border-radius: 16px;
+    padding: 20px;
+    background-color: #fff0f5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* 프로젝트 섹션 스타일 */
 .project-section {
-    border: 1px solid #d1d1d1;
+    border: 1px solid #f8bbd0;
     padding: 25px;
     border-radius: 15px;
     margin-top: 30px;
-    background: rgba(255, 255, 255, 0.85); /* 반투명한 카드 스타일 */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    background: rgba(255, 240, 245, 0.85);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: left;
     backdrop-filter: blur(5px);
 }
 
-/* 제목 스타일 */
+/* 섹션 제목 스타일 */
 .section-title {
     font-size: 22px;
     font-weight: bold;
-    color: #007bff;
+    color: #d63384;
     margin-bottom: 15px;
 }
 
@@ -58,7 +71,7 @@
 .project-details h4, .project-infra h4, .project-goal h4 {
     font-size: 18px;
     font-weight: bold;
-    color: #333;
+    color: #d63384;
     margin-bottom: 8px;
 }
 
@@ -74,7 +87,7 @@
     color: #555;
 }
 
-/* 버튼 스타일 */
+/* 프로젝트 버튼 스타일 */
 .btn-project {
     width: 220px;
     height: 50px;
@@ -82,31 +95,25 @@
     font-size: 16px;
     font-weight: bold;
     border: none;
-    background-color: #007bff;
+    background-color: #f78fb3;
     color: white;
     transition: all 0.3s ease-in-out;
 }
 
-/* 마우스 오버 효과 */
 .btn-project:hover {
-    background-color: #0056b3;
+    background-color: #f368e0;
     transform: scale(1.05);
 }
 
-/* 기존 버튼을 아래로 내리기 위한 스타일 */
-.button-container:last-of-type {
-    margin-top: 40px;
-}
-
+/* 프로젝트 버튼 컨테이너 스타일 */
 .project-button-container {
     display: flex;
-    flex-direction: column; /* 세로로 배치 */
-    justify-content: center; /* 버튼 간의 세로 간격을 중앙 정렬 */
-    align-items: center; /* 세로로 중앙 정렬 */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     max-width: 450px;
-    height: 30vh; /* 부모 요소의 전체 높이를 사용 */
+    height: 30vh;
     margin: 0 auto;
-    gap: 10px; /* 버튼 간의 간격 */
+    gap: 10px;
 }
-

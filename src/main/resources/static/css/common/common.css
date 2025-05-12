@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Gaegu&display=swap');
+
+/* 기본 스타일 초기화 */
 /* 기본 스타일 초기화 */
 * {
     margin: 0;
@@ -6,10 +9,14 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #eff7ff;
+    font-family: "Gaegu", sans-serif;
+    background-color: #ffe6f0;
+    background-repeat: repeat;
+    background-size: 100px 100px;
     color: #333;
     line-height: 1.6;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .container {
@@ -17,30 +24,32 @@ body {
     max-width: 800px;
     margin: 50px auto;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* 제목 스타일 */
 h2 {
     text-align: center;
     font-size: 28px;
     margin-bottom: 20px;
-    color: #333;
+    color: #d63384;
 }
 
 h3 {
     margin-top: 50px;
     margin-bottom: 30px;
     font-size: 24px;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid #f8bbd0;
     padding-bottom: 5px;
-    color: #333;
+    color: #d63384;
 }
 
 /* 필수 표시 마크 */
 .required {
-    color: red;
+    color: #ff4d6d;
+    font-weight: bold;
 }
 
 .text-center-footer {
@@ -48,9 +57,8 @@ h3 {
 }
 
 .text-center-footer a {
-    text-decoration: none; /* 밑줄 제거 */
-    background: none; /* 배경 제거 */
-    border: none; /* 테두리 제거 */
-    outline: none; /* 포커스 시 테두리 제거 */
-    flex: 0 0 0
+    text-decoration: none;
+    background: none;
+    border: none;
+    outline: none;
 }

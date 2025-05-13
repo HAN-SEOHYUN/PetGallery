@@ -75,7 +75,7 @@
 }
 
 /* 버튼 그룹 */
-.button-group {
+.custom-button-group {
     display: flex;
     justify-content: space-between;
     margin-top: 30px;

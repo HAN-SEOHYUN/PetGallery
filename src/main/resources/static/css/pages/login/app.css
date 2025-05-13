@@ -28,7 +28,7 @@ textarea {
 }
 
 /* 버튼 스타일 */
-.button-group {
+.custom-button-group {
     display: flex;
     justify-content: space-between;
     margin-top: 40px;

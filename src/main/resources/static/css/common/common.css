@@ -62,3 +62,14 @@ h3 {
     border: none;
     outline: none;
 }
+
+.custom-button-group .custom-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #d63384;
+    color: white;
+    transition: background-color 0.3s;
+}

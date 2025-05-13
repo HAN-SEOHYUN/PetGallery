@@ -54,8 +54,13 @@ public class UserMasterController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpSession session) {
-        session.invalidate();
-        return ResponseEntity.ok("로그아웃 완료");
+    public ResponseEntity<SuccessResponse<Void>> logout(HttpSession session) {
+        session.invalidate();  // 세션 무효화
+        SuccessResponse<Void> response = new SuccessResponse<>(
+                HttpStatus.OK,
+                "로그아웃 성공",
+                null
+        );
+        return ResponseEntity.ok(response);
     }
 }

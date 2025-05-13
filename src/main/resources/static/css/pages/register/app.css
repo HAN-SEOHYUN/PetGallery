@@ -1,0 +1,85 @@
+/* 입력 폼 공통 스타일 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="date"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #fff;
+    font-family: "Gaegu", sans-serif;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* 버튼 스타일 */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.button,
+.moveBtn {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #d63384;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.button:hover,
+.moveBtn:hover {
+    background-color: #c2185b;
+}
+
+/* 사진 업로드 관련 */
+#imageWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#previewContainer {
+    margin-bottom: 10px;
+}
+
+#lottie-spinner {
+    display: none;
+    width: 50px;
+    height: 50px;
+}
+
+.add-button {
+    background-color: #fff;
+    border: 2px dashed #d63384;
+    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    color: #d63384;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-button:hover {
+    background-color: #fce4ec;
+}

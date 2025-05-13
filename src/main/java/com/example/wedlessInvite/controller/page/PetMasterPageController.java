@@ -27,4 +27,9 @@ public class PetMasterPageController {
     public String showDetailPage() {
         return "pages/detail";
     }
+
+    @GetMapping("/register")
+    public String showRegisterPage() {
+        return "pages/register";
+    }
 }

@@ -50,36 +50,3 @@ textarea {
 .moveBtn:hover {
     background-color: #c2185b;
 }
-
-/* 사진 업로드 관련 */
-#imageWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-#previewContainer {
-    margin-bottom: 10px;
-}
-
-#lottie-spinner {
-    display: none;
-    width: 50px;
-    height: 50px;
-}
-
-.add-button {
-    background-color: #fff;
-    border: 2px dashed #d63384;
-    border-radius: 8px;
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
-    color: #d63384;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.add-button:hover {
-    background-color: #fce4ec;
-}

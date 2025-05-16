@@ -163,36 +163,58 @@ function buildCardList(data) {
     }).join('');
 }
 
-function toggleLike(petId) {
-    // 로그인 유저 ID를 세션 등에서 가져오는 로직 필요 (여기선 임시 1로 가정)
-    const userId = document.body.dataset.userId;
-    const url = `/api/likes/${petId}?userId=${userId}`;
-
+function toggleLike(petId, btnElement) {
+    const userId = getUserId();
     if (!userId) {
-        showOneButtonAlert({
-            title: '로그인이 필요합니다',
-            alertType: 'warning',
-            callback() {
-                window.location.href = '/login';
-            }
-        });
+        validateLogin();
         return;
     }
 
-    fetchData(url, {
-        method: HTTP_METHODS.POST,
-        headers: {
-            'Content-Type': 'application/json'
+    const url = getRequestUrl(petId, userId);
+    sendLikeRequest(url)
+        .then(() => updateLikeIcon(btnElement))
+        .catch(handleLikeError);
+}
+
+function getUserId() {
+    return document.body.dataset.userId;
+}
+
+function validateLogin() {
+    showOneButtonAlert({
+        title: '로그인이 필요합니다',
+        alertType: 'warning',
+        callback() {
+            window.location.href = '/login';
         }
-    })
-        .then(response => {
-            console.log('좋아요 성공:', response);
-            // TODO: 하트 색상 변경 등의 UI 반영
-        })
-        .catch(error => {
-            console.error('좋아요 실패:', error);
-            // TODO: 에러에 따른 사용자 피드백 처리
-        });
+    });
+}
+
+function getRequestUrl(petId, userId) {
+    return `/api/likes/${petId}?userId=${userId}`;
+}
+
+function sendLikeRequest(url) {
+    return fetchData(url, {
+        method: HTTP_METHODS.POST,
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+
+function updateLikeIcon(btnElement) {
+    const icon = btnElement.querySelector('i');
+    if (icon.classList.contains('fas')) {
+        icon.classList.remove('fas', 'liked');
+        icon.classList.add('far');
+    } else {
+        icon.classList.remove('far');
+        icon.classList.add('fas', 'liked');
+    }
+}
+
+function handleLikeError(error) {
+    console.error('좋아요 실패:', error);
+    // TODO: 사용자에게 에러 메시지 보여주기
 }
 
 

@@ -185,7 +185,7 @@ function toggleLike(petId, btnElement) {
     const url = getRequestUrl(petId, userId);
     sendLikeRequest(url)
         .then(() => updateLikeIcon(btnElement))
-        .catch(handleLikeError);
+        .catch((error) => handleLikeError(JSON.parse(error)));
 }
 
 function getUserId() {
@@ -225,8 +225,17 @@ function updateLikeIcon(btnElement) {
 }
 
 function handleLikeError(error) {
-    console.error('좋아요 실패:', error);
-    // TODO: 사용자에게 에러 메시지 보여주기
+    if (error.statusCode === HTTP_STATUS.BAD_REQUEST) {
+        showOneButtonAlert({
+            title: '좋아요 실패',
+            text: error.message,
+            alertType: 'error',
+            callback() {
+            }
+        });
+    } else {
+        throw error;
+    }
 }
 
 

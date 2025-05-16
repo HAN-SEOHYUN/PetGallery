@@ -1,21 +1,3 @@
-/* 버튼 스타일 */
-.btn-custom {
-    width: 220px;
-    height: 50px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    background-color: #f78fb3;
-    color: white;
-    transition: all 0.3s ease-in-out;
-}
-
-.btn-custom:hover {
-    background-color: #d8b4f8;
-    transform: scale(1.05);
-}
-
 /* 버튼 컨테이너 스타일 */
 .button-container {
     display: flex;
@@ -88,6 +70,7 @@
 }
 
 /* 프로젝트 버튼 스타일 */
+.btn-custom,
 .btn-project {
     width: 220px;
     height: 50px;
@@ -100,9 +83,19 @@
     transition: all 0.3s ease-in-out;
 }
 
+.btn-custom:hover,
 .btn-project:hover {
-    background-color: #f368e0;
+    background-color: #d8b4f8;
     transform: scale(1.05);
+}
+
+.btn-custom:focus,
+.btn-project:focus,
+.btn-custom:active,
+.btn-project:active {
+    background-color: #f78fb3;
+    outline: none;
+    transform: none;
 }
 
 /* 프로젝트 버튼 컨테이너 스타일 */

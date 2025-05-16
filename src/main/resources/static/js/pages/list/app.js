@@ -154,10 +154,90 @@ function buildCardList(data) {
                     <p class="name"><i class="fas fa-paw"></i> ${pet.name ? pet.name : ""}</p>
                     <p class="age"> ${calculateAge(pet.date)} 살</p>
                 </div>
+                
+                <button class="like-btn" onclick="event.stopPropagation(); toggleLike(${pet.id}, this);">
+                    <i class="far fa-heart"></i> <!-- 빈 하트 -->
+                </button>
             </div>
         `;
     }).join('');
 }
+
+/**
+ * 사용자가 특정 반려동물(petId)에 대해 좋아요(하트) 토글 기능을 수행합니다.
+ *
+ * 1. 현재 로그인된 사용자 ID를 세션(HTML body dataset)에서 가져옵니다.
+ * 2. 로그인 상태가 아니면 로그인 페이지로 유도하는 경고창을 띄웁니다.
+ * 3. 로그인 상태면 서버에 좋아요 요청을 POST 방식으로 보냅니다.
+ * 4. 요청 성공 시, 버튼의 하트 아이콘을 빈 하트 ↔ 채워진 하트로 토글하여 UI를 업데이트합니다.
+ * 5. 요청 실패 시, 에러를 콘솔에 출력하고 필요하면 사용자에게 알림을 처리할 수 있도록 준비합니다.
+ *
+ * @param {number} petId - 좋아요를 누른 반려동물의 고유 ID
+ * @param {HTMLElement} btnElement - 좋아요 버튼 요소 (아이콘 토글을 위해 필요)
+ */
+function toggleLike(petId, btnElement) {
+    const userId = getUserId();
+    if (!userId) {
+        validateLogin();
+        return;
+    }
+
+    const url = getRequestUrl(petId, userId);
+    sendLikeRequest(url)
+        .then(() => updateLikeIcon(btnElement))
+        .catch((error) => handleLikeError(JSON.parse(error)));
+}
+
+function getUserId() {
+    return document.body.dataset.userId;
+}
+
+function validateLogin() {
+    showOneButtonAlert({
+        title: '로그인이 필요합니다',
+        alertType: 'warning',
+        callback() {
+            window.location.href = '/login';
+        }
+    });
+}
+
+function getRequestUrl(petId, userId) {
+    return `/api/likes/${petId}?userId=${userId}`;
+}
+
+function sendLikeRequest(url) {
+    return fetchData(url, {
+        method: HTTP_METHODS.POST,
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+
+function updateLikeIcon(btnElement) {
+    const icon = btnElement.querySelector('i');
+    if (icon.classList.contains('fas')) {
+        icon.classList.remove('fas', 'liked');
+        icon.classList.add('far');
+    } else {
+        icon.classList.remove('far');
+        icon.classList.add('fas', 'liked');
+    }
+}
+
+function handleLikeError(error) {
+    if (error.statusCode === HTTP_STATUS.BAD_REQUEST) {
+        showOneButtonAlert({
+            title: '좋아요 실패',
+            text: error.message,
+            alertType: 'error',
+            callback() {
+            }
+        });
+    } else {
+        throw error;
+    }
+}
+
 
 function calculateAge(dateStr) {
     const birthDate = new Date(dateStr);

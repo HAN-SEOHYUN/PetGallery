@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.wedlessInvite.exception.ErrorCode.*;
@@ -70,4 +71,25 @@ public class LikeService {
                 })
                 .collect(Collectors.toList());
     }
+
+    public boolean toggleLike(Long petId, Long userId) {
+        Optional<PetLike> existingLike = likeRepository.findByPetMasterIdAndUserMasterId(petId, userId);
+
+        if (existingLike.isPresent()) {
+            likeRepository.delete(existingLike.get());
+            return false; // 좋아요 취소
+        } else {
+            PetMaster invitation = invitationRepository.findById(petId)
+                    .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
+            UserMaster user = userRepository.findById(userId)
+                    .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+
+            likeRepository.save(PetLike.builder()
+                    .petMaster(invitation)
+                    .userMaster(user)
+                    .build());
+            return true; // 좋아요 등록
+        }
+    }
+
 }

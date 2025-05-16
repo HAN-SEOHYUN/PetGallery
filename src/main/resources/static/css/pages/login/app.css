@@ -1,0 +1,83 @@
+/* 입력 폼 공통 스타일 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="date"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #fff;
+    font-family: "Gaegu", sans-serif;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* 버튼 스타일 */
+.custom-button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* 로그인 버튼 (기본 스타일) */
+#submitBtn {
+    background-color: #d63384;
+    color: white;
+    border: none;
+}
+
+#submitBtn:hover {
+    background-color: #c12774;
+}
+
+/* 메인 버튼 (화이트 스타일) */
+#moveBtn {
+    background-color: white;
+    color: #d63384;
+    border: 2px solid #d63384;
+}
+
+#moveBtn:hover {
+    background-color: #f8bbd0;
+    color: #d63384;
+}
+
+.signup-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.signup-link a {
+    color: #888; /* 연한 회색 */
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.signup-link a:hover {
+    color: #555; /* 조금 더 진한 회색 */
+    text-decoration: underline;
+}

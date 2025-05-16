@@ -62,3 +62,112 @@ h3 {
     border: none;
     outline: none;
 }
+
+.custom-button-group .custom-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #d63384;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+/* 버튼 스타일 */
+/* user-info-container 위치 고정 */
+.user-info-container {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(214, 51, 132, 0.15);
+    z-index: 1000;
+    color: #d63384;
+    font-size: 14px;
+}
+
+/* 인사말 텍스트 보이도록 font-weight와 색상 확실히 지정 */
+.user-greeting {
+    font-weight: 700;
+    color: #d63384;
+}
+
+/* 아이콘 버튼 스타일 */
+.btn-auth.btn-icon {
+    position: relative;
+    color: #d63384;
+    font-size: 22px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 아이콘 hover 색상 변경 */
+.btn-auth.btn-icon:hover {
+    color: #f8bbd0;
+}
+
+/* 말풍선 위치를 버튼 아래쪽으로 */
+.btn-auth.btn-icon::after {
+    content: attr(title);
+    position: absolute;
+    top: 40px;  /* 아래쪽으로 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #d63384;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    box-shadow: 0 2px 6px rgba(214, 51, 132, 0.5);
+    z-index: 1001;
+}
+
+.btn-auth.btn-icon::before {
+    content: "";
+    position: absolute;
+    top: 34px;  /* 말풍선 바로 위 삼각형 위치 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #d63384 transparent transparent transparent;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1001;
+}
+
+.btn-auth.btn-icon:hover::after,
+.btn-auth.btn-icon:hover::before {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.btn-wrapper {
+    position: fixed;
+    top: 16px;  /* 위에서 살짝 띄우기 */
+    right: 16px; /* 우측 끝에서 띄우기 */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(214, 51, 132, 0.15);
+    z-index: 1000;
+    font-weight: 600;
+    color: #d63384;
+    font-size: 14px;
+}
+
+

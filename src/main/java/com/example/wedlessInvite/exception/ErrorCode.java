@@ -18,6 +18,8 @@ public enum ErrorCode {
     ALREADY_LIKED_MESSAGE(HttpStatus.BAD_REQUEST, "좋아요를 누른 게시글입니다."),
     NOT_LIKED_YET_MESSAGE(HttpStatus.BAD_REQUEST, "좋아요를 누르지 않은 상태입니다."),
     IMAGE_NOT_FOUND(HttpStatus.BAD_REQUEST, "이미지를 찾을 수 없습니다."),
+    PASSWORD_NOT_MATCH(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
+    LOGIN_REQUIRED(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다."),
     ;
 
     private final HttpStatus statusCode;

@@ -19,17 +19,19 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/{petId}")
-    public ResponseEntity<SuccessResponse<Void>> like(@PathVariable Long petId,
-                                                      @RequestParam Long userId) {
-        likeService.like(petId, userId);
+    public ResponseEntity<SuccessResponse<Boolean>> toggleLike(@PathVariable Long petId,
+                                                            @RequestParam Long userId) {
+        boolean isLiked = likeService.toggleLike(petId, userId);
 
-        SuccessResponse<Void> successResponse = new SuccessResponse<>(
+        String message = isLiked ? "좋아요 등록되었습니다." : "좋아요가 취소되었습니다.";
+        SuccessResponse<Boolean> successResponse = new SuccessResponse<>(
                 HttpStatus.OK,
-                LIKE_SUCCESS_MESSAGE,
-                null
+                message,
+                isLiked
         );
-        return ResponseEntity.status(HttpStatus.OK).body(successResponse);
+        return ResponseEntity.ok(successResponse);
     }
+
 
     @DeleteMapping("/{petId}")
     public ResponseEntity<SuccessResponse<Void>> unlike(@PathVariable Long petId, Long userId) {

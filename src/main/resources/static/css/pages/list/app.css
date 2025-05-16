@@ -102,7 +102,7 @@
     border: none;
 }
 
-.moveBtn {
+.button {
     width: 100%;
     padding: 15px;
     background-color: #f78fb3;
@@ -115,6 +115,6 @@
     transition: background-color 0.3s ease;
 }
 
-.moveBtn:hover {
+.button:hover {
     background-color: #d8b4f8;
 }

@@ -34,19 +34,50 @@ textarea {
     margin-top: 40px;
 }
 
-.button,
-.moveBtn {
+.button {
     padding: 10px 20px;
     font-size: 18px;
-    border: none;
     border-radius: 8px;
     cursor: pointer;
-    background-color: #d63384;
-    color: white;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
 }
 
-.button:hover,
-.moveBtn:hover {
-    background-color: #c2185b;
+/* 로그인 버튼 (기본 스타일) */
+#submitBtn {
+    background-color: #d63384;
+    color: white;
+    border: none;
+}
+
+#submitBtn:hover {
+    background-color: #c12774;
+}
+
+/* 메인 버튼 (화이트 스타일) */
+#moveBtn {
+    background-color: white;
+    color: #d63384;
+    border: 2px solid #d63384;
+}
+
+#moveBtn:hover {
+    background-color: #f8bbd0;
+    color: #d63384;
+}
+
+.signup-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.signup-link a {
+    color: #888; /* 연한 회색 */
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.signup-link a:hover {
+    color: #555; /* 조금 더 진한 회색 */
+    text-decoration: underline;
 }

@@ -51,7 +51,7 @@ textarea {
     margin-top: 20px;
 }
 
-.moveBtn {
+.button {
     flex: 1;
     padding: 15px;
     background-color: #ffe5bd;
@@ -63,7 +63,7 @@ textarea {
     transition: background-color 0.3s ease;
 }
 
-.moveBtn:hover {
+.button:hover {
     background-color: #ffbe78;
 }
 

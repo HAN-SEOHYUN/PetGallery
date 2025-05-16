@@ -103,18 +103,20 @@
 }
 
 .button {
-    width: 100%;
-    padding: 15px;
-    background-color: #f78fb3;
-    color: white;
+    padding: 10px 20px;
     font-size: 18px;
-    border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.button:hover {
-    background-color: #d8b4f8;
+#moveBtn {
+    background-color: white;
+    color: #d63384;
+    border: 2px solid #d63384;
+}
+
+#moveBtn:hover {
+    background-color: #f8bbd0;
+    color: #d63384;
 }

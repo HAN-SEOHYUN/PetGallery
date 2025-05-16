@@ -43,44 +43,23 @@ textarea {
     resize: vertical;
 }
 
-/* 버튼 영역 */
-.custom-button-group {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    margin-top: 20px;
-}
-
 .button {
-    flex: 1;
-    padding: 15px;
-    background-color: #ffe5bd;
-    color: #333;
+    padding: 10px 20px;
     font-size: 18px;
-    border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.button:hover {
-    background-color: #ffbe78;
+#moveBtn {
+    background-color: white;
+    color: #d63384;
+    border: 2px solid #d63384;
 }
 
-button[type="submit"] {
-    flex: 1;
-    padding: 15px;
-    background-color: #f78fb3;
-    color: white;
-    font-size: 18px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button[type="submit"]:hover {
-    background-color: #3fb6ba;
+#moveBtn:hover {
+    background-color: #f8bbd0;
+    color: #d63384;
 }
 
 .owner-info {

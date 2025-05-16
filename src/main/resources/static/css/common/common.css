@@ -170,4 +170,35 @@ h3 {
     font-size: 14px;
 }
 
+.button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* 로그인 버튼 (기본 스타일) */
+#submitBtn {
+    background-color: #d63384;
+    color: white;
+    border: 2px solid #d63384;;
+}
+
+#submitBtn:hover {
+    background-color: #c12774;
+}
+
+/* 메인 버튼 (화이트 스타일) */
+#moveBtn {
+    background-color: white;
+    color: #d63384;
+    border: 2px solid #d63384;
+}
+
+#moveBtn:hover {
+    background-color: #f8bbd0;
+    color: #d63384;
+}
+
 

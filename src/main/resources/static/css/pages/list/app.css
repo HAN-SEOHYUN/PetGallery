@@ -120,3 +120,35 @@
     background-color: #f8bbd0;
     color: #d63384;
 }
+
+/* 하트관련 */
+.like-btn {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    bottom: 12px;
+    right: 12px;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    z-index: 10; /* 다른 요소 위에 표시 */
+    justify-content: right;
+}
+
+.like-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(1.1);
+}
+
+.like-btn i {
+    font-size: 20px;
+    color: #999;
+    transition: color 0.2s ease;
+}
+
+.like-btn.liked i {
+    color: #ff5a5f; /* Airbnb 레드 색상 */
+}

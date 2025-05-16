@@ -154,10 +154,47 @@ function buildCardList(data) {
                     <p class="name"><i class="fas fa-paw"></i> ${pet.name ? pet.name : ""}</p>
                     <p class="age"> ${calculateAge(pet.date)} 살</p>
                 </div>
+                
+                <button class="like-btn" onclick="event.stopPropagation(); toggleLike(${pet.id}, this);">
+                    <i class="far fa-heart"></i> <!-- 빈 하트 -->
+                </button>
             </div>
         `;
     }).join('');
 }
+
+function toggleLike(petId) {
+    // 로그인 유저 ID를 세션 등에서 가져오는 로직 필요 (여기선 임시 1로 가정)
+    const userId = document.body.dataset.userId;
+    const url = `/api/likes/${petId}?userId=${userId}`;
+
+    if (!userId) {
+        showOneButtonAlert({
+            title: '로그인이 필요합니다',
+            alertType: 'warning',
+            callback() {
+                window.location.href = '/login';
+            }
+        });
+        return;
+    }
+
+    fetchData(url, {
+        method: HTTP_METHODS.POST,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            console.log('좋아요 성공:', response);
+            // TODO: 하트 색상 변경 등의 UI 반영
+        })
+        .catch(error => {
+            console.error('좋아요 실패:', error);
+            // TODO: 에러에 따른 사용자 피드백 처리
+        });
+}
+
 
 function calculateAge(dateStr) {
     const birthDate = new Date(dateStr);

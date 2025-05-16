@@ -28,8 +28,8 @@ public class LikeService {
     private final UserMasterRepository userRepository;
 
     @Transactional
-    public void like(Long invitationId, Long userId) {
-        PetMaster invitation = invitationRepository.findById(invitationId)
+    public void like(Long petId, Long userId) {
+        PetMaster invitation = invitationRepository.findById(petId)
                 .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
         UserMaster user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));

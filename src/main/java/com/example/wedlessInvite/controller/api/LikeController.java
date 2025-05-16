@@ -19,7 +19,8 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/{petId}")
-    public ResponseEntity<SuccessResponse<Void>> like(@PathVariable Long petId, Long userId) {
+    public ResponseEntity<SuccessResponse<Void>> like(@PathVariable Long petId,
+                                                      @RequestParam Long userId) {
         likeService.like(petId, userId);
 
         SuccessResponse<Void> successResponse = new SuccessResponse<>(

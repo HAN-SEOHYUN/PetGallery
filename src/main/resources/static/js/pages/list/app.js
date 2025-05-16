@@ -163,6 +163,18 @@ function buildCardList(data) {
     }).join('');
 }
 
+/**
+ * 사용자가 특정 반려동물(petId)에 대해 좋아요(하트) 토글 기능을 수행합니다.
+ *
+ * 1. 현재 로그인된 사용자 ID를 세션(HTML body dataset)에서 가져옵니다.
+ * 2. 로그인 상태가 아니면 로그인 페이지로 유도하는 경고창을 띄웁니다.
+ * 3. 로그인 상태면 서버에 좋아요 요청을 POST 방식으로 보냅니다.
+ * 4. 요청 성공 시, 버튼의 하트 아이콘을 빈 하트 ↔ 채워진 하트로 토글하여 UI를 업데이트합니다.
+ * 5. 요청 실패 시, 에러를 콘솔에 출력하고 필요하면 사용자에게 알림을 처리할 수 있도록 준비합니다.
+ *
+ * @param {number} petId - 좋아요를 누른 반려동물의 고유 ID
+ * @param {HTMLElement} btnElement - 좋아요 버튼 요소 (아이콘 토글을 위해 필요)
+ */
 function toggleLike(petId, btnElement) {
     const userId = getUserId();
     if (!userId) {

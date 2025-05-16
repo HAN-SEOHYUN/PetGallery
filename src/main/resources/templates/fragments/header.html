@@ -12,5 +12,15 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="ml-auto">
+            <!--/*@thymesVar id="id" type=""*/-->
+            <div th:if="${userMaster == null}">
+                <a class="btn btn-outline-primary" href="/login">로그인</a>
+            </div>
+            <div th:if="${userMaster != null}">
+                <span th:text="'안녕하세요, ' + ${userMaster.name} + '님'"></span>
+                <a class="btn btn-outline-secondary" href="/logout">로그아웃</a>
+            </div>
+        </div>
     </nav>
 </header>

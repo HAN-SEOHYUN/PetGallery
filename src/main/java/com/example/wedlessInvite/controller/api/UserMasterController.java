@@ -30,7 +30,7 @@ public class UserMasterController {
     @PostMapping("/login")
     public ResponseEntity<SuccessResponse<Long>> login(@RequestBody LoginRequestDto request, HttpSession session) {
         UserMaster user = userMasterService.login(request.getName(), request.getPassword());
-        session.setAttribute("userId", user.getId());
+        session.setAttribute("userMaster", UserMasterResponseDto.fromEntity(user));
 
         SuccessResponse<Long> response = new SuccessResponse<>(
                 HttpStatus.OK,

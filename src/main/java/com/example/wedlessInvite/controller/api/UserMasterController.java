@@ -55,7 +55,7 @@ public class UserMasterController {
 
     @PostMapping("/logout")
     public ResponseEntity<SuccessResponse<Void>> logout(HttpSession session) {
-        session.invalidate();  // 세션 무효화
+        if (session != null) { session.invalidate(); }
         SuccessResponse<Void> response = new SuccessResponse<>(
                 HttpStatus.OK,
                 "로그아웃 성공",

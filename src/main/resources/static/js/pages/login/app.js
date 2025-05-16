@@ -46,7 +46,7 @@ $(document).ready(function () {
  */
 function showSuccessAndRedirectAlert(redirectUrl) {
     showOneButtonAlert({
-        title: '로그인되었습니다.',
+        title: '로그인 되었습니다.',
         alertType: 'success',
         callback() {
             window.location.href = redirectUrl;

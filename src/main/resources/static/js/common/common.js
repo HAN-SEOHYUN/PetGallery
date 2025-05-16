@@ -100,3 +100,38 @@ function validateFile(file) {
     return true;
 }
 
+$(document).ready(function () {
+    $('#logoutBtn').on('click', function (e) {
+        e.preventDefault();
+        logoutUser();
+    });
+});
+
+function logoutUser() {
+    fetch("/api/logout", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('로그아웃 실패');
+            return response.json(); // 필요 시
+        })
+        .then(() => {
+            showOneButtonAlert({
+                title: '로그아웃 되었습니다.',
+                alertType: 'success',
+                callback() {
+                    window.location.href = '/main';
+                }
+            });
+        })
+        .catch(() => {
+            showOneButtonAlert({
+                title: '로그아웃에 실패했습니다',
+                alertType: 'error',
+                callback() {}
+            });
+        });
+}

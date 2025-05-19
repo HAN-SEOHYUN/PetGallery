@@ -137,6 +137,15 @@ $(document).ready(function () {
     function populateInvitationDetail(data) {
         bindPetInfo(data);
         setMainImage(data.mainImage);
+        toggleDeleteButton(data.hasDeletePermission);
+    }
+
+    function toggleDeleteButton(hasDeletePermission) {
+        if (hasDeletePermission === true) {
+            $("#submitBtn").show();
+        } else {
+            $("#submitBtn").remove(); // 노출도 안 하고 DOM에서 제거
+        }
     }
 
     // 체크박스를 설정하는 함수

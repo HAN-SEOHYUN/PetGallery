@@ -1,7 +1,25 @@
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr); /* 항상 3열로 고정 */
+    gap: 24px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    justify-items: start; /* 카드가 왼쪽에 붙게 함 */
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .card {
@@ -13,9 +31,10 @@
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    width: 220px;
+    width: 100%;
+    max-width: 100%;
     padding: 15px;
-    margin: 10px;
+    box-sizing: border-box;
 }
 
 .card:hover {

@@ -13,52 +13,41 @@
     <div class="image-container">
         <div class="main-image-box">
             <div class="main-image-container">
-                <img id="mainImage" src="" alt="청첩장 메인 이미지" />
+                <img id="mainImage" src="" alt="펫 이미지" />
             </div>
         </div>
+
         <div class="image-list-box">
-            <div class="image-list-container">
-                <img id="imageList" src="" alt="청첩장 이미지 목록" />
-            </div>
+            <div class="image-list-container" id="imageListContainer"></div>
         </div>
     </div>
 
+    <!-- 펫 정보 -->
+    <div class="info">
+        <h2 id="petName">이름 없음</h2>
+        <p><strong>나이:</strong> <span id="petAge">-</span></p>
+        <p><strong>생일:</strong> <span id="petBirth">-</span></p> <!-- 생일 추가 -->
+        <p id="introText"></p>
+    </div>
 
+
+    <!-- 성격 정보 -->
     <div class="info">
-        <h3>결혼 정보</h3>
-        <p>결혼 날짜: <span id="weddingDate"></span></p>
-        <p>감사 인사: <span id="letterTxt"></span></p>
-        <p>메인 메시지: <span id="mainTxt"></span></p>
-        <p>축하 메시지: <span id="greetTxt"></span></p>
+        <h3>성격</h3>
+        <p><strong>좋아하는 것:</strong> <span id="likeWord">-</span></p>
+        <p><strong>싫어하는 것:</strong> <span id="hateWord">-</span></p>
     </div>
+
+    <!-- 등록일 & 좋아요 -->
     <div class="info">
-        <h3>신부측 정보</h3>
-        <p>이름: <span id="ownerName"></span></p>
-        <p>생일: <span id="ownerBirth"></span></p>
-        <p>전화번호: <span id="ownerPhone"></span></p>
-        <p>아버지 이름: <span id="ownerFatherName"></span></p>
-        <p>아버지 전화번호: <span id="ownerFatherPhone"></span></p>
-        <p>아버지 생존 여부: <span id="ownerFatherDeceasedYN"></span></p>
-        <p>어머니 이름: <span id="ownerMotherName"></span></p>
-        <p>어머니 전화번호: <span id="ownerMotherPhone"></span></p>
-        <p>어머니 생존 여부: <span id="ownerMotherDeceasedYN"></span></p>
+        <p><strong>등록일:</strong> <span id="regDate">-</span></p>
+        <p><strong>좋아요 수:</strong> <span id="likeCount"></span></p>
     </div>
-    <div class="info">
-        <h3>신랑측 정보</h3>
-        <p>이름: <span id="groomName"></span></p>
-        <p>생일: <span id="groomBirth"></span></p>
-        <p>전화번호: <span id="groomPhone"></span></p>
-        <p>아버지 이름: <span id="groomFatherName"></span></p>
-        <p>아버지 전화번호: <span id="groomFatherPhone"></span></p>
-        <p>아버지 생존 여부: <span id="groomFatherDeceasedYN"></span></p>
-        <p>어머니 이름: <span id="groomMotherName"></span></p>
-        <p>어머니 전화번호: <span id="groomMotherPhone"></span></p>
-        <p>어머니 생존 여부: <span id="groomMotherDeceasedYN"></span></p>
-    </div>
+
+    <!-- 버튼 -->
     <div class="button-group">
-<!--        <button class="action-button edit">수정</button>-->
-        <button class="action-button list" onclick="location.href='/invitations/list'">목록</button>
-        <button id="deleteBtn" class="action-button delete">삭제</button>
+        <button id="moveBtn" class="button" onclick="location.href='/pets/list'">목록으로</button>
+        <button id="submitBtn" class="button">삭제</button>
     </div>
 </div>
 

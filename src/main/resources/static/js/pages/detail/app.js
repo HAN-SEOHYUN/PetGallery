@@ -1,9 +1,9 @@
-const REQUEST_URL = '/api/pages';
+const REQUEST_URL = '/api';
 const MAIN_PAGE = '/pages/main';
 
 $(document).ready(function () {
-    const invitationId = getInvitationIdFromUrl();
-    getData(invitationId);
+    const accessKey = getInvitationIdFromUrl();
+    getData(accessKey);
 
     $("#deleteBtn").on("click", function () {
 
@@ -21,7 +21,7 @@ $(document).ready(function () {
     });
 
     function getInvitationId() {
-        const invitationId = $("#invitationId").val();
+        const invitationId = $("#accessKey").val();
         if (!invitationId) {
             console.error("삭제할 초대장 ID가 없습니다.");
             return null;
@@ -50,8 +50,8 @@ $(document).ready(function () {
             });
     }
 
-    function getData(invitationId) {
-        const url = `${REQUEST_URL}/${invitationId}`;
+    function getData(accessKey) {
+        const url = `${REQUEST_URL}/?accessKey=${encodeURIComponent(accessKey)}`;
         fetchData(url, {
             method: HTTP_METHODS.GET,
             headers: {
@@ -59,7 +59,7 @@ $(document).ready(function () {
             },
         })
             .then(response => { // 성공
-                populateInvitationDetail(response);
+                populateInvitationDetail(response.data);
             })
             .catch(error => { // 실패
             });
@@ -95,13 +95,15 @@ $(document).ready(function () {
         });
     }
 
-    // 결혼 정보 바인딩
-    function bindWeddingInfo(data) {
-        bindData("#weddingDate", data.date);
-        bindData("#letterTxt", data.letterTxt);
-        bindData("#mainTxt", data.mainTxt);
-        bindData("#greetTxt", data.greetTxt);
-        setInvitationId("#invitationId",data.id);
+    function bindPetInfo(data) {
+        bindData("#petBirth", formatKoreanDate(data.date));
+        bindData("#petAge", `${calculateAge(data.date)}살`);
+        bindData("#introText", data.introText);
+        bindData("#likeWord", data.likeWord);
+        bindData("#hateWord", data.hateWord);
+        bindData("#likeCount", data.likeCount);
+        bindData("#regDate", formatDateOnly(data.regTime));
+
     }
 
     // 신부 정보 바인딩
@@ -132,11 +134,8 @@ $(document).ready(function () {
 
     // 데이터 바인딩 메인 함수
     function populateInvitationDetail(data) {
-        bindWeddingInfo(data);
-        bindOwnerInfo(data.ownerInfo);
-        bindGroomInfo(data.groomInfo);
+        bindPetInfo(data);
         setMainImage(data.mainImage);
-        setImageList(data.imageList);
     }
 
     // 체크박스를 설정하는 함수
@@ -145,21 +144,51 @@ $(document).ready(function () {
     }
     //데이터를 HTML 요소에 바인딩하는 함수
     function bindData(selector, data) {
-        $(selector).text(data || "정보 없음");
+        $(selector).text(data !== null && data !== undefined ? data : "정보 없음");
     }
+
     function setInvitationId(selector, data) {
         $(selector).val(data);
+    }
+
+    function calculateAge(dateStr) {
+        const birthDate = new Date(dateStr);
+        const today = new Date();
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const hasHadBirthdayThisYear =
+            today.getMonth() > birthDate.getMonth() ||
+            (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+        if (!hasHadBirthdayThisYear) {
+            age--;
+        }
+
+        return age; // 나이 리턴
+    }
+
+    function formatKoreanDate(dateStr) {
+        const date = new Date(dateStr);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // 0-indexed
+        const day = date.getDate();
+        return `${year}년 ${month}월 ${day}일`;
+    }
+
+    function formatDateOnly(dateTimeStr) {
+        if (!dateTimeStr) return '-';
+        return dateTimeStr.split('T')[0]; // "2025-05-19T17:22:37.690495" → "2025-05-19"
     }
 });
 
 /**
- * 현재 페이지 URL의 쿼리 문자열에서 'id' 파라미터 값을 추출
- * @returns {string | null} - 'id' 파라미터 값 (없으면 null 반환)
+ * 현재 페이지 URL의 쿼리 문자열에서 'accessKey' 파라미터 값을 추출
+ * @returns {string | null} - 'accessKey' 파라미터 값 (없으면 null 반환)
  *
  */
 function getInvitationIdFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    return params.get('id');
+    return params.get('accessKey');
 }
 
 /**

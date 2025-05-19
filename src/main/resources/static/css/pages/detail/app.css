@@ -1,126 +1,63 @@
-/* 이미지 컨테이너 */
-.main-image-box {
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.main-image-container img {
     width: 100%;
-    height: auto;
-}
-
-/* 메인 이미지 컨테이너 */
-.main-image-container {
-    position: relative;
-    width: auto;
-    background-color: #f1f1f1;
     border-radius: 12px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    object-fit: cover;
     max-height: 500px;
 }
 
-/* 메인 이미지 */
-#mainImage {
-    max-width: 100%;
-    max-height: 500px; /* 최대 높이만 500px */
-    width: auto;
-    height: auto;
-    object-fit: contain; /* 비율 유지 */
-}
-
-/* 이미지 리스트 박스 */
-.image-list-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-top: 20px;
-}
-
-/* 이미지 리스트 container */
 .image-list-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3열 그리드 */
-    gap: 10px; /* 이미지 간격 */
-    width: 100%;
-    max-width: 600px;
-    padding: 10px;
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    overflow-x: auto;
 }
 
-/* 개별 이미지 스타일 */
 .image-list-container img {
-    width: 100%;
-    height: auto;
-    max-width: 180px;
-    max-height: 180px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
     border-radius: 8px;
-    transition: transform 0.3s ease-in-out;
-    cursor: pointer;
 }
 
-/* 호버 효과 */
-.image-list-container img:hover {
-    transform: scale(1.1);
-}
-
-/* 정보 텍스트 */
 .info {
-    margin-top: 30px;
-    font-size: 16px;
-    color: #333;
-    line-height: 1.8;
+    margin-top: 32px;
 }
 
-/* 버튼 그룹 */
-.custom-button-group {
+.info h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.info p {
+    margin: 6px 0;
+    line-height: 1.6;
+}
+
+.button-group {
+    margin-top: 40px;
     display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    justify-self: center;
+    justify-content: flex-end;
+    gap: 12px;
 }
 
-/* 세련된 버튼 스타일 */
 .action-button {
-    width: 120px;
-    height: 45px;
+    background-color: #f1356d;
+    color: white;
     border: none;
-    border-radius: 30px;
-    font-size: 16px;
+    padding: 10px 20px;
     font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 10px;
+    transition: background-color 0.2s ease;
 }
 
-.action-button.edit {
-    background-color: #4e73df;
-    color: white;
+.action-button:hover {
+    background-color: #d82b60;
 }
 
-.action-button.edit:hover {
-    background-color: #224abe;
-}
-
-.action-button.list {
-    background-color: #e2e6ea;
-    color: #333;
-}
-
-.action-button.list:hover {
-    background-color: #d1d8de;
-}
-
-.action-button.delete {
-    background-color: #e94e4e;
-    color: white;
-}
-
-.action-button.delete:hover {
-    background-color: #c0392b;
+@media (max-width: 600px) {
+    .image-list-container {
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+    }
 }

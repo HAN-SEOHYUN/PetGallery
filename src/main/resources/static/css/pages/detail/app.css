@@ -1,63 +1,124 @@
+/* 이미지 섹션 */
 .main-image-container img {
     width: 100%;
-    border-radius: 12px;
+    border-radius: 16px;
     object-fit: cover;
-    max-height: 500px;
+    max-height: 480px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.3s ease;
 }
 
-.image-list-container {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-    overflow-x: auto;
+.main-image-container img:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
 .image-list-container img {
     width: 120px;
     height: 120px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
-.info {
-    margin-top: 32px;
+.image-list-container img:hover {
+    transform: scale(1.07);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.info h2 {
+/* 정보 카드 스타일 */
+.info-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px 32px 40px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.pet-name {
     font-size: 28px;
-    margin-bottom: 8px;
+    font-weight: 800;
+    color: #222;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
 }
 
-.info p {
-    margin: 6px 0;
-    line-height: 1.6;
+.pet-name i {
+    color: #ff385c;
+    font-size: 30px;
 }
 
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px 32px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.info-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.info-item i {
+    font-size: 24px;
+    color: #ff385c;
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+.label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.value {
+    font-weight: 500;
+    font-size: 17px;
+    color: #222;
+    word-break: break-word;
+    line-height: 1.4;
+}
+
+.intro-text {
+    font-weight: 400;
+    font-size: 16px;
+    color: #444;
+    line-height: 1.5;
+}
+
+/* 버튼 그룹 */
 .button-group {
     margin-top: 40px;
     display: flex;
-    justify-content: flex-end;
     gap: 12px;
+    justify-content: center;
 }
 
-.action-button {
-    background-color: #f1356d;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
+@media screen and (max-width: 600px) {
+    .pet-name {
+        font-size: 22px;
+    }
 
-.action-button:hover {
-    background-color: #d82b60;
-}
+    .info-item i {
+        font-size: 20px;
+    }
 
-@media (max-width: 600px) {
-    .image-list-container {
-        flex-wrap: nowrap;
-        overflow-x: scroll;
+    .label {
+        font-size: 12px;
+    }
+
+    .value {
+        font-size: 16px;
     }
 }

@@ -9,7 +9,6 @@
 
 
 <div class="container">
-    <input type="hidden" id="invitationId" value="">
     <div class="image-container">
         <div class="main-image-box">
             <div class="main-image-container">
@@ -22,31 +21,71 @@
         </div>
     </div>
 
-    <!-- 펫 정보 -->
-    <div class="info">
-        <h2 id="petName">이름 없음</h2>
-        <p><strong>나이:</strong> <span id="petAge">-</span></p>
-        <p><strong>생일:</strong> <span id="petBirth">-</span></p> <!-- 생일 추가 -->
-        <p id="introText"></p>
-    </div>
+    <!-- 모든 info를 하나의 card-like 박스 안에 배치 -->
+    <section class="info-card">
+        <div id="petName" class="pet-name">이름 없음</div>
 
+        <div class="info-grid">
+            <div class="info-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <div class="label">나이</div>
+                    <div id="petAge" class="value">-</div>
+                </div>
+            </div>
 
-    <!-- 성격 정보 -->
-    <div class="info">
-        <h3>성격</h3>
-        <p><strong>좋아하는 것:</strong> <span id="likeWord">-</span></p>
-        <p><strong>싫어하는 것:</strong> <span id="hateWord">-</span></p>
-    </div>
+            <div class="info-item">
+                <i class="fas fa-birthday-cake"></i>
+                <div>
+                    <div class="label">생일</div>
+                    <div id="petBirth" class="value">-</div>
+                </div>
+            </div>
 
-    <!-- 등록일 & 좋아요 -->
-    <div class="info">
-        <p><strong>등록일:</strong> <span id="regDate">-</span></p>
-        <p><strong>좋아요 수:</strong> <span id="likeCount"></span></p>
-    </div>
+            <div class="info-item full-width">
+                <i class="fas fa-align-left"></i>
+                <div>
+                    <div class="label">소개</div>
+                    <div id="introText" class="value intro-text">-</div>
+                </div>
+            </div>
 
-    <!-- 버튼 -->
+            <div class="info-item">
+                <i class="fas fa-thumbs-up"></i>
+                <div>
+                    <div class="label">좋아하는 것</div>
+                    <div id="likeWord" class="value">-</div>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-thumbs-down"></i>
+                <div>
+                    <div class="label">싫어하는 것</div>
+                    <div id="hateWord" class="value">-</div>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-calendar"></i>
+                <div>
+                    <div class="label">등록일</div>
+                    <div id="regDate" class="value">-</div>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-heart"></i>
+                <div>
+                    <div class="label">좋아요 수</div>
+                    <div id="likeCount" class="value">0</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="button-group">
-        <button id="moveBtn" class="button" onclick="location.href='/pets/list'">목록으로</button>
+        <button id="moveBtn" class="button">목록으로</button>
         <button id="submitBtn" class="button">삭제</button>
     </div>
 </div>

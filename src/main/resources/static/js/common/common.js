@@ -135,3 +135,7 @@ function logoutUser() {
             });
         });
 }
+
+function getUserId() {
+    return document.body.dataset.userId;
+}

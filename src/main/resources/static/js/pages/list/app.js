@@ -96,7 +96,7 @@ $(document).ready(function () {
      * @param {number} page - 요청할 페이지 번호 (0부터 시작).
      */
     function getList(page) {
-        const url = `${REQUEST_URL}?page=${page}&size=${PAGINATION_SIZE}`;
+        const url = `${REQUEST_URL}?page=${page}&size=${PAGINATION_SIZE}&userId=${getUserId()}`;
         fetchData(url, {
             method: HTTP_METHODS.GET,
             headers: {
@@ -147,16 +147,19 @@ function buildCardList(data) {
             ? pet.mainImage.s3Url
             : 'https://img.icons8.com/ios/500/no-image.png';
 
+        // 좋아요 여부에 따라 아이콘 클래스 설정
+        const heartClass = pet.liked ? 'fas fa-heart' : 'far fa-heart';
+
         return `
             <div class="card" onclick="moveToDetail('${pet.accessKey}')">
-                <img src=${imageUrl} alt="Pet Main Photo">
+                <img src="${imageUrl}" alt="Pet Main Photo">
                 <div class="card-content">
                     <p class="name"><i class="fas fa-paw"></i> ${pet.name ? pet.name : ""}</p>
-                    <p class="age"> ${calculateAge(pet.date)} 살</p>
+                    <p class="age">${calculateAge(pet.date)} 살</p>
                 </div>
                 
                 <button class="like-btn" onclick="event.stopPropagation(); toggleLike(${pet.id}, this);">
-                    <i class="far fa-heart"></i> <!-- 빈 하트 -->
+                    <i class="${heartClass}"></i>
                 </button>
             </div>
         `;
@@ -186,10 +189,6 @@ function toggleLike(petId, btnElement) {
     sendLikeRequest(url)
         .then(() => updateLikeIcon(btnElement))
         .catch((error) => handleLikeError(JSON.parse(error)));
-}
-
-function getUserId() {
-    return document.body.dataset.userId;
 }
 
 function validateLogin() {

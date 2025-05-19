@@ -12,7 +12,9 @@ import com.example.wedlessInvite.domain.User.UserMasterRepository;
 import com.example.wedlessInvite.dto.ImageUploadDto;
 import com.example.wedlessInvite.dto.PetMasterRequestDto;
 import com.example.wedlessInvite.dto.PetMasterResponseDto;
+import com.example.wedlessInvite.dto.UserMasterResponseDto;
 import com.example.wedlessInvite.exception.CustomException;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -110,9 +112,17 @@ public class PetMasterService {
         });
     }
 
-    public PetMasterResponseDto getInvitationDetail(String accessKey) {
+    public PetMasterResponseDto getInvitationDetail(String accessKey, HttpSession session) {
         PetMaster entity = petMasterRepository.findByAccessKey(accessKey)
                 .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
+
+        UserMasterResponseDto userMasterDto = (UserMasterResponseDto) session.getAttribute("userMaster");
+        if (userMasterDto == null) {
+            throw new CustomException(INVALID_ACCESS);
+        }
+
+        Long userId = userMasterDto.getId();
+        boolean hasDeletePermission = userId != null && userId.equals(entity.getUserMaster().getId());
 
         return PetMasterResponseDto.builder()
                 .id(entity.getId())
@@ -123,10 +133,12 @@ public class PetMasterService {
                         .map(ImageUploadDto::fromEntity)
                         .collect(Collectors.toList()))
                 .date(entity.getDate())
+                .name(entity.getName())
                 .introText(entity.getIntroText())
                 .likeWord(entity.getLikeWord())
                 .hateWord(entity.getHateWord())
                 .regTime(entity.getRegTime())
+                .hasDeletePermission(hasDeletePermission)
                 .likeCount(petLikeRepository.countByPetMasterId(entity.getId()))
                 .build();
     }

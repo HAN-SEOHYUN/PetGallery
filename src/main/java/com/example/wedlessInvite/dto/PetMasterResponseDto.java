@@ -31,10 +31,11 @@ public class PetMasterResponseDto {
     private String accessKey;
     private String name;
     private boolean liked;
+    private boolean hasDeletePermission;
 
 
     @Builder
-    public PetMasterResponseDto(Long id, LocalDate date, OwnerInfo ownerInfo, PetDetailInfo petDetailInfo, ImageUploads mainImage, List<ImageUploadDto> imageList, String introText, String likeWord, String hateWord, LocalDateTime regTime, int likeCount, String accessKey, String name, boolean liked) {
+    public PetMasterResponseDto(Long id, LocalDate date, OwnerInfo ownerInfo, PetDetailInfo petDetailInfo, ImageUploads mainImage, List<ImageUploadDto> imageList, String introText, String likeWord, String hateWord, LocalDateTime regTime, int likeCount, String accessKey, String name, boolean liked, boolean hasDeletePermission) {
         this.id = id;
         this.date = date;
         this.ownerInfo = ownerInfo;
@@ -49,6 +50,7 @@ public class PetMasterResponseDto {
         this.accessKey = accessKey;
         this.name = name;
         this.liked = liked;
+        this.hasDeletePermission = hasDeletePermission;
     }
 
     public static PetMasterResponseDto fromEntity(PetMaster petMaster) {

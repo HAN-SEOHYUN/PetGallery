@@ -98,6 +98,7 @@ $(document).ready(function () {
     function bindPetInfo(data) {
         bindData("#petBirth", formatKoreanDate(data.date));
         bindData("#petAge", `${calculateAge(data.date)}살`);
+        bindData("#petName", data.name);
         bindData("#introText", data.introText);
         bindData("#likeWord", data.likeWord);
         bindData("#hateWord", data.hateWord);

@@ -1,126 +1,124 @@
-/* 이미지 컨테이너 */
-.main-image-box {
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* 이미지 섹션 */
+.main-image-container img {
     width: 100%;
-    height: auto;
-}
-
-/* 메인 이미지 컨테이너 */
-.main-image-container {
-    position: relative;
-    width: auto;
-    background-color: #f1f1f1;
-    border-radius: 12px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-height: 500px;
-}
-
-/* 메인 이미지 */
-#mainImage {
-    max-width: 100%;
-    max-height: 500px; /* 최대 높이만 500px */
-    width: auto;
-    height: auto;
-    object-fit: contain; /* 비율 유지 */
-}
-
-/* 이미지 리스트 박스 */
-.image-list-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-top: 20px;
-}
-
-/* 이미지 리스트 container */
-.image-list-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3열 그리드 */
-    gap: 10px; /* 이미지 간격 */
-    width: 100%;
-    max-width: 600px;
-    padding: 10px;
-}
-
-/* 개별 이미지 스타일 */
-.image-list-container img {
-    width: 100%;
-    height: auto;
-    max-width: 180px;
-    max-height: 180px;
+    border-radius: 16px;
     object-fit: cover;
-    border-radius: 8px;
-    transition: transform 0.3s ease-in-out;
+    max-height: 480px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.3s ease;
+}
+
+.main-image-container img:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.image-list-container img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
-/* 호버 효과 */
 .image-list-container img:hover {
-    transform: scale(1.1);
+    transform: scale(1.07);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* 정보 텍스트 */
-.info {
-    margin-top: 30px;
+/* 정보 카드 스타일 */
+.info-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px 32px 40px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.pet-name {
+    font-size: 28px;
+    font-weight: 800;
+    color: #222;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.pet-name i {
+    color: #ff385c;
+    font-size: 30px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px 32px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.info-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.info-item i {
+    font-size: 24px;
+    color: #ff385c;
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+.label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.value {
+    font-weight: 500;
+    font-size: 17px;
+    color: #222;
+    word-break: break-word;
+    line-height: 1.4;
+}
+
+.intro-text {
+    font-weight: 400;
     font-size: 16px;
-    color: #333;
-    line-height: 1.8;
+    color: #444;
+    line-height: 1.5;
 }
 
 /* 버튼 그룹 */
-.custom-button-group {
+.button-group {
+    margin-top: 40px;
     display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    justify-self: center;
-}
-
-/* 세련된 버튼 스타일 */
-.action-button {
-    width: 120px;
-    height: 45px;
-    border: none;
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
+    gap: 12px;
     justify-content: center;
-    align-items: center;
-    margin-left: 10px;
 }
 
-.action-button.edit {
-    background-color: #4e73df;
-    color: white;
-}
+@media screen and (max-width: 600px) {
+    .pet-name {
+        font-size: 22px;
+    }
 
-.action-button.edit:hover {
-    background-color: #224abe;
-}
+    .info-item i {
+        font-size: 20px;
+    }
 
-.action-button.list {
-    background-color: #e2e6ea;
-    color: #333;
-}
+    .label {
+        font-size: 12px;
+    }
 
-.action-button.list:hover {
-    background-color: #d1d8de;
-}
-
-.action-button.delete {
-    background-color: #e94e4e;
-    color: white;
-}
-
-.action-button.delete:hover {
-    background-color: #c0392b;
+    .value {
+        font-size: 16px;
+    }
 }

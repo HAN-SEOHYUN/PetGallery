@@ -9,56 +9,84 @@
 
 
 <div class="container">
-    <input type="hidden" id="invitationId" value="">
     <div class="image-container">
         <div class="main-image-box">
             <div class="main-image-container">
-                <img id="mainImage" src="" alt="청첩장 메인 이미지" />
+                <img id="mainImage" src="" alt="펫 이미지" />
             </div>
         </div>
+
         <div class="image-list-box">
-            <div class="image-list-container">
-                <img id="imageList" src="" alt="청첩장 이미지 목록" />
-            </div>
+            <div class="image-list-container" id="imageListContainer"></div>
         </div>
     </div>
 
+    <!-- 모든 info를 하나의 card-like 박스 안에 배치 -->
+    <section class="info-card">
+        <div id="petName" class="pet-name">이름 없음</div>
 
-    <div class="info">
-        <h3>결혼 정보</h3>
-        <p>결혼 날짜: <span id="weddingDate"></span></p>
-        <p>감사 인사: <span id="letterTxt"></span></p>
-        <p>메인 메시지: <span id="mainTxt"></span></p>
-        <p>축하 메시지: <span id="greetTxt"></span></p>
-    </div>
-    <div class="info">
-        <h3>신부측 정보</h3>
-        <p>이름: <span id="ownerName"></span></p>
-        <p>생일: <span id="ownerBirth"></span></p>
-        <p>전화번호: <span id="ownerPhone"></span></p>
-        <p>아버지 이름: <span id="ownerFatherName"></span></p>
-        <p>아버지 전화번호: <span id="ownerFatherPhone"></span></p>
-        <p>아버지 생존 여부: <span id="ownerFatherDeceasedYN"></span></p>
-        <p>어머니 이름: <span id="ownerMotherName"></span></p>
-        <p>어머니 전화번호: <span id="ownerMotherPhone"></span></p>
-        <p>어머니 생존 여부: <span id="ownerMotherDeceasedYN"></span></p>
-    </div>
-    <div class="info">
-        <h3>신랑측 정보</h3>
-        <p>이름: <span id="groomName"></span></p>
-        <p>생일: <span id="groomBirth"></span></p>
-        <p>전화번호: <span id="groomPhone"></span></p>
-        <p>아버지 이름: <span id="groomFatherName"></span></p>
-        <p>아버지 전화번호: <span id="groomFatherPhone"></span></p>
-        <p>아버지 생존 여부: <span id="groomFatherDeceasedYN"></span></p>
-        <p>어머니 이름: <span id="groomMotherName"></span></p>
-        <p>어머니 전화번호: <span id="groomMotherPhone"></span></p>
-        <p>어머니 생존 여부: <span id="groomMotherDeceasedYN"></span></p>
-    </div>
+        <div class="info-grid">
+            <div class="info-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <div class="label">나이</div>
+                    <div id="petAge" class="value">-</div>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-birthday-cake"></i>
+                <div>
+                    <div class="label">생일</div>
+                    <div id="petBirth" class="value">-</div>
+                </div>
+            </div>
+
+            <div class="info-item full-width">
+                <i class="fas fa-align-left"></i>
+                <div>
+                    <div class="label">소개</div>
+                    <div id="introText" class="value intro-text">-</div>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-thumbs-up"></i>
+                <div>
+                    <div class="label">좋아하는 것</div>
+                    <div id="likeWord" class="value">-</div>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-thumbs-down"></i>
+                <div>
+                    <div class="label">싫어하는 것</div>
+                    <div id="hateWord" class="value">-</div>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-calendar"></i>
+                <div>
+                    <div class="label">등록일</div>
+                    <div id="regDate" class="value">-</div>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-heart"></i>
+                <div>
+                    <div class="label">좋아요 수</div>
+                    <div id="likeCount" class="value">0</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="button-group">
-<!--        <button class="action-button edit">수정</button>-->
-        <button class="action-button list" onclick="location.href='/invitations/list'">목록</button>
-        <button id="deleteBtn" class="action-button delete">삭제</button>
+        <button id="moveBtn" class="button">목록으로</button>
+        <button id="submitBtn" class="button">삭제</button>
     </div>
 </div>
 

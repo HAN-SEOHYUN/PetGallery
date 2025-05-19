@@ -88,24 +88,28 @@ public class PetMasterService {
         return s3FileService.uploadS3(file);
     }
 
-    public Page<PetMasterResponseDto> getAllInvitations(Pageable pageable) {
-        // PetMaster 엔티티를 페이지네이션으로 조회
+    public Page<PetMasterResponseDto> getAllInvitations(Pageable pageable, Long userId) {
         Page<PetMaster> entity = petMasterRepository.findByDeleteYNOrderByRegTimeDesc("N", pageable);
 
-        // Entity에서 DTO로 변환하여 반환
-        return entity.map(pet -> PetMasterResponseDto.builder()
-                .id(pet.getId())
-                .date(pet.getDate())
-                .mainImage(pet.getMainImage())
-                .introText(pet.getIntroText())
-                .likeWord(pet.getLikeWord())
-                .hateWord(pet.getHateWord())
-                .regTime(pet.getRegTime())
-                .accessKey(pet.getAccessKey())
-                .name(pet.getName())
-                .likeCount(petLikeRepository.countByPetMasterId(pet.getId()))
-                .build());
+        return entity.map(pet -> {
+            boolean isLiked = petLikeRepository.existsByPetMasterIdAndUserMasterId(pet.getId(), userId);
+
+            return PetMasterResponseDto.builder()
+                    .id(pet.getId())
+                    .date(pet.getDate())
+                    .mainImage(pet.getMainImage())
+                    .introText(pet.getIntroText())
+                    .likeWord(pet.getLikeWord())
+                    .hateWord(pet.getHateWord())
+                    .regTime(pet.getRegTime())
+                    .accessKey(pet.getAccessKey())
+                    .name(pet.getName())
+                    .likeCount(petLikeRepository.countByPetMasterId(pet.getId()))
+                    .liked(isLiked) // 추가 필드
+                    .build();
+        });
     }
+
 
     public PetMasterResponseDto getInvitationDetail(String accessKey) {
         PetMaster entity = petMasterRepository.findByAccessKey(accessKey)

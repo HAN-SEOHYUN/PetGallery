@@ -56,10 +56,11 @@ public class PetMasterController {
     @GetMapping
     public ResponseEntity<SuccessResponse<Page<PetMasterResponseDto>>> getInvitationList(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "userId") Long userId
     ) throws IOException {
         Pageable pageable = PageRequest.of(page, size);
-        Page<PetMasterResponseDto> invitationListDto = petMasterService.getAllInvitations(pageable);
+        Page<PetMasterResponseDto> invitationListDto = petMasterService.getAllInvitations(pageable, userId);
 
         // SuccessResponse 생성
         SuccessResponse<Page<PetMasterResponseDto>> successResponse = new SuccessResponse<>(

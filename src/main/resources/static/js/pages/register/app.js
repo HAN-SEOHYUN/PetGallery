@@ -1,5 +1,5 @@
 const REQUEST_URL = '/api/register';
-const LOGIN_PAGE = '/main';
+const LOGIN_PAGE = '/login';
 
 $(document).ready(function () {
 

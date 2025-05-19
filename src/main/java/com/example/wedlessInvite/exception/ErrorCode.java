@@ -20,6 +20,7 @@ public enum ErrorCode {
     IMAGE_NOT_FOUND(HttpStatus.BAD_REQUEST, "이미지를 찾을 수 없습니다."),
     PASSWORD_NOT_MATCH(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
     LOGIN_REQUIRED(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다."),
+    INVALID_ACCESS(HttpStatus.FORBIDDEN, "올바르지 않은 접근입니다."),
     ;
 
     private final HttpStatus statusCode;

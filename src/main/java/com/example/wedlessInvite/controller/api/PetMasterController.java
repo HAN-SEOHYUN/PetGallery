@@ -7,6 +7,7 @@ import com.example.wedlessInvite.domain.User.UserMasterRepository;
 import com.example.wedlessInvite.dto.PetMasterRequestDto;
 import com.example.wedlessInvite.dto.PetMasterResponseDto;
 import com.example.wedlessInvite.service.PetMasterService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -72,12 +73,12 @@ public class PetMasterController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<SuccessResponse<PetMasterResponseDto>> getInvitationDetail(@RequestParam String accessKey) throws IOException {
+    public ResponseEntity<SuccessResponse<PetMasterResponseDto>> getInvitationDetail(@RequestParam String accessKey, HttpSession session) throws IOException {
 
         AbstractLogTraceTemplate<ResponseEntity<SuccessResponse<PetMasterResponseDto>>> template = new AbstractLogTraceTemplate<>(trace) {
             @Override
             protected ResponseEntity<SuccessResponse<PetMasterResponseDto>> call() throws IOException {
-                PetMasterResponseDto invitationDetail = petMasterService.getInvitationDetail(accessKey);
+                PetMasterResponseDto invitationDetail = petMasterService.getInvitationDetail(accessKey, session);
                 SuccessResponse<PetMasterResponseDto> response = new SuccessResponse<>(
                         HttpStatus.OK,
                         GET_SUCCESS_MESSAGE,

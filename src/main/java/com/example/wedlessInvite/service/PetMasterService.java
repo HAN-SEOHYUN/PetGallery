@@ -110,15 +110,14 @@ public class PetMasterService {
         });
     }
 
-
     public PetMasterResponseDto getInvitationDetail(String accessKey) {
         PetMaster entity = petMasterRepository.findByAccessKey(accessKey)
                 .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
 
         return PetMasterResponseDto.builder()
                 .id(entity.getId())
-                .ownerInfo(entity.getOwnerInfo())
-                .petDetailInfo(entity.getPetDetailInfo())
+//                .ownerInfo(entity.getOwnerInfo())
+//                .petDetailInfo(entity.getPetDetailInfo())
                 .mainImage(entity.getMainImage())
                 .imageList(entity.getImageList().stream()
                         .map(ImageUploadDto::fromEntity)
@@ -127,6 +126,7 @@ public class PetMasterService {
                 .introText(entity.getIntroText())
                 .likeWord(entity.getLikeWord())
                 .hateWord(entity.getHateWord())
+                .regTime(entity.getRegTime())
                 .likeCount(petLikeRepository.countByPetMasterId(entity.getId()))
                 .build();
     }

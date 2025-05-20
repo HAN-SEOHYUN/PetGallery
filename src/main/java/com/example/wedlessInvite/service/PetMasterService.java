@@ -143,7 +143,7 @@ public class PetMasterService {
                 .build();
     }
 
-    public void deleteInvitation(String accessKey, HttpSession session) {
+    public void softDelete(String accessKey, HttpSession session) {
         PetMaster entity = petMasterRepository.findByAccessKey(accessKey)
                 .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
         UserMasterResponseDto userMasterDto = (UserMasterResponseDto) session.getAttribute("userMaster");

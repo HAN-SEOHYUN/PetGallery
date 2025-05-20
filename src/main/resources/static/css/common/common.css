@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Gaegu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 
-/* 기본 스타일 초기화 */
 /* 기본 스타일 초기화 */
 * {
     margin: 0;
@@ -9,7 +8,7 @@
 }
 
 body {
-    font-family: "Gaegu", sans-serif;
+    font-family: "Nanum Gothic", sans-serif;
     background-color: #ffe6f0;
     background-repeat: repeat;
     background-size: 100px 100px;
@@ -74,29 +73,86 @@ h3 {
     transition: background-color 0.3s;
 }
 
-/* 버튼 스타일 */
-/* user-info-container 위치 고정 */
-.user-info-container {
+/* 로그인 버튼 스타일 */
+/* 로그인 영역 공통 스타일 */
+.auth-box {
     position: fixed;
     top: 16px;
     right: 16px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     background-color: white;
     padding: 6px 12px;
     border-radius: 20px;
     box-shadow: 0 2px 8px rgba(214, 51, 132, 0.15);
     z-index: 1000;
-    color: #d63384;
-    font-size: 14px;
 }
 
-/* 인사말 텍스트 보이도록 font-weight와 색상 확실히 지정 */
-.user-greeting {
-    font-weight: 700;
+/* 텍스트 스타일 */
+.auth-text {
+    font-weight: bold;
+    color: #d63384;
+    font-size: 0.8rem;
+}
+
+/* 아이콘 스타일 */
+.auth-icon {
+    font-size: 0.8rem;
     color: #d63384;
 }
+
+/* 버튼 링크 */
+.auth-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: #d63384;
+}
+
+.auth-link:hover {
+    color: #f8bbd0;
+}
+
+/* 말풍선 툴팁 스타일 */
+.auth-link::after {
+    content: attr(title);
+    position: absolute;
+    top: 38px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #d63384;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1001;
+}
+
+.auth-link::before {
+    content: "";
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #d63384 transparent transparent transparent;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1001;
+}
+
+.auth-link:hover::after,
+.auth-link:hover::before {
+    opacity: 1;
+}
+
 
 /* 아이콘 버튼 스타일 */
 .btn-auth.btn-icon {

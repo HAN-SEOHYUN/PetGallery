@@ -15,18 +15,18 @@
         <div class="ml-auto d-flex align-items-center gap-3 pr-3">
 
             <!-- 로그인 안 된 상태 -->
-            <!--/*@thymesVar id="userMaster" type=""*/-->
-            <div th:if="${userMaster == null}" class="btn-wrapper">
-                <a href="/login" class="btn-auth btn-icon" title="로그인" aria-label="로그인">
-                    <i class="fas fa-sign-in-alt"></i>
+            <div th:if="${userMaster == null}" class="auth-box">
+                <a href="/login" class="auth-link" title="로그인" aria-label="로그인">
+                    <i class="fas fa-sign-in-alt auth-icon"></i>
+                    <span class="auth-text">로그인</span>
                 </a>
             </div>
 
             <!-- 로그인 된 상태 -->
-            <div th:if="${userMaster != null}" class="d-flex align-items-center gap-2 user-info-container">
-                <span class="user-greeting" th:text="'안녕하세요, ' + ${userMaster.name} + '님'"></span>
-                <a id="logoutBtn" href="/logout" class="btn-auth btn-icon" title="로그아웃" aria-label="로그아웃">
-                    <i class="fas fa-sign-out-alt"></i>
+            <div th:if="${userMaster != null}" class="auth-box">
+                <span class="auth-text" th:text="'안녕하세요, ' + ${userMaster.name} + '님'"></span>
+                <a id="logoutBtn" href="/logout" class="auth-link" title="로그아웃" aria-label="로그아웃">
+                    <i class="fas fa-sign-out-alt auth-icon"></i>
                 </a>
             </div>
 

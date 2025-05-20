@@ -1,39 +1,77 @@
 const REQUEST_URL = '/api';
-const MAIN_PAGE = '/pages/main';
+const MAIN_PAGE = '/list';
 
 $(document).ready(function () {
-    const accessKey = getInvitationIdFromUrl();
+    const accessKey = getAccessKeyFromUrl();
+    const deleteBtn = $("#submitBtn");
     getData(accessKey);
 
-    $("#deleteBtn").on("click", function () {
+    //삭제 버튼 클릭
+    deleteBtn.on("click", handleDeleteClick);
 
-        const invitationId = getInvitationId(this);
-        if (!invitationId) return;
+    function handleDeleteClick() {
+        try {
+            const accessKey = getValidAccessKey();
+            confirmDelete(accessKey);
+        } catch (error) {
+            handleDeleteException(error);
+        }
+    }
 
+    /**
+     * URL에서 accessKey를 추출하고 검증
+     * @returns {string} 유효한 accessKey
+     * @throws {Error} accessKey가 없거나 유효하지 않을 경우
+     */
+    function getValidAccessKey() {
+        const accessKey = getAccessKeyFromUrl();
+        if (!accessKey || typeof accessKey !== 'string') {
+            throw new Error("InvalidAccessKey");
+        }
+        return accessKey;
+    }
+
+    /**
+     * 삭제 여부를 사용자에게 확인받고, 삭제 요청 수행
+     * @param {string} accessKey
+     */
+    function confirmDelete(accessKey) {
         showTwoButtonAlert({
-            title: '삭제하시겠습니까 ?',
-            text: '',
-            alertType: 'error',
+            title: '삭제하시겠습니까?',
+            text: '삭제된 내용은 복구할 수 없습니다.',
+            alertType: 'warn',
             callback() {
-                deleteInvitation(invitationId, this);
+                deleteInvitation(accessKey);
             }
         });
-    });
+    }
 
-    function getInvitationId() {
-        const invitationId = $("#accessKey").val();
-        if (!invitationId) {
-            console.error("삭제할 초대장 ID가 없습니다.");
-            return null;
+    /**
+     * 예외 발생 시 사용자에게 알림 표시
+     * @param {Error} error
+     */
+    function handleDeleteException(error) {
+        if (error.message === "INVALID_ACCESS" || error.statusCode === "LOGIN_REQUIRED") {
+            showOneButtonAlert({
+                title: '잘못된 접근입니다',
+                text: error.message,
+                alertType: 'warning',
+                callback() {}
+            });
+        } else {
+            console.error("삭제 버튼 처리 중 예외 발생:", error);
+            showOneButtonAlert({
+                title: '오류 발생',
+                text: '삭제 처리 중 문제가 발생했습니다.',
+                alertType: 'error',
+                callback() {}
+            });
         }
-        return invitationId;
     }
 
     // 초대장 삭제 요청을 보내는 함수
-    function deleteInvitation(invitationId, button) {
-        const url = `${REQUEST_URL}/${invitationId}`;
-        console.log("url:",url);
-        console.log("HTTP_METHODS.DELETE:", HTTP_METHODS.DELETE);
+    function deleteInvitation(accessKey) {
+        const url = `${REQUEST_URL}/?accessKey=${encodeURIComponent(accessKey)}`;
 
         fetchData(url, {
             method: HTTP_METHODS.DELETE,
@@ -42,7 +80,7 @@ $(document).ready(function () {
             },
         })
             .then(() => {
-                console.log(`Invitation ${invitationId} deleted successfully.`);
+                console.log(`Invitation ${accessKey} deleted successfully.`);
                 showSuccessAndRedirectAlert(MAIN_PAGE);
             })
             .catch(error => {
@@ -142,9 +180,9 @@ $(document).ready(function () {
 
     function toggleDeleteButton(hasDeletePermission) {
         if (hasDeletePermission === true) {
-            $("#submitBtn").show();
+           deleteBtn.show();
         } else {
-            $("#submitBtn").remove(); // 노출도 안 하고 DOM에서 제거
+           deleteBtn.remove(); // 노출도 안 하고 DOM에서 제거
         }
     }
 
@@ -196,7 +234,7 @@ $(document).ready(function () {
  * @returns {string | null} - 'accessKey' 파라미터 값 (없으면 null 반환)
  *
  */
-function getInvitationIdFromUrl() {
+function getAccessKeyFromUrl() {
     const params = new URLSearchParams(window.location.search);
     return params.get('accessKey');
 }

@@ -143,8 +143,8 @@ public class PetMasterService {
                 .build();
     }
 
-    public void deleteInvitation(Long id, HttpSession session) {
-        PetMaster entity = petMasterRepository.findById(id)
+    public void deleteInvitation(String accessKey, HttpSession session) {
+        PetMaster entity = petMasterRepository.findByAccessKey(accessKey)
                 .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
         UserMasterResponseDto userMasterDto = (UserMasterResponseDto) session.getAttribute("userMaster");
 

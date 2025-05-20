@@ -143,9 +143,21 @@ public class PetMasterService {
                 .build();
     }
 
-    public void deleteInvitation(Long id) {
+    public void deleteInvitation(Long id, HttpSession session) {
         PetMaster entity = petMasterRepository.findById(id)
                 .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
+        UserMasterResponseDto userMasterDto = (UserMasterResponseDto) session.getAttribute("userMaster");
+
+        // 세션에서 로그인 사용자 확인
+        if (userMasterDto == null) {
+            throw new CustomException(LOGIN_REQUIRED); // 401
+        }
+
+        // 작성자와 현재 로그인 사용자가 같은지 검증
+        if (!userMasterDto.getId().equals(entity.getUserMaster().getId())) {
+            throw new CustomException(INVALID_ACCESS); // 403
+        }
+
         entity.setDeleted(String.valueOf(YN.Y));
         petMasterRepository.save(entity);
     }

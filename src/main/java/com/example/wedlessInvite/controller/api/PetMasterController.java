@@ -91,11 +91,11 @@ public class PetMasterController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<SuccessResponse<Boolean>> deleteInvitation(@PathVariable Long id) throws IOException {
+    public ResponseEntity<SuccessResponse<Boolean>> deleteInvitation(@PathVariable Long id, HttpSession session) throws IOException {
         AbstractLogTraceTemplate<ResponseEntity<SuccessResponse<Boolean>>> template = new AbstractLogTraceTemplate<>(trace) {
             @Override
             protected ResponseEntity<SuccessResponse<Boolean>> call() throws IOException {
-                petMasterService.deleteInvitation(id);
+                petMasterService.deleteInvitation(id, session);
                 SuccessResponse<Boolean> response = new SuccessResponse<>(
                         HttpStatus.OK,
                         DELETED_SUCCESS_MESSAGE,

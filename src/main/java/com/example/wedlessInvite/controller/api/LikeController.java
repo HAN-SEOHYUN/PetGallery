@@ -48,7 +48,7 @@ public class LikeController {
 
     @GetMapping("/rank")
     public ResponseEntity<SuccessResponse<List<PetLikeRankingResponseDto>>> getPetLike() {
-        List<PetLikeRankingResponseDto> dto = likeService.getTop5MostLikedInvitations();
+        List<PetLikeRankingResponseDto> dto = likeService.getTop3MostLikedInvitations();
         SuccessResponse<List<PetLikeRankingResponseDto>> successResponse = new SuccessResponse<>(
                 HttpStatus.OK,
                 LIKE_LIST_FETCH_SUCCESS_MESSAGE,

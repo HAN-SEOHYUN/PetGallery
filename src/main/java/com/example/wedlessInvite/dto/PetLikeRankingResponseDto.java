@@ -13,12 +13,15 @@ public class PetLikeRankingResponseDto {
     private String accessKey;
     private LocalDate date; // 반려동물 생일
     private String name; // 반려동물 이름
+    private Long likeCount;
+
 
     @Builder
-    public PetLikeRankingResponseDto(PetMaster petMaster) {
+    public PetLikeRankingResponseDto(PetMaster petMaster, Long likeCount) {
         this.accessKey = petMaster.getAccessKey();
         this.date = petMaster.getDate();
         this.name = petMaster.getName();
+        this.likeCount = likeCount;
     }
 }
 

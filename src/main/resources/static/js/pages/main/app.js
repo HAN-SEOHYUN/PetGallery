@@ -77,7 +77,7 @@ function createRankingListItem(rank, icon, name, likeCount) {
         <li class="ranking-item">
             <span class="rank-number">${icon} </span>
             <span class="pet-name">${name}</span>
-            <span class="likes">❤️ ${likeCount}</span>
+            <span class="likes"><i class="fas fa-heart"></i> ${likeCount}</span>
         </li>
     `;
 }

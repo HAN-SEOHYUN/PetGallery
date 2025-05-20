@@ -2,12 +2,12 @@
 .button-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
     max-width: 450px;
-    height: 40vh;
-    margin: 0 auto;
+    height: 20vh;
+    margin: 10px auto;
     gap: 10px;
 }
 
@@ -116,8 +116,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 40px;
-    margin-bottom: 20px;
 }
 
 /* 로고 이미지 반응형 */
@@ -135,3 +133,144 @@
         max-height: 140px;
     }
 }
+
+.ranking-loading {
+    text-align: center;
+    margin: 10px 0;
+    color: #999;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 간단한 spinner */
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 3px solid #d8b4f8;
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ranking-section 모던 스타일 */
+/* ranking-section 조화로운 색상과 부드러운 느낌 */
+.ranking-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #F2F2F2; /* 밝고 깔끔한 배경 */
+    border-radius: 18px;
+    padding: 20px 25px;
+    max-width: 460px;
+    margin: auto auto 30px auto;
+    box-shadow: none; /* 그림자 제거해서 깔끔하게 */
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #4a4a4a; /* 짙은 회색 계열 텍스트 */
+}
+
+/* 로딩 영역 */
+.ranking-loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #B4CED9;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+/* spinner */
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 3px solid #F2C46D; /* 부드러운 노란색 */
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* 랭킹 리스트 */
+.ranking-list {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+/* 각 랭킹 아이템 카드 */
+.ranking-item {
+    background: #FFFFFF; /* 깨끗한 흰색 배경 */
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(178, 206, 217, 0.3); /* 연한 하늘색 그림자 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 22px;
+    margin-bottom: 14px;
+    font-weight: 600;
+    font-size: 17px;
+    color: #555555; /* 다크 그레이 텍스트 */
+    transition: background-color 0.25s ease;
+    cursor: default;
+}
+
+.ranking-item:hover {
+    background-color: #F2A9A2;
+    color: #3c3c3c;
+}
+
+.ranking-list .ranking-item:last-child {
+    margin-bottom: 0;
+}
+
+/* 랭킹 번호 & 아이콘 */
+.rank-number {
+    font-size: 20px;
+    color: #F2A9A2; /* 부드러운 핑크 */
+    margin-right: 14px;
+}
+
+/* 반려동물 이름 */
+.pet-name {
+    flex-grow: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 좋아요 카운트 */
+.likes {
+    font-size: 17px;
+    color: #B4CED9; /* 부드러운 하늘색 */
+}
+
+/* 반응형 조정 */
+@media (max-width: 576px) {
+    .ranking-section {
+        padding: 15px 10px;
+        max-width: 90vw;
+    }
+
+    .ranking-item {
+        font-size: 15px;
+        padding: 12px 16px;
+    }
+
+    .rank-number {
+        font-size: 16px;
+    }
+
+    .likes {
+        font-size: 15px;
+    }
+}
+
+

@@ -11,6 +11,17 @@
     <div class="logo-container">
         <img src="/images/logo.png" alt="모여라 Paw Paw 로고" class="main-logo">
     </div>
+
+    <!-- 💖 랭킹 섹션 -->
+    <div class="ranking-section" style="display: none;">
+        <div id="ranking-loading" class="ranking-loading" style="display: none;">
+            <span class="spinner"></span> 불러오는 중...
+        </div>
+
+        <ul id="like-ranking-list" class="ranking-list"></ul>
+    </div>
+
+
     <div class="button-container mt-4">
         <button class="btn btn-custom" id="registerButton" onclick="window.location.href='/create'">🐾 자랑할래요!</button>
         <button class="btn btn-custom" id="listButton" onclick="window.location.href='/list'">💕 구경갈래요!</button>
@@ -19,5 +30,6 @@
 
 <div th:replace="fragments/footer :: body"></div>
 
+<script th:src="@{/js/pages/main/app.js}"></script>
 </body>
 </html>

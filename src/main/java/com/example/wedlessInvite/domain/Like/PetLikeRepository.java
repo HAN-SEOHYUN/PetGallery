@@ -19,7 +19,7 @@ public interface PetLikeRepository extends JpaRepository<PetLike, Long> {
             "WHERE i.regTime >= :threeDaysAgo " +
             "GROUP BY i.petMaster " +
             "ORDER BY likeCount DESC")
-    List<Object[]> findTop5InvitationMasterByLikeCount(@Param("threeDaysAgo") LocalDateTime threeDaysAgo);
+    List<Object[]> findTopLikedPetMasters(@Param("threeDaysAgo") LocalDateTime threeDaysAgo);
     Optional<PetLike> findByPetMasterIdAndUserMasterId(Long petId, Long userId);
     boolean existsByPetMasterIdAndUserMasterId(Long petMasterId, Long userMasterId);
 }

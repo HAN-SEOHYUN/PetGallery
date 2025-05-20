@@ -60,14 +60,18 @@ public class LikeService {
     }
 
     @Transactional
-    public List<PetLikeRankingResponseDto> getTop5MostLikedInvitations() {
+    public List<PetLikeRankingResponseDto> getTop3MostLikedInvitations() {
         LocalDateTime threeDaysAgo = LocalDateTime.now().minusDays(3);  // 최근 3일
-        List<Object[]> results = likeRepository.findTop5InvitationMasterByLikeCount(threeDaysAgo);
+        List<Object[]> results = likeRepository.findTopLikedPetMasters(threeDaysAgo);
 
         return results.stream()
                 .map(result -> {
                     PetMaster petMaster = (PetMaster) result[0];
-                    return new PetLikeRankingResponseDto(petMaster);
+                    Long likeCount = (Long) result[1]; // JPQL에서 COUNT는 Long 타입
+                    return PetLikeRankingResponseDto.builder()
+                            .petMaster(petMaster)
+                            .likeCount(likeCount) // DTO는 int로 받음
+                            .build();
                 })
                 .collect(Collectors.toList());
     }
@@ -79,13 +83,13 @@ public class LikeService {
             likeRepository.delete(existingLike.get());
             return false; // 좋아요 취소
         } else {
-            PetMaster invitation = invitationRepository.findById(petId)
+            PetMaster pet = invitationRepository.findById(petId)
                     .orElseThrow(() -> new CustomException(POST_NOT_FOUND));
             UserMaster user = userRepository.findById(userId)
                     .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
             likeRepository.save(PetLike.builder()
-                    .petMaster(invitation)
+                    .petMaster(pet)
                     .userMaster(user)
                     .build());
             return true; // 좋아요 등록

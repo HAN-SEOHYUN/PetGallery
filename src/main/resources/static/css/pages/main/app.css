@@ -78,14 +78,14 @@
     font-size: 16px;
     font-weight: bold;
     border: none;
-    background-color: #f78fb3;
+    background-color: #f6ca85;
     color: white;
     transition: all 0.3s ease-in-out;
 }
 
 .btn-custom:hover,
 .btn-project:hover {
-    background-color: #d8b4f8;
+    background-color: #F8B95DFF;
     transform: scale(1.05);
 }
 
@@ -109,4 +109,29 @@
     height: 30vh;
     margin: 0 auto;
     gap: 10px;
+}
+
+/* 로고 컨테이너 스타일 */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/* 로고 이미지 반응형 */
+.main-logo {
+    max-width: 80%;
+    height: auto;
+    max-height: 180px;
+    object-fit: contain;
+}
+
+/* 작은 화면 대응 */
+@media (max-width: 576px) {
+    .main-logo {
+        max-width: 90%;
+        max-height: 140px;
+    }
 }

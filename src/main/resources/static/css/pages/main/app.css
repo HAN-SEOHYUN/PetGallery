@@ -273,4 +273,29 @@
     }
 }
 
+/* 로그인 안내 문구 스타일 */
+.login-required {
+    text-align: center;
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 10px;
+    border: 1px solid #ffeeba;
+    border-radius: 6px;
+    font-size: 14px;
+    margin: 20px auto 10px;
+    max-width: 450px;
+}
+
+.login-required a {
+    color: #f6a960;  /* 부드러운 오렌지색 */
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.login-required a:hover {
+    text-decoration: none;
+    color: #f2954a;  /* 살짝 진한 톤으로 hover */
+}
+
+
 
